@@ -2,40 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ade721-a04b-4a68-b908-55c294ebdadd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/gradle.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/MyApplication.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/app.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/proguard-rules.pro" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/androidTest/java/me/alfredis/collectionsystem/ApplicationTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/java/me/alfredis/collectionsystem/HoleIndexActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/java/me/alfredis/datastructure/Hole.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/layout/activity_hole_index.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/menu/menu_hole_index.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/values-w820dp/dimens.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/values/dimens.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/app/src/main/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/gradle.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/gradle/wrapper/gradle-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/gradle/wrapper/gradle-wrapper.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/gradlew" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/gradlew.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyApplication/settings.gradle" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CollectionSystem/app/src/main/java/me/alfredis/collectionsystem/datastructure/RigEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CollectionSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -224,7 +192,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="962" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />

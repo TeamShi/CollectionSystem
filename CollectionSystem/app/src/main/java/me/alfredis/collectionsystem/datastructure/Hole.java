@@ -1,53 +1,57 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Alfred on 15/5/4.
  */
 public class Hole {
-    private String projectName;
+    private String projectName;                 //工程名称
 
-    private String holeId;
-    private ProjectStageType projectStage;
-    private MileageType mileage;
-    private double offset;
-    private double holeElevation;
-    private double initialLevel;
-    private double stableLevel;
+    private String holeId;                      //钻孔编号
+    private ProjectStageType projectStage;      //测段
+    private ArticleType article;                //冠词
+    private double mileage;                     //里程
+    private double offset;                      //偏移量
+    private double holeElevation;               //孔口标高
+    private double initialLevel;                //初见水位
+    private double stableLevel;                 //稳定水位
 
-    private Date startDate;
-    private Date endDate;
-    private String rigType;
-    private String engineType;
-    private String pumpType;
-    private double designedDepth;
-    private Date initialLevelMeasuringDate;
-    private Date stableLevelMeasuringDate;
-    private double longitudeDistance;
-    private double latitudeDistance;
+    private Date startDate;                     //开工日期
+    private Date endDate;                       //完工日期
+    private String rigType;                     //钻机类型
+    private String engineType;                  //发动机类型
+    private String pumpType;                    //水泵类型
+    private double designedDepth;               //设计孔深
+    private Date initialLevelMeasuringDate;     //？？
+    private Date stableLevelMeasuringDate;      //?
+    private double longitudeDistance;           //经距
+    private double latitudeDistance;            //纬距
 
-    private String explorationUnit;
-    private String machineNumber;
-    private double acturalDepth;
+    private String explorationUnit;             //勘察单位
+    private String machineNumber;               //机组编号
+    private double acturalDepth;                //实际孔深
 
     private String photo; //TODO: what is photo
 
-    private String recorderName;
-    private Date recodeDate;
-    private String squadName;
-    private String captainName;
+    private String recorderName;                //记录者
+    private Date recodeDate;                    //记录日期
+    private String squadName;                   //班长
+    private String captainName;                 //机长
 
-    private String reviewerName;
-    private Date reviewDate;
+    private String reviewerName;                //复核者
+    private Date reviewDate;                    //复核日期
 
-    private String note;
+    private String note;                        //附注
+
+    private ArrayList<RigEvent> rigLists;       //钻孔作业列表
 
     public enum ProjectStageType {
         I, II, III, IV
     }
 
-    public enum MileageType {
+    public enum ArticleType {
         K, DK, AK, ACK, CDK
     }
 
@@ -83,11 +87,19 @@ public class Hole {
         this.projectStage = projectStage;
     }
 
-    public MileageType getMileage() {
+    public ArticleType getArticle() {
+        return article;
+    }
+
+    public void setArticle(ArticleType article) {
+        this.article = article;
+    }
+
+    public double getMileage() {
         return mileage;
     }
 
-    public void setMileage(MileageType mileage) {
+    public void setMileage(double mileage) {
         this.mileage = mileage;
     }
 
@@ -281,5 +293,13 @@ public class Hole {
 
     public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
+    }
+
+    public ArrayList<RigEvent> getRigLists() {
+        return rigLists;
+    }
+
+    public void setRigLists(ArrayList<RigEvent> rigLists) {
+        this.rigLists = rigLists;
     }
 }
