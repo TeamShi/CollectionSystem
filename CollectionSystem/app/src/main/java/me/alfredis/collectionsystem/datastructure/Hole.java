@@ -1,4 +1,4 @@
-package me.alfredis.datastructure;
+package me.alfredis.collectionsystem.datastructure;
 
 import java.util.Date;
 
