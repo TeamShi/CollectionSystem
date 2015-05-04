@@ -8,9 +8,9 @@ import java.util.Date;
 public class Hole {
     private String projectName;
 
-    private String holeNumber;
-    private String projectStage; //TODO: what is it?
-    private double mileage;
+    private String holeId;
+    private ProjectStageType projectStage;
+    private MileageType mileage;
     private double offset;
     private double holeElevation;
     private double initialLevel;
@@ -43,6 +43,14 @@ public class Hole {
 
     private String note;
 
+    public enum ProjectStageType {
+        I, II, III, IV
+    }
+
+    public enum MileageType {
+        K, DK, AK, ACK, CDK
+    }
+
     public String getNote() {
         return note;
     }
@@ -59,27 +67,27 @@ public class Hole {
         this.projectName = projectName;
     }
 
-    public String getHoleNumber() {
-        return holeNumber;
+    public String getHoleId() {
+        return holeId;
     }
 
-    public void setHoleNumber(String holeNumber) {
-        this.holeNumber = holeNumber;
+    public void setHoleId(String holeId) {
+        this.holeId = holeId;
     }
 
-    public String getProjectStage() {
+    public ProjectStageType getProjectStage() {
         return projectStage;
     }
 
-    public void setProjectStage(String projectStage) {
+    public void setProjectStage(ProjectStageType projectStage) {
         this.projectStage = projectStage;
     }
 
-    public double getMileage() {
+    public MileageType getMileage() {
         return mileage;
     }
 
-    public void setMileage(double mileage) {
+    public void setMileage(MileageType mileage) {
         this.mileage = mileage;
     }
 
