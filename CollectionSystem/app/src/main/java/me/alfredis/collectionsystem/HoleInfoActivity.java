@@ -5,25 +5,23 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-
 import me.alfredis.collectionsystem.datastructure.Hole;
 
 
-public class HoleIndexActivity extends ActionBarActivity {
+public class HoleInfoActivity extends ActionBarActivity {
 
-    private ArrayList<Hole> holes = new ArrayList<>();
+    private Hole hole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hole_index);
+        setContentView(R.layout.activity_hole_info);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hole_index, menu);
+        getMenuInflater().inflate(R.menu.menu_hole_info, menu);
         return true;
     }
 
