@@ -546,10 +546,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="2dip"
-                android:background="@android:color/holo_blue_dark">
+                android:background="@android:color/holo_green_dark">
                 <TextView
                     android:text="记录者"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
@@ -567,7 +567,7 @@
 
                 <TextView
                     android:text="记录日期"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
@@ -588,10 +588,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="2dip"
-                android:background="@android:color/holo_blue_dark">
+                android:background="@android:color/holo_green_dark">
                 <TextView
                     android:text="复核者"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
@@ -609,7 +609,7 @@
 
                 <TextView
                     android:text="复核日期"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
@@ -630,10 +630,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="2dip"
-                android:background="@android:color/holo_blue_dark">
+                android:background="@android:color/holo_green_dark">
                 <TextView
                     android:text="班长"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
@@ -651,7 +651,7 @@
 
                 <TextView
                     android:text="机长"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
                     android:textColor="@android:color/black"
