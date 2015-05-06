@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.Date;
+import java.util.Random;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 
@@ -69,7 +70,8 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             case R.id.button_confirm_add_hole:
                 Log.d(TAG, "Add button clicked.");
                 //test code
-                Hole hole = new Hole("333", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123);
+                Random r = new Random();
+                Hole hole = new Hole(String.valueOf(r.nextInt()), "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123);
 
                 intent = new Intent();
                 intent.putExtra("hole", hole);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,15 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         holes.add(new Hole("2", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123));
 
         refreshTable();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.add(0, 0, 0, "查询");
+        menu.add(0, 0, 1, "输入");
+        menu.add(0, 0, 2, "删除");
     }
 
     @Override
@@ -137,6 +147,13 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             row.addView(createHoleContentTextView(hole.getNote()));
             row.addView(createHoleContentTextView(String.valueOf(hole.getActuralDepth())));
 
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getApplicationContext(), "hahaha", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
             registerForContextMenu(row);
 
             holesTable.addView(row);
