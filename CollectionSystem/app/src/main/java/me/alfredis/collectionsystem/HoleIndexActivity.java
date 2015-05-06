@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 
@@ -38,6 +39,9 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
         buttonAddHole.setOnClickListener(this);
 
+        //test code
+        holes.add(new Hole("1", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123));
+        holes.add(new Hole("2", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123));
 
         refreshTable();
     }
@@ -73,6 +77,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void drawTableHead() {
+        Log.d(TAG, "Draw table head");
         TableRow row = new TableRow(this);
 
         row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -104,6 +109,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void drawHoleContent() {
+        Log.d(TAG, "Draw hole information");
         for (Hole hole : holes) {
             TableRow row = new TableRow(this);
 
@@ -123,7 +129,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             row.addView(createHoleContentTextView(String.valueOf(hole.getLongitudeDistance())));
             row.addView(createHoleContentTextView(String.valueOf(hole.getLatitudeDistance())));
             //TODO: no position description right now. need to add?
-            //row.addView((createHoleContentTextView(String.valueOf())));
+            row.addView(createHoleContentTextView("position placeholder"));
             row.addView(createHoleContentTextView(hole.getRecorderName()));
             row.addView(createHoleContentTextView(hole.getRecodeDate().toString()));
             row.addView(createHoleContentTextView(hole.getReviewerName()));
@@ -172,6 +178,20 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_HOLE) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "Get new hole.");
+                Hole hole = (Hole) data.getSerializableExtra("hole");
+                holes.add(hole);
+                refreshTable();
+            }
         }
     }
 }

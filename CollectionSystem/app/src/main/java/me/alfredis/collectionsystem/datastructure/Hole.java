@@ -1,12 +1,13 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Alfred on 15/5/4.
  */
-public class Hole {
+public class Hole implements Serializable {
     private String projectName;                 //工程名称
 
     private String holeId;                      //钻孔编号
@@ -53,6 +54,39 @@ public class Hole {
 
     public enum ArticleType {
         K, DK, AK, ACK, CDK
+    }
+
+    public Hole(String holeId,
+                String projectName,
+                String projectStage,
+                String article,
+                double mileage,
+                double offset,
+
+                double holeElevation,
+                double longitudeDistance,
+                double latitudeDistance,
+                String recorderName,
+                Date recordDate,
+                String reviewerName,
+                Date reviewDate,
+                String note,
+                double acturalDepth) {
+        this.holeId = holeId;
+        this.projectName = projectName;
+        this.projectStage = ProjectStageType.I;
+        this.article = ArticleType.ACK;
+        this.mileage = mileage;
+        this.offset = offset;
+        this.holeElevation = holeElevation;
+        this.longitudeDistance = longitudeDistance;
+        this.latitudeDistance = latitudeDistance;
+        this.recorderName = recorderName;
+        this.recodeDate = new Date(43402340);
+        this.reviewerName = reviewerName;
+        this.reviewDate = new Date(12439014);
+        this.note = note;
+        this.acturalDepth = acturalDepth;
     }
 
     public String getNote() {
