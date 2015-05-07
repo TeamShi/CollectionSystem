@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Random;
@@ -16,9 +17,6 @@ import me.alfredis.collectionsystem.datastructure.Hole;
 
 
 public class HoleInfoActivity extends ActionBarActivity implements View.OnClickListener {
-
-
-    private static final int ADD_HOLE = 1;
 
 
     private Hole hole;
@@ -38,6 +36,19 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
+
+        String requestCode = getIntent().getStringExtra("requestCode");
+        Toast.makeText(getApplicationContext(), requestCode, Toast.LENGTH_SHORT).show();
+        switch (requestCode) {
+            case "ADD_HOLE":
+                break;
+            case "QUERY_HOLE":
+                break;
+            default:
+                break;
+        }
+
+
     }
 
     @Override
@@ -69,6 +80,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.button_confirm_add_hole:
                 Log.d(TAG, "Add button clicked.");
+
                 //test code
                 Random r = new Random();
                 Hole hole = new Hole(String.valueOf(r.nextInt()), "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123);

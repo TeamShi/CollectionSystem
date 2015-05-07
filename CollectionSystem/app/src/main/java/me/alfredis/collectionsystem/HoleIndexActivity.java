@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,12 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
     private static final String TAG = "CollectionSystem";
     private static final int ADD_HOLE = 1;
+    private static final int QUERY_HOLE = 2;
+
+    private static final int CONTEXT_MENU_QUERY = 0;
+    private static final int CONTEXT_MENU_INPUT = 1;
+    private static final int CONTEXT_MENU_DELETE = 2;
+
 
 
     @Override
@@ -51,9 +58,39 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.add(0, 0, 0, "查询");
-        menu.add(0, 0, 1, "输入");
-        menu.add(0, 0, 2, "删除");
+        menu.add(0, CONTEXT_MENU_QUERY, 0, "查询");
+        menu.add(0, CONTEXT_MENU_INPUT, 0, "输入");
+        menu.add(0, CONTEXT_MENU_DELETE, 0, "删除");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String holeId = getIntent().getStringExtra("SelectedHoleId");
+        switch (item.getItemId()) {
+            case CONTEXT_MENU_QUERY:
+                Log.d(TAG, "Query hole " + holeId);
+                Intent intent = new Intent(this, HoleInfoActivity.class);
+                intent.putExtra("requestCode", "QUERY_HOLE");
+                startActivityForResult(intent, QUERY_HOLE);
+                break;
+            case CONTEXT_MENU_INPUT:
+                break;
+            case CONTEXT_MENU_DELETE:
+                Log.d(TAG, "Remove hole " + holeId);
+                for (Hole hole : holes) {
+                    if (holeId.equals(hole.getHoleId())) {
+                        holes.remove(hole);
+                        break;
+                    }
+                }
+                refreshTable();
+                Toast.makeText(getApplicationContext(), "Remove hole " + holeId, Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -147,13 +184,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             row.addView(createHoleContentTextView(hole.getNote()));
             row.addView(createHoleContentTextView(String.valueOf(hole.getActuralDepth())));
 
+            row.setTag(hole.getHoleId());
+
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(getApplicationContext(), "hahaha", Toast.LENGTH_SHORT).show();
+                    setIntent(getIntent().putExtra("SelectedHoleId", v.getTag().toString()));
+                    Toast.makeText(getApplicationContext(),
+                            v.getTag().toString(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });
+
             registerForContextMenu(row);
 
             holesTable.addView(row);
@@ -164,6 +206,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     private TextView createHeaderTextView(String text) {
         TextView temp = new TextView(this);
         temp.setText(text);
+        temp.setGravity(Gravity.CENTER);
         temp.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
 
         TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
@@ -191,6 +234,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             case R.id.button_add_hole:
                 Log.d(TAG, "Add new hole button clicked.");
                 Intent intent = new Intent(this, HoleInfoActivity.class);
+                intent.putExtra("requestCode", "ADD_HOLE");
                 startActivityForResult(intent, ADD_HOLE);
                 break;
             default:
