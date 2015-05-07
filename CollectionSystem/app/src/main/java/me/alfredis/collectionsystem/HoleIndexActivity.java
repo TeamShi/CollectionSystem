@@ -69,8 +69,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         switch (item.getItemId()) {
             case CONTEXT_MENU_QUERY:
                 Log.d(TAG, "Query hole " + holeId);
+
+                Hole queryHole = new Hole();
+                for (Hole hole : holes) {
+                    if (hole.getHoleId().equals(holeId)) {
+                        queryHole = hole;
+                        break;
+                    }
+                }
+
                 Intent intent = new Intent(this, HoleInfoActivity.class);
                 intent.putExtra("requestCode", "QUERY_HOLE");
+                intent.putExtra("hole", queryHole);
                 startActivityForResult(intent, QUERY_HOLE);
                 break;
             case CONTEXT_MENU_INPUT:

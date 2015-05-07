@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     />
                 <EditText
-                    android:id="@+id/hole_project_name"
+                    android:id="@+id/edittext_hole_project_name"
                     android:inputType="text"
                     android:background="@android:color/white"
                     android:layout_weight="7"
@@ -83,16 +83,18 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/hole_id"
-                    android:inputType="text"
-                    android:background="@android:color/white"
+                <Spinner
+                    android:id="@+id/spinner_hole_id"
                     android:layout_weight="3"
                     android:layout_margin="2dip"
-                    android:singleLine="true"/>
+                    android:background="@android:color/white"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:entries="@array/project_stage_options"
+                    />
 
                 <TextView
-                    android:text="钻探编号"
+                    android:text="开工日期"
                     android:background="@android:color/holo_green_light"
                     android:layout_margin="2dip"
                     android:gravity="center"
@@ -101,13 +103,12 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/hole_start_date"
-                    android:inputType="text"
+                <Button
+                    android:id="@+id/button_hole_start_date"
                     android:background="@android:color/white"
+                    android:layout_height="fill_parent"
                     android:layout_weight="3"
-                    android:layout_margin="2dip"
-                    android:singleLine="true"/>
+                    android:layout_width="fill_parent" />
             </TableRow>
 
             <TableRow
@@ -124,14 +125,15 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/hole_project_stage"
-                    android:inputType="text"
-                    android:background="@android:color/white"
+                <Spinner
+                    android:id="@+id/spinner_hole_project_stage"
                     android:layout_weight="3"
                     android:layout_margin="2dip"
-                    android:singleLine="true"/>
-
+                    android:background="@android:color/white"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:entries="@array/project_stage_options"
+                    />
                 <TextView
                     android:text="完工日期"
                     android:background="@android:color/holo_green_light"
@@ -142,13 +144,12 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/hole_end_date"
-                    android:inputType="text"
+                <Button
+                    android:id="@+id/button_hole_end_date"
                     android:background="@android:color/white"
+                    android:layout_height="fill_parent"
                     android:layout_weight="3"
-                    android:layout_margin="2dip"
-                    android:singleLine="true"/>
+                    android:layout_width="fill_parent" />
             </TableRow>
 
             <TableRow
@@ -165,13 +166,15 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/hole_article"
-                    android:inputType="text"
-                    android:background="@android:color/white"
+                <Spinner
+                    android:id="@+id/spinner_hole_article"
                     android:layout_weight="3"
                     android:layout_margin="2dip"
-                    android:singleLine="true"/>
+                    android:background="@android:color/white"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:entries="@array/hole_article"
+                    />
 
                 <TextView
                     android:text="钻机类型"

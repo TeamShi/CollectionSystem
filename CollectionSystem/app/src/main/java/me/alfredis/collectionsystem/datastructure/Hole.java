@@ -56,6 +56,10 @@ public class Hole implements Serializable {
         K, DK, AK, ACK, CDK
     }
 
+    public Hole() {
+
+    }
+
     public Hole(String holeId,
                 String projectName,
                 String projectStage,
