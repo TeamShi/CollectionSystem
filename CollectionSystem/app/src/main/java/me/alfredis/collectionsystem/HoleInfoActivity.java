@@ -214,15 +214,11 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private void refreshHoleInfoTable() {
         projectNameEditText.setText(hole.getProjectName());
 
-        startDateButton.setText(generateDateButtonText(hole.getStartDate()));
-        endDateButton.setText(generateDateButtonText(hole.getEndDate()));
-        initialLevelButton.setText(generateDateButtonText(hole.getInitialLevelMeasuringDate()));
-        stableLevelButton.setText(generateDateButtonText(hole.getStableLevelMeasuringDate()));
-        recordDateButton.setText(generateDateButtonText(hole.getRecordDate()));
-        reviewDateButton.setText(generateDateButtonText(hole.getReviewDate()));
-    }
-
-    private String generateDateButtonText(Calendar c) {
-        return c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH);
+        startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
+        endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
+        initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
+        stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
+        recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
+        reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
     }
 }
