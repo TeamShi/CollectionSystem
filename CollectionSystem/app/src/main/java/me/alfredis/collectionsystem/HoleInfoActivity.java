@@ -109,7 +109,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        final Intent intent;
 
         Calendar calendar = Calendar.getInstance();
 
@@ -142,6 +142,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setStartDate(temp);
+                        if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
+                            hole.setEndDate(hole.getStartDate());
+                        }
                         refreshHoleInfoTable();
                     }
                 }, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
@@ -154,6 +157,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setEndDate(temp);
+                        if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
+                            hole.setStartDate(hole.getEndDate());
+                        }
                         refreshHoleInfoTable();
                     }
                 }, endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH)).show();
