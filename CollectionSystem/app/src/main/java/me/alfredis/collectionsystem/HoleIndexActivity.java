@@ -185,9 +185,9 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             //TODO: no position description right now. need to add?
             row.addView(createHoleContentTextView("position placeholder"));
             row.addView(createHoleContentTextView(hole.getRecorderName()));
-            row.addView(createHoleContentTextView(hole.getRecordDate().toString()));
+            row.addView(createHoleContentTextView(Utility.formatCalendarDateString(hole.getRecordDate())));
             row.addView(createHoleContentTextView(hole.getReviewerName()));
-            row.addView(createHoleContentTextView(hole.getReviewDate().toString()));
+            row.addView(createHoleContentTextView(Utility.formatCalendarDateString(hole.getReviewDate())));
             row.addView(createHoleContentTextView(hole.getNote()));
             row.addView(createHoleContentTextView(String.valueOf(hole.getActuralDepth())));
 
