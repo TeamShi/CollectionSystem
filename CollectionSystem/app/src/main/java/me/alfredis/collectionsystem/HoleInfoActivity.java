@@ -11,10 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -30,6 +29,11 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button backButton;
     private Button startDateButton;
     private Button endDateButton;
+    private Button initialLevelButton;
+    private Button stableLevelButton;
+    private Button recordDateButton;
+    private Button reviewDateButton;
+
     private EditText projectNameEditText;
     //TODO: ask for holeId
 
@@ -41,12 +45,14 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hole_info);
 
-        hole = (Hole) getIntent().getSerializableExtra("hole");
-
         addButton = (Button) findViewById(R.id.button_confirm_add_hole);
         backButton = (Button) findViewById(R.id.button_cancel_add_hole);
         startDateButton = (Button) findViewById(R.id.button_hole_start_date);
         endDateButton = (Button) findViewById(R.id.button_hole_end_date);
+        initialLevelButton = (Button) findViewById(R.id.button_initial_level_date);
+        stableLevelButton = (Button) findViewById(R.id.button_stable_level_date);
+        recordDateButton = (Button) findViewById(R.id.button_record_date);
+        reviewDateButton = (Button) findViewById(R.id.button_review_date);
 
         projectNameEditText = (EditText) findViewById(R.id.edittext_hole_project_name);
 
@@ -54,15 +60,23 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         backButton.setOnClickListener(this);
         startDateButton.setOnClickListener(this);
         endDateButton.setOnClickListener(this);
+        initialLevelButton.setOnClickListener(this);
+        stableLevelButton.setOnClickListener(this);
+        recordDateButton.setOnClickListener(this);
+        reviewDateButton.setOnClickListener(this);
 
         requestCode = getIntent().getStringExtra("requestCode");
 
         switch (requestCode) {
             case "ADD_HOLE":
-                initializeDatePicker();
+                hole = new Hole("1", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123);
+
+                refreshHoleInfoTable();
                 break;
             case "QUERY_HOLE":
-                projectNameEditText.setText(hole.getProjectName());
+                hole = (Hole) getIntent().getSerializableExtra("hole");
+
+                refreshHoleInfoTable();
                 break;
             default:
                 break;
@@ -105,10 +119,12 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
                 //test code
                 Random r = new Random();
-                Hole hole = new Hole(String.valueOf(r.nextInt()), "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123);
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.set(2013, 2, 4);
+                Hole hole2 = new Hole(String.valueOf(r.nextInt()), "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123);
 
                 intent = new Intent();
-                intent.putExtra("hole", hole);
+                intent.putExtra("hole", hole2);
                 this.setResult(RESULT_OK, intent);
                 this.finish();
                 break;
@@ -119,45 +135,94 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.button_hole_start_date:
-                String [] startDateStringArray = startDateButton.getText().toString().split("/");
-
-                int currentYearStart = Integer.valueOf(startDateStringArray[0]);
-                int currentMonthStart = Integer.valueOf(startDateStringArray[1]);
-                int currentDayOfMonthStart = Integer.valueOf(startDateStringArray[2]);
-
-                DatePickerDialog dpdStart = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                Calendar startDate = hole.getStartDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        startDateButton.setText(year +"/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setStartDate(temp);
+                        refreshHoleInfoTable();
                     }
-                }, currentYearStart, currentMonthStart, currentDayOfMonthStart);
-
-                dpdStart.show();
+                }, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_hole_end_date:
-                String [] endDateStringArray = endDateButton.getText().toString().split("/");
-
-                int currentYearEnd = Integer.valueOf(endDateStringArray[0]);
-                int currentMonthEnd = Integer.valueOf(endDateStringArray[1]);
-                int currentDayOfMonthEnd = Integer.valueOf(endDateStringArray[2]);
-
-                DatePickerDialog dpdEnd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                Calendar endDate = hole.getEndDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        endDateButton.setText(year +"/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setEndDate(temp);
+                        refreshHoleInfoTable();
                     }
-                }, currentYearEnd, currentMonthEnd, currentDayOfMonthEnd);
-
-                dpdEnd.show();
+                }, endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.button_initial_level_date:
+                Calendar initialLevelDate = hole.getInitialLevelMeasuringDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setInitialLevelMeasuringDate(temp);
+                        refreshHoleInfoTable();
+                    }
+                }, initialLevelDate.get(Calendar.YEAR), initialLevelDate.get(Calendar.MONTH), initialLevelDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.button_stable_level_date:
+                Calendar stableLevelDate = hole.getStableLevelMeasuringDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setStableLevelMeasuringDate(temp);
+                        refreshHoleInfoTable();
+                    }
+                }, stableLevelDate.get(Calendar.YEAR), stableLevelDate.get(Calendar.MONTH), stableLevelDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.button_record_date:
+                Calendar recordDate = hole.getRecordDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setRecordDate(temp);
+                        refreshHoleInfoTable();
+                    }
+                }, recordDate.get(Calendar.YEAR), recordDate.get(Calendar.MONTH), recordDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.button_review_date:
+                Calendar reviewDate = hole.getReviewDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        hole.setReviewDate(temp);
+                        refreshHoleInfoTable();
+                    }
+                }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
             default:
                 break;
         }
     }
 
-    private void initializeDatePicker() {
-        Calendar calendar = Calendar.getInstance();
+    private void refreshHoleInfoTable() {
+        projectNameEditText.setText(hole.getProjectName());
 
-        startDateButton.setText(calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
-        endDateButton.setText(calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        startDateButton.setText(generateDateButtonText(hole.getStartDate()));
+        endDateButton.setText(generateDateButtonText(hole.getEndDate()));
+        initialLevelButton.setText(generateDateButtonText(hole.getInitialLevelMeasuringDate()));
+        stableLevelButton.setText(generateDateButtonText(hole.getStableLevelMeasuringDate()));
+        recordDateButton.setText(generateDateButtonText(hole.getRecordDate()));
+        reviewDateButton.setText(generateDateButtonText(hole.getReviewDate()));
+    }
+
+    private String generateDateButtonText(Calendar c) {
+        return c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH);
     }
 }

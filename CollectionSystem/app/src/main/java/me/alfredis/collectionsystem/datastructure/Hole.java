@@ -2,7 +2,7 @@ package me.alfredis.collectionsystem.datastructure;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by Alfred on 15/5/4.
@@ -19,14 +19,14 @@ public class Hole implements Serializable {
     private double initialLevel;                //初见水位
     private double stableLevel;                 //稳定水位
 
-    private Date startDate;                     //开工日期
-    private Date endDate;                       //完工日期
+    private Calendar startDate;                 //开工日期
+    private Calendar endDate;                   //完工日期
     private String rigType;                     //钻机类型
     private String engineType;                  //发动机类型
     private String pumpType;                    //水泵类型
     private double designedDepth;               //设计孔深
-    private Date initialLevelMeasuringDate;     //？？
-    private Date stableLevelMeasuringDate;      //?
+    private Calendar initialLevelMeasuringDate; //？？
+    private Calendar stableLevelMeasuringDate;  //?
     private double longitudeDistance;           //经距
     private double latitudeDistance;            //纬距
 
@@ -37,12 +37,12 @@ public class Hole implements Serializable {
     private String photo; //TODO: what is photo
 
     private String recorderName;                //记录者
-    private Date recodeDate;                    //记录日期
+    private Calendar recordDate;                //记录日期
     private String squadName;                   //班长
     private String captainName;                 //机长
 
     private String reviewerName;                //复核者
-    private Date reviewDate;                    //复核日期
+    private Calendar reviewDate;                //复核日期
 
     private String note;                        //附注
 
@@ -66,16 +66,15 @@ public class Hole implements Serializable {
                 String article,
                 double mileage,
                 double offset,
-
                 double holeElevation,
                 double longitudeDistance,
                 double latitudeDistance,
                 String recorderName,
-                Date recordDate,
                 String reviewerName,
-                Date reviewDate,
                 String note,
                 double acturalDepth) {
+        Calendar c = Calendar.getInstance();
+
         this.holeId = holeId;
         this.projectName = projectName;
         this.projectStage = ProjectStageType.I;
@@ -86,11 +85,15 @@ public class Hole implements Serializable {
         this.longitudeDistance = longitudeDistance;
         this.latitudeDistance = latitudeDistance;
         this.recorderName = recorderName;
-        this.recodeDate = new Date(43402340);
         this.reviewerName = reviewerName;
-        this.reviewDate = new Date(12439014);
         this.note = note;
         this.acturalDepth = acturalDepth;
+        this.startDate = c;
+        this.endDate = c;
+        this.initialLevelMeasuringDate = c;
+        this.stableLevelMeasuringDate = c;
+        this.recordDate = c;
+        this.reviewDate = c;
     }
 
     public String getNote() {
@@ -173,19 +176,19 @@ public class Hole implements Serializable {
         this.stableLevel = stableLevel;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 
@@ -221,19 +224,19 @@ public class Hole implements Serializable {
         this.designedDepth = designedDepth;
     }
 
-    public Date getInitialLevelMeasuringDate() {
+    public Calendar getInitialLevelMeasuringDate() {
         return initialLevelMeasuringDate;
     }
 
-    public void setInitialLevelMeasuringDate(Date initialLevelMeasuringDate) {
+    public void setInitialLevelMeasuringDate(Calendar initialLevelMeasuringDate) {
         this.initialLevelMeasuringDate = initialLevelMeasuringDate;
     }
 
-    public Date getStableLevelMeasuringDate() {
+    public Calendar getStableLevelMeasuringDate() {
         return stableLevelMeasuringDate;
     }
 
-    public void setStableLevelMeasuringDate(Date stableLevelMeasuringDate) {
+    public void setStableLevelMeasuringDate(Calendar stableLevelMeasuringDate) {
         this.stableLevelMeasuringDate = stableLevelMeasuringDate;
     }
 
@@ -293,12 +296,12 @@ public class Hole implements Serializable {
         this.recorderName = recorderName;
     }
 
-    public Date getRecodeDate() {
-        return recodeDate;
+    public Calendar getRecordDate() {
+        return recordDate;
     }
 
-    public void setRecodeDate(Date recodeDate) {
-        this.recodeDate = recodeDate;
+    public void setRecordDate(Calendar recordDate) {
+        this.recordDate = recordDate;
     }
 
     public String getSquadName() {
@@ -325,11 +328,11 @@ public class Hole implements Serializable {
         this.reviewerName = reviewerName;
     }
 
-    public Date getReviewDate() {
+    public Calendar getReviewDate() {
         return reviewDate;
     }
 
-    public void setReviewDate(Date reviewDate) {
+    public void setReviewDate(Calendar reviewDate) {
         this.reviewDate = reviewDate;
     }
 

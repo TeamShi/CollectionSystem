@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 
@@ -35,8 +34,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     private static final int CONTEXT_MENU_INPUT = 1;
     private static final int CONTEXT_MENU_DELETE = 2;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +45,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         buttonAddHole.setOnClickListener(this);
 
         //test code
-        holes.add(new Hole("1", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123));
-        holes.add(new Hole("2", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", new Date(1212313), "alfred", new Date(123123123), "test note", 123123));
+        holes.add(new Hole("1", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123));
+        holes.add(new Hole("2", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123));
 
         refreshTable();
     }
@@ -188,7 +185,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             //TODO: no position description right now. need to add?
             row.addView(createHoleContentTextView("position placeholder"));
             row.addView(createHoleContentTextView(hole.getRecorderName()));
-            row.addView(createHoleContentTextView(hole.getRecodeDate().toString()));
+            row.addView(createHoleContentTextView(hole.getRecordDate().toString()));
             row.addView(createHoleContentTextView(hole.getReviewerName()));
             row.addView(createHoleContentTextView(hole.getReviewDate().toString()));
             row.addView(createHoleContentTextView(hole.getNote()));

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">CollectionSystem</string>
+    <string name="app_name">钻探数据采集系统</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_hole_info">HoleInfoActivity</string>
+    <string name="title_activity_hole_info">基本信息表</string>
     
     <string-array name="project_stage_options">
         <item>I</item>
