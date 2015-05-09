@@ -10,36 +10,66 @@ public class RigEvent {
     protected Date date;                      //日期
     protected String projectName;             //作业项目
 
+    //时间
     protected long startTime;                 //开始时间
     protected long endTime;                   //结束时间
 
+    //钻杆组成
     protected int drillPipeId;                //钻杆编号
     protected double drillPipeLength;         //钻杆长度
     protected double cumulativeLength;        //累计长度
 
+    //岩芯管
     protected double coreBarreliDiameter;     //岩芯管直径
     protected double coreBarreliLength;       //岩芯管长度
 
+    //钻头组成
     protected String drillType;               //钻头类型
     protected double drillDiameter;           //钻头直径
     protected double drillLength;             //钻头长度
 
+    //进尺
     protected double drillToolTotalLength;    //钻具总长
     protected double drillToolRemainLength;   //钻杆余长
     protected double roundTripMeterage;       //回次进尺
     protected double cumulativeMeterage;      //累积进尺
 
-    protected String rockCoreId;              //岩芯编号
+    //岩芯采取
+    protected String rockCoreId;                //岩芯编号
     protected double rockCoreLength;          //岩芯长度
     protected double rockCoreRecovery;        //岩芯采取旅
 
+    //地层
     protected double startDepth;              //本钻起深度
     protected double endDepth;                //本钻止深度
     protected String groundName;              //岩土名称
     protected String groundColor;             //岩土颜色
     protected String groundDensity;           //岩土臭密度
-    protected String groundSaturability;      //岩土饱和度
-    protected String Note;                    //岩土及岩性
+    protected String groundSaturation;       //岩土饱和度
+    protected String groundWeathering;       //岩石风化程度
+    protected String Note;           //岩土岩性
+
+    //贯入器组成
+    protected  String penetrationDiameter; //贯入器直径
+    protected  String penetrationLength; //贯入器长度
+
+    //动探类型
+    protected  String DynamicSoundingType;
+    //探头组成
+    protected  String SoundingDiameter; //探头直接
+    protected  String SoundingLength; //探头长度
+
+
+    public enum DynamicSoundingType {
+        //动探类型： 轻型，重型，超重型
+        LIGHT,HEAVY,SUPERHEAVY
+    }
+
+    public enum ProjectNameType {
+        //作业类型： 合钻，标贯，动探
+        NormalRig,StandardPenetration,DynamicSounding
+    }
+
 
     public String getId() {
         return id;
@@ -241,12 +271,20 @@ public class RigEvent {
         this.groundDensity = groundDensity;
     }
 
-    public String getGroundSaturability() {
-        return groundSaturability;
+    public String getGroundSaturation() {
+        return groundSaturation;
     }
 
-    public void setGroundSaturability(String groundSaturability) {
-        this.groundSaturability = groundSaturability;
+    public void setGroundSaturation(String groundSaturation) {
+        this.groundSaturation = groundSaturation;
+    }
+
+    public String getGroundWeathering() {
+        return groundWeathering;
+    }
+
+    public void setGroundWeathering(String groundWeathering) {
+        this.groundWeathering = groundWeathering;
     }
 
     public String getNote() {
@@ -254,6 +292,8 @@ public class RigEvent {
     }
 
     public void setNote(String note) {
-        Note = note;
+        this.Note = note;
     }
+
+
 }
