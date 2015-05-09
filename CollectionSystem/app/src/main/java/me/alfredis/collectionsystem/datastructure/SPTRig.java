@@ -26,7 +26,7 @@ public class SPTRig extends RigEvent {
 
     private String groundName;                  //岩土名称
     private String groundColor;                 //颜色
-    private String groundSaturability;          //饱和度
+    private String groundSaturability;         //饱和度
     private int cumulativeCount;                //累计击数
 
     private String note;                        //其他特征
@@ -188,12 +188,12 @@ public class SPTRig extends RigEvent {
     }
 
     @Override
-    public String getGroundSaturability() {
+    public String getGroundSaturation() {
         return groundSaturability;
     }
 
     @Override
-    public void setGroundSaturability(String groundSaturability) {
+    public void setGroundSaturation(String groundSaturability) {
         this.groundSaturability = groundSaturability;
     }
 

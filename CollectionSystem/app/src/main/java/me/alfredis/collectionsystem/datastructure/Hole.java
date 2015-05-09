@@ -25,8 +25,8 @@ public class Hole implements Serializable {
     private String engineType;                  //发动机类型
     private String pumpType;                    //水泵类型
     private double designedDepth;               //设计孔深
-    private Calendar initialLevelMeasuringDate; //？？
-    private Calendar stableLevelMeasuringDate;  //?
+    private Calendar initialLevelMeasuringDate; //初见水位观测日期
+    private Calendar stableLevelMeasuringDate;  //稳定水位观测日期
     private double longitudeDistance;           //经距
     private double latitudeDistance;            //纬距
 
@@ -34,7 +34,7 @@ public class Hole implements Serializable {
     private String machineNumber;               //机组编号
     private double acturalDepth;                //实际孔深
 
-    private String photo; //TODO: what is photo
+    private String photo;                           //TODO: 钻孔示意图 ? 现场照片
 
     private String recorderName;                //记录者
     private Calendar recordDate;                //记录日期
