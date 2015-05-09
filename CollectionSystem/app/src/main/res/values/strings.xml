@@ -19,4 +19,16 @@
         <item>ACK</item>
         <item>CDK</item>
     </string-array>
+
+    <string-array name="hole_id_part1">
+        <item>JC</item>
+        <item>JZ</item>
+    </string-array>
+
+    <string-array name="hole_id_part3">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

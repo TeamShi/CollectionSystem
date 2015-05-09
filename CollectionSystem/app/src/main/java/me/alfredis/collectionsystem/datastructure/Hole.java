@@ -10,7 +10,14 @@ import java.util.Calendar;
 public class Hole implements Serializable {
     private String projectName;                 //工程名称
 
+    @Deprecated
     private String holeId;                      //钻孔编号
+
+    //JC-III14-1-1
+    private HoleIdPart1 holeIdPart1;
+    private String holeIdPart2Year;
+    private String holeIdPart3;
+    private String holeIdPart4;
     private ProjectStageType projectStage;      //测段
     private ArticleType article;                //冠词
     private double mileage;                     //里程
@@ -34,7 +41,7 @@ public class Hole implements Serializable {
     private String machineNumber;               //机组编号
     private double acturalDepth;                //实际孔深
 
-    private String photo;                           //TODO: 钻孔示意图 ? 现场照片
+    private String photo;                       //TODO: 钻孔示意图 ? 现场照片
 
     private String recorderName;                //记录者
     private Calendar recordDate;                //记录日期
@@ -48,6 +55,10 @@ public class Hole implements Serializable {
 
     private ArrayList<RigEvent> rigLists;       //钻孔作业列表
 
+    public enum HoleIdPart1 {
+        JC, JZ
+    }
+
     public enum ProjectStageType {
         I, II, III, IV
     }
@@ -57,9 +68,86 @@ public class Hole implements Serializable {
     }
 
     public Hole() {
+        Calendar c = Calendar.getInstance();
+
+        this.projectName = "";
+        this.holeIdPart1 = HoleIdPart1.JC;
+        this.holeIdPart2Year = String.valueOf(c.get(Calendar.YEAR));
+        this.holeIdPart3 = "1";
+        this.holeIdPart4 = "1";
+        this.projectStage = ProjectStageType.I;
+        this.article = ArticleType.K;
+        this.mileage = 0;
+        this.offset = 0;
+        this.holeElevation = 0;
+        this.initialLevel = 0;
+        this.stableLevel = 0;
+        this.startDate = c;
+        this.endDate = c;
+        this.rigType = "";
+        this.engineType = "";
+        this.pumpType = "";
+        this.designedDepth = 0;
+        this.initialLevelMeasuringDate = c;
+        this.stableLevelMeasuringDate = c;
+        this.longitudeDistance = 0;
+        this.latitudeDistance = 0;
+        this.explorationUnit = "";
+        this.machineNumber = "";
+        this.acturalDepth = 0;
+        this.recorderName = "";
+        this.recordDate = c;
+        this.recorderName = "";
+        this.reviewDate = c;
+        this.note = "";
+        this.rigLists = new ArrayList<RigEvent>();
+
 
     }
 
+    public Hole(HoleIdPart1 holeIdPart1,
+                String holeIdPart2Year,
+                String holeIdPart3,
+                String holeIdPart4,
+                String projectName,
+                ProjectStageType projectStage,
+                ArticleType article,
+                double mileage,
+                double offset,
+                double holeElevation,
+                double longitudeDistance,
+                double latitudeDistance,
+                String recorderName,
+                String reviewerName,
+                String note,
+                double acturalDepth) {
+        Calendar c = Calendar.getInstance();
+
+        this.holeIdPart1 = holeIdPart1;
+        this.holeIdPart2Year = holeIdPart2Year;
+        this.holeIdPart3 = holeIdPart3;
+        this.holeIdPart4 = holeIdPart4;
+        this.projectName = projectName;
+        this.projectStage = projectStage;
+        this.article = article;
+        this.mileage = mileage;
+        this.offset = offset;
+        this.holeElevation = holeElevation;
+        this.longitudeDistance = longitudeDistance;
+        this.latitudeDistance = latitudeDistance;
+        this.recorderName = recorderName;
+        this.reviewerName = reviewerName;
+        this.note = note;
+        this.acturalDepth = acturalDepth;
+        this.startDate = c;
+        this.endDate = c;
+        this.initialLevelMeasuringDate = c;
+        this.stableLevelMeasuringDate = c;
+        this.recordDate = c;
+        this.reviewDate = c;
+    }
+
+    @Deprecated
     public Hole(String holeId,
                 String projectName,
                 String projectStage,
@@ -110,10 +198,6 @@ public class Hole implements Serializable {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
-    }
-
-    public String getHoleId() {
-        return holeId;
     }
 
     public void setHoleId(String holeId) {
@@ -342,5 +426,37 @@ public class Hole implements Serializable {
 
     public void setRigLists(ArrayList<RigEvent> rigLists) {
         this.rigLists = rigLists;
+    }
+
+    public void setHoleIdPart1(HoleIdPart1 holeIdPart1) {
+        this.holeIdPart1 = holeIdPart1;
+    }
+
+    public void setHoleIdPart2Year(String holeIdPart2Year) {
+        this.holeIdPart2Year = holeIdPart2Year;
+    }
+
+    public void setHoleIdPart3(String holeIdPart3) {
+        this.holeIdPart3 = holeIdPart3;
+    }
+
+    public void setHoleIdPart4(String holeIdPart4) {
+        this.holeIdPart4 = holeIdPart4;
+    }
+
+    public String getHoleIdPart3() {
+        return holeIdPart3;
+    }
+
+    public String getHoleIdPart4() {
+        return holeIdPart4;
+    }
+
+    public String getHoleIdPart2() {
+        return projectStage.toString() + holeIdPart2Year;
+    }
+
+    public String getHoleId() {
+        return holeIdPart1.toString() + "-" + getHoleIdPart2() + "-" + getHoleIdPart3() + "-" + getHoleIdPart4();
     }
 }

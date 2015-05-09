@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,6 +38,8 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button recordDateButton;
     private Button reviewDateButton;
 
+    private EditText mileageEditText;
+    private EditText offsetEditText;
     private EditText projectNameEditText;
     private EditText rigTypeEditText;
     private EditText engineTypeEditText;
@@ -56,7 +59,10 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private EditText squadEditText;
     private EditText captainEditText;
 
-    //TODO: ask for holeId
+    private Spinner holeIdPart1Spinner;
+    private TextView holeIdPart2TextView;
+    private Spinner holeIdPart3Spinner;
+    private EditText holeIdPart4EditText;
 
     private Spinner projectStageSpinner;
     private Spinner articleSpinner;
@@ -78,6 +84,8 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         recordDateButton = (Button) findViewById(R.id.button_record_date);
         reviewDateButton = (Button) findViewById(R.id.button_review_date);
 
+        mileageEditText = (EditText) findViewById(R.id.hole_mileage);
+        offsetEditText = (EditText) findViewById(R.id.hole_offset);
         projectNameEditText = (EditText) findViewById(R.id.edittext_hole_project_name);
         rigTypeEditText = (EditText) findViewById(R.id.hole_rig_type);
         engineTypeEditText = (EditText) findViewById(R.id.hole_engine_type);
@@ -96,6 +104,11 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewerEditText = (EditText) findViewById(R.id.hole_reviewer_name);
         squadEditText = (EditText) findViewById(R.id.hole_squad_name);
         captainEditText = (EditText) findViewById(R.id.hole_captain_name);
+
+        holeIdPart1Spinner = (Spinner) findViewById(R.id.spinner_hole_id_part1);
+        holeIdPart2TextView = (TextView) findViewById(R.id.textview_hole_id_part2);
+        holeIdPart3Spinner = (Spinner) findViewById(R.id.spinner_hole_id_part3);
+        holeIdPart4EditText = (EditText) findViewById(R.id.edittext_hole_id_part4);
 
         projectStageSpinner = (Spinner) findViewById(R.id.spinner_hole_project_stage);
         articleSpinner = (Spinner) findViewById(R.id.spinner_hole_article);
@@ -346,7 +359,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
                 try {
                     hole.setActuralDepth(Double.parseDouble(s.toString()));
-                    acturalDepthEditText.setBackgroundColor((getResources().getColor(android.R.color.white)));
+                    acturalDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
                     acturalDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -432,12 +445,55 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 hole.setCaptainName(s.toString());
             }
         });
+        mileageEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setMileage(Double.parseDouble(s.toString()));
+                    mileageEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    mileageEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        offsetEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setOffset(Double.parseDouble(s.toString()));
+                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
 
         requestCode = getIntent().getStringExtra("requestCode");
 
         switch (requestCode) {
             case "ADD_HOLE":
-                hole = new Hole("1", "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123);
+                hole = new Hole();
 
                 refreshHoleInfoTable();
                 break;
@@ -449,8 +505,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             default:
                 break;
         }
-
-
     }
 
     @Override
@@ -543,7 +597,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setInitialLevelMeasuringDate(temp);
                         if (hole.getInitialLevelMeasuringDate().compareTo(hole.getStableLevelMeasuringDate()) > 0) {
-                            hole.setStableLevelMeasuringDate(hole.getStableLevelMeasuringDate());
+                            hole.setStableLevelMeasuringDate(hole.getInitialLevelMeasuringDate());
                             stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
                         }
                         initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
@@ -567,7 +621,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 }, stableLevelDate.get(Calendar.YEAR), stableLevelDate.get(Calendar.MONTH), stableLevelDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_record_date:
-                Calendar recordDate = hole.getRecordDate();
+                final Calendar recordDate = hole.getRecordDate();
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -590,6 +644,10 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setReviewDate(temp);
+                        if (hole.getRecordDate().compareTo(hole.getReviewDate()) > 0) {
+                            hole.setRecordDate(hole.getReviewDate());
+                            recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
+                        }
                         reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
                     }
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
@@ -608,5 +666,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
         recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
         reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
+
+
     }
 }
