@@ -197,8 +197,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 @Override
                 public boolean onLongClick(View v) {
                     setIntent(getIntent().putExtra("SelectedHoleId", v.getTag().toString()));
-                    Toast.makeText(getApplicationContext(),
-                            v.getTag().toString(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });

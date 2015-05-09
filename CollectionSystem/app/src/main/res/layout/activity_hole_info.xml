@@ -267,7 +267,7 @@
                         android:layout_weight="1"
                         />
                     <EditText
-                        android:id="@+id/hole_pump__type"
+                        android:id="@+id/hole_pump_type"
                         android:inputType="text"
                         android:background="@android:color/white"
                         android:layout_weight="3"

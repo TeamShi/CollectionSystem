@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,7 +38,28 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button reviewDateButton;
 
     private EditText projectNameEditText;
+    private EditText rigTypeEditText;
+    private EditText engineTypeEditText;
+    private EditText pumpTypeEditText;
+    private EditText elevationEditText;
+    private EditText designedDepthEditText;
+    private EditText initialLevelDepthEditText;
+    private EditText stableLevelDepthEditText;
+    private EditText longitudeDistanceEditText;
+    private EditText latitudeDistanceEditText;
+    private EditText explorationUnitEditText;
+    private EditText machineNumberEditText;
+    private EditText acturalDepthEditText;
+    private EditText noteEditText;
+    private EditText recorderEditText;
+    private EditText reviewerEditText;
+    private EditText squadEditText;
+    private EditText captainEditText;
+
     //TODO: ask for holeId
+
+    private Spinner projectStageSpinner;
+    private Spinner articleSpinner;
 
 
     private static final String TAG = "CollectionSystem";
@@ -55,6 +79,26 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewDateButton = (Button) findViewById(R.id.button_review_date);
 
         projectNameEditText = (EditText) findViewById(R.id.edittext_hole_project_name);
+        rigTypeEditText = (EditText) findViewById(R.id.hole_rig_type);
+        engineTypeEditText = (EditText) findViewById(R.id.hole_engine_type);
+        pumpTypeEditText = (EditText) findViewById(R.id.hole_engine_type);
+        elevationEditText = (EditText) findViewById(R.id.hole_elevation);
+        designedDepthEditText = (EditText) findViewById(R.id.hole_designed_depth);
+        initialLevelDepthEditText = (EditText) findViewById(R.id.hole_initial_level);
+        stableLevelDepthEditText = (EditText) findViewById(R.id.hole_stable_level);
+        longitudeDistanceEditText = (EditText) findViewById(R.id.hole_longitude_distance);
+        latitudeDistanceEditText = (EditText) findViewById(R.id.hole_latitude_distance);
+        explorationUnitEditText = (EditText) findViewById(R.id.hole_exploration_unit);
+        machineNumberEditText = (EditText) findViewById(R.id.hole_machine_number);
+        acturalDepthEditText = (EditText) findViewById(R.id.hole_actural_depth);
+        noteEditText = (EditText) findViewById(R.id.hole_note);
+        recorderEditText = (EditText) findViewById(R.id.hole_recorder_name);
+        reviewerEditText = (EditText) findViewById(R.id.hole_reviewer_name);
+        squadEditText = (EditText) findViewById(R.id.hole_squad_name);
+        captainEditText = (EditText) findViewById(R.id.hole_captain_name);
+
+        projectStageSpinner = (Spinner) findViewById(R.id.spinner_hole_project_stage);
+        articleSpinner = (Spinner) findViewById(R.id.spinner_hole_article);
 
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
@@ -64,6 +108,330 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setOnClickListener(this);
         recordDateButton.setOnClickListener(this);
         reviewDateButton.setOnClickListener(this);
+
+        projectNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setProjectName(s.toString());
+            }
+        });
+        rigTypeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setRigType(s.toString());
+            }
+        });
+        engineTypeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setEngineType(s.toString());
+            }
+        });
+        pumpTypeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setPumpType(s.toString());
+            }
+        });
+        elevationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setHoleElevation(Double.valueOf(s.toString()));
+                    elevationEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    elevationEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        designedDepthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setDesignedDepth(Double.valueOf(s.toString()));
+                    designedDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    designedDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        initialLevelDepthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setInitialLevel(Double.valueOf(s.toString()));
+                    initialLevelDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    initialLevelDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        stableLevelDepthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setStableLevel(Double.valueOf(s.toString()));
+                    stableLevelDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    stableLevelDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        longitudeDistanceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setLongitudeDistance(Double.valueOf(s.toString()));
+                    longitudeDistanceEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    longitudeDistanceEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        latitudeDistanceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setLatitudeDistance(Double.valueOf(s.toString()));
+                    latitudeDistanceEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    latitudeDistanceEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        explorationUnitEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setExplorationUnit(s.toString());
+            }
+        });
+        machineNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setMachineNumber(s.toString());
+            }
+        });
+        acturalDepthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    hole.setActuralDepth(Double.parseDouble(s.toString()));
+                    acturalDepthEditText.setBackgroundColor((getResources().getColor(android.R.color.white)));
+                } catch (Exception e) {
+                    acturalDepthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        noteEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setNote(s.toString());
+            }
+        });
+        recorderEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setRecorderName(s.toString());
+            }
+        });
+        reviewerEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setReviewerName(s.toString());
+            }
+        });
+        squadEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setSquadName(s.toString());
+            }
+        });
+        captainEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setCaptainName(s.toString());
+            }
+        });
 
         requestCode = getIntent().getStringExtra("requestCode");
 
@@ -145,7 +513,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
                             hole.setEndDate(hole.getStartDate());
                         }
-                        refreshHoleInfoTable();
+                        startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
                     }
                 }, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -160,7 +528,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
                             hole.setStartDate(hole.getEndDate());
                         }
-                        refreshHoleInfoTable();
+                        endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
                     }
                 }, endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -172,7 +540,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setInitialLevelMeasuringDate(temp);
-                        refreshHoleInfoTable();
+                        initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
                     }
                 }, initialLevelDate.get(Calendar.YEAR), initialLevelDate.get(Calendar.MONTH), initialLevelDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -184,7 +552,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setStableLevelMeasuringDate(temp);
-                        refreshHoleInfoTable();
+                        stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
                     }
                 }, stableLevelDate.get(Calendar.YEAR), stableLevelDate.get(Calendar.MONTH), stableLevelDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -196,7 +564,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setRecordDate(temp);
-                        refreshHoleInfoTable();
+                        recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
                     }
                 }, recordDate.get(Calendar.YEAR), recordDate.get(Calendar.MONTH), recordDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -208,7 +576,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setReviewDate(temp);
-                        refreshHoleInfoTable();
+                        reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
                     }
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
