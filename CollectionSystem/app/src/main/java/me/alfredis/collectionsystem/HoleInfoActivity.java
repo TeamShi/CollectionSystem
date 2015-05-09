@@ -512,6 +512,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         hole.setStartDate(temp);
                         if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
                             hole.setEndDate(hole.getStartDate());
+                            endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
                         }
                         startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
                     }
@@ -527,19 +528,24 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         hole.setEndDate(temp);
                         if (hole.getStartDate().compareTo(hole.getEndDate()) > 0) {
                             hole.setStartDate(hole.getEndDate());
+                            startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
                         }
                         endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
                     }
                 }, endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_initial_level_date:
-                Calendar initialLevelDate = hole.getInitialLevelMeasuringDate();
+                final Calendar initialLevelDate = hole.getInitialLevelMeasuringDate();
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setInitialLevelMeasuringDate(temp);
+                        if (hole.getInitialLevelMeasuringDate().compareTo(hole.getStableLevelMeasuringDate()) > 0) {
+                            hole.setStableLevelMeasuringDate(hole.getStableLevelMeasuringDate());
+                            stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
+                        }
                         initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
                     }
                 }, initialLevelDate.get(Calendar.YEAR), initialLevelDate.get(Calendar.MONTH), initialLevelDate.get(Calendar.DAY_OF_MONTH)).show();
@@ -552,6 +558,10 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setStableLevelMeasuringDate(temp);
+                        if (hole.getInitialLevelMeasuringDate().compareTo(hole.getStableLevelMeasuringDate()) > 0) {
+                            hole.setInitialLevelMeasuringDate(hole.getStableLevelMeasuringDate());
+                            initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
+                        }
                         stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
                     }
                 }, stableLevelDate.get(Calendar.YEAR), stableLevelDate.get(Calendar.MONTH), stableLevelDate.get(Calendar.DAY_OF_MONTH)).show();
@@ -564,6 +574,10 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         GregorianCalendar temp = new GregorianCalendar();
                         temp.set(year, monthOfYear, dayOfMonth);
                         hole.setRecordDate(temp);
+                        if (hole.getRecordDate().compareTo(hole.getReviewDate()) > 0) {
+                            hole.setReviewDate(hole.getRecordDate());
+                            reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
+                        }
                         recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
                     }
                 }, recordDate.get(Calendar.YEAR), recordDate.get(Calendar.MONTH), recordDate.get(Calendar.DAY_OF_MONTH)).show();
