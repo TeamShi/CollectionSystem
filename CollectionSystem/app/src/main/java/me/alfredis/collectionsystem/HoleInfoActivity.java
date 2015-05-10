@@ -735,10 +735,25 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         projectStageSpinner.setSelection(Utility.getProjectStageIndex(hole.getProjectStage()));
         articleSpinner.setSelection(Utility.getArticleIndex(hole.getArticle()));
 
-        mileageEditText.setText(hole.getMileage());
+        mileageEditText.setText(String.valueOf(hole.getMileage()));
         rigTypeEditText.setText(hole.getRigType());
         engineTypeEditText.setText(hole.getEngineType());
         pumpTypeEditText.setText(hole.getPumpType());
+
+        initialLevelDepthEditText.setText(String.valueOf(hole.getInitialLevel()));
+        stableLevelDepthEditText.setText(String.valueOf(hole.getStableLevel()));
+        elevationEditText.setText(String.valueOf(hole.getHoleElevation()));
+        designedDepthEditText.setText(String.valueOf(hole.getDesignedDepth()));
+        longitudeDistanceEditText.setText(String.valueOf(hole.getLongitudeDistance()));
+        latitudeDistanceEditText.setText(String.valueOf(hole.getLatitudeDistance()));
+        explorationUnitEditText.setText(hole.getExplorationUnit());
+        machineNumberEditText.setText(hole.getMachineNumber());
+        acturalDepthEditText.setText(String.valueOf(hole.getActuralDepth()));
+        noteEditText.setText(hole.getNote());
+        recorderEditText.setText(hole.getRecorderName());
+        reviewerEditText.setText(hole.getReviewerName());
+        captainEditText.setText(hole.getCaptainName());
+        squadEditText.setText(hole.getSquadName());
 
         startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
         endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
