@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 
@@ -567,6 +566,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 hole = new Hole();
 
                 refreshHoleInfoTable();
+
                 break;
             case "QUERY_HOLE":
                 hole = (Hole) getIntent().getSerializableExtra("hole");
@@ -610,16 +610,24 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             case R.id.button_confirm_add_hole:
                 Log.d(TAG, "Add button clicked.");
 
-                //test code
-                Random r = new Random();
-                GregorianCalendar gc = new GregorianCalendar();
-                gc.set(2013, 2, 4);
-                Hole hole2 = new Hole(String.valueOf(r.nextInt()), "pn", "a", "a", 123, 123.45, 123, 123, 123, "alfred", "alfred", "test note", 123123);
-
-                intent = new Intent();
-                intent.putExtra("hole", hole2);
-                this.setResult(RESULT_OK, intent);
-                this.finish();
+                if (requestCode.equals("ADD_HOLE")) {
+                    if (DataManager.isHoleIdExist(hole.getHoleId())) {
+                        Toast.makeText(getApplicationContext(), "钻探编号已存在", Toast.LENGTH_SHORT).show();
+                    } else {
+                        DataManager.holes.add(hole);
+                        this.setResult(RESULT_OK);
+                        this.finish();
+                    }
+                } else if (requestCode.equals("QUERY_HOLE")) {
+                    for (int i = 0; i < DataManager.holes.size(); i++) {
+                        if (DataManager.holes.get(i).getHoleId().equals(hole.getHoleId())) {
+                            DataManager.holes.set(i, hole);
+                            this.setResult(RESULT_OK);
+                            this.finish();
+                            break;
+                        }
+                    }
+                }
                 break;
             case R.id.button_cancel_add_hole:
                 Log.d(TAG, "Cancel button clicked.");

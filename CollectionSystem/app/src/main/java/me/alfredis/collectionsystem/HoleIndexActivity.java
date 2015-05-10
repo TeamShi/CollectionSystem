@@ -15,14 +15,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import me.alfredis.collectionsystem.datastructure.Hole;
 
 
 public class HoleIndexActivity extends ActionBarActivity implements View.OnClickListener{
-
-    private ArrayList<Hole> holes = new ArrayList<>();
     private TableLayout holesTable;
     private Button buttonAddHole;
 
@@ -45,8 +41,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         buttonAddHole.setOnClickListener(this);
 
         //test code
-        holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
-        holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName2", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
+        DataManager.holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
+        DataManager.holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName2", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
 
         refreshTable();
     }
@@ -68,7 +64,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 Log.d(TAG, "Query hole " + holeId);
 
                 Hole queryHole = new Hole();
-                for (Hole hole : holes) {
+                for (Hole hole : DataManager.holes) {
                     if (hole.getHoleId().equals(holeId)) {
                         queryHole = hole;
                         break;
@@ -84,9 +80,9 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 break;
             case CONTEXT_MENU_DELETE:
                 Log.d(TAG, "Remove hole " + holeId);
-                for (Hole hole : holes) {
+                for (Hole hole : DataManager.holes) {
                     if (holeId.equals(hole.getHoleId())) {
-                        holes.remove(hole);
+                        DataManager.holes.remove(hole);
                         break;
                     }
                 }
@@ -164,7 +160,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
     private void drawHoleContent() {
         Log.d(TAG, "Draw hole information");
-        for (Hole hole : holes) {
+        for (Hole hole : DataManager.holes) {
             TableRow row = new TableRow(this);
 
             row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -254,8 +250,11 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         if (requestCode == ADD_HOLE) {
             if (resultCode == RESULT_OK) {
                 Log.d(TAG, "Get new hole.");
-                Hole hole = (Hole) data.getSerializableExtra("hole");
-                holes.add(hole);
+                refreshTable();
+            }
+        } else if (requestCode == QUERY_HOLE) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "Update hole.");
                 refreshTable();
             }
         }
