@@ -72,7 +72,7 @@ public class Hole implements Serializable {
 
         this.projectName = "";
         this.holeIdPart1 = HoleIdPart1.JC;
-        this.holeIdPart2Year = String.valueOf(c.get(Calendar.YEAR));
+        this.holeIdPart2Year = String.valueOf(c.get(Calendar.YEAR) - 2000);
         this.holeIdPart3 = "1";
         this.holeIdPart4 = "1";
         this.projectStage = ProjectStageType.I;

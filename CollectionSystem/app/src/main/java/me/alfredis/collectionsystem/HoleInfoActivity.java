@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -67,8 +69,16 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Spinner projectStageSpinner;
     private Spinner articleSpinner;
 
+    private ArrayAdapter<String> projectStageSpinnerAdapter;
+    private ArrayAdapter<String> holeIdPart1SpinnerAdapter;
+    private ArrayAdapter<String> holeIdPart3SpinnerAdapter;
+    private ArrayAdapter<String> articleSpinnerAdapter;
 
     private static final String TAG = "CollectionSystem";
+    private static final String[] PROJECT_ID_PART1_SPINNER_OPTIONS = {"JC", "JZ"};
+    private static final String[] PROJECT_STAGE_SPINNER_OPTIONS = {"I", "II", "III", "IV"};
+    private static final String[] PROJECT_ID_PART3_SPINNER_OPTIONS = {"1", "2", "3", "4"};
+    private static final String[] ARTICLE_SPINNER_OPTIONS = {"K", "DK", "AK", "ACK", "CDK"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +131,63 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setOnClickListener(this);
         recordDateButton.setOnClickListener(this);
         reviewDateButton.setOnClickListener(this);
+
+        projectStageSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
+        projectStageSpinner.setAdapter(projectStageSpinnerAdapter);
+        projectStageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hole.setProjectStage(Enum.valueOf(Hole.ProjectStageType.class, parent.getItemAtPosition(position).toString()));
+                holeIdPart2TextView.setText(hole.getHoleIdPart2());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        holeIdPart1SpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROJECT_ID_PART1_SPINNER_OPTIONS);
+        holeIdPart1Spinner.setAdapter(holeIdPart1SpinnerAdapter);
+        holeIdPart1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1.class, parent.getItemAtPosition(position).toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        holeIdPart3SpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROJECT_ID_PART3_SPINNER_OPTIONS);
+        holeIdPart3Spinner.setAdapter(holeIdPart3SpinnerAdapter);
+        holeIdPart3Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hole.setHoleIdPart3(String.valueOf(parent.getItemIdAtPosition(position)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        articleSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ARTICLE_SPINNER_OPTIONS);
+        articleSpinner.setAdapter(articleSpinnerAdapter);
+        articleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hole.setArticle(Enum.valueOf(Hole.ArticleType.class, parent.getItemAtPosition(position).toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         projectNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -660,13 +727,17 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private void refreshHoleInfoTable() {
         projectNameEditText.setText(hole.getProjectName());
 
+        projectStageSpinner.setSelection(Utility.getProjectStageIndex(hole.getProjectStage()));
+
+        holeIdPart2TextView.setText(hole.getHoleIdPart2());
+        holeIdPart3Spinner.setSelection(Utility.getProjectIdPart3Index(hole.getHoleIdPart3()));
+        holeIdPart4EditText.setText(hole.getHoleIdPart4());
+
         startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
         endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
         initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
         stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
         recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
         reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
-
-
     }
 }
