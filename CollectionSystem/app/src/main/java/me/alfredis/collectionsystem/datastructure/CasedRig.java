@@ -13,6 +13,10 @@ public class CasedRig extends RigEvent{
     private String casedSituation;          //孔内情况
     private String note;                    //特殊情况记录
 
+    public CasedRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
+        super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
+    }
+
     public String getDadoType() {
         return dadoType;
     }

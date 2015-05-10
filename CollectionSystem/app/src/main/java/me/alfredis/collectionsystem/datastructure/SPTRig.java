@@ -31,6 +31,10 @@ public class SPTRig extends RigEvent {
 
     private String note;                        //其他特征
 
+    public SPTRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
+        super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
+    }
+
     public double getPenetrationFrom() {
         return penetrationFrom;
     }

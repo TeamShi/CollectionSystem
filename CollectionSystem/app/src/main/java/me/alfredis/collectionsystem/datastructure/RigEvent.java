@@ -1,23 +1,25 @@
 package me.alfredis.collectionsystem.datastructure;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by Alfred on 15/5/4.
  */
 public class RigEvent {
     protected String id;                      //班次/人数
-    protected Date date;                      //日期
+    protected Calendar date;                      //日期
     protected String projectName;             //作业项目
 
     //时间
-    protected long startTime;                 //开始时间
-    protected long endTime;                   //结束时间
+    protected Calendar startTime;                 //开始时间
+    protected Calendar endTime;                   //结束时间
+
 
     //钻杆组成
     protected int drillPipeId;                //钻杆编号
     protected double drillPipeLength;         //钻杆长度
     protected double cumulativeLength;        //累计长度
+
 
     //岩芯管
     protected double coreBarreliDiameter;     //岩芯管直径
@@ -27,6 +29,16 @@ public class RigEvent {
     protected String drillType;               //钻头类型
     protected double drillDiameter;           //钻头直径
     protected double drillLength;             //钻头长度
+
+    //贯入器组成
+    protected String penetrationDiameter; //贯入器直径
+    protected String penetrationLength; //贯入器长度
+
+    //动探类型
+    protected String DynamicSoundingType;
+    //探头组成
+    protected String SoundingDiameter; //探头直接
+    protected String SoundingLength; //探头长度
 
     //进尺
     protected double drillToolTotalLength;    //钻具总长
@@ -40,36 +52,43 @@ public class RigEvent {
     protected double rockCoreRecovery;        //岩芯采取旅
 
     //地层
-    protected double startDepth;              //本钻起深度
+    protected double startDepth;              //本钻起深度 TODO 计算深度差?
     protected double endDepth;                //本钻止深度
     protected String groundName;              //岩土名称
     protected String groundColor;             //岩土颜色
     protected String groundDensity;           //岩土臭密度
     protected String groundSaturation;       //岩土饱和度
     protected String groundWeathering;       //岩石风化程度
-    protected String Note;           //岩土岩性
 
-    //贯入器组成
-    protected  String penetrationDiameter; //贯入器直径
-    protected  String penetrationLength; //贯入器长度
-
-    //动探类型
-    protected  String DynamicSoundingType;
-    //探头组成
-    protected  String SoundingDiameter; //探头直接
-    protected  String SoundingLength; //探头长度
-
+    protected String Note;                     //TODO 岩土岩性?特殊情况记录
 
     public enum DynamicSoundingType {
         //动探类型： 轻型，重型，超重型
-        LIGHT,HEAVY,SUPERHEAVY
+        LIGHT, HEAVY, SUPERHEAVY
     }
 
     public enum ProjectNameType {
         //作业类型： 合钻，标贯，动探
-        NormalRig,StandardPenetration,DynamicSounding
+        NormalRig, StandardPenetration, DynamicSounding
     }
 
+
+    public RigEvent(String id,String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
+        Calendar c = Calendar.getInstance();
+        this.id = id;
+        this.date = c;
+        this.startTime = c;
+        this.endTime = c;
+        this.projectName = projectName;
+        this.drillPipeId = drillPipeId;
+        this.drillPipeLength = drillPipeLength;
+        this.cumulativeLength = cumulativeLength;
+        this.drillToolTotalLength = drillToolTotalLength;
+        this.drillToolRemainLength = drillToolRemainLength;
+        this.roundTripMeterage = roundTripMeterage;
+        this.cumulativeMeterage = cumulativeMeterage;
+        Note = note;
+    }
 
     public String getId() {
         return id;
@@ -79,11 +98,11 @@ public class RigEvent {
         this.id = id;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
@@ -95,19 +114,19 @@ public class RigEvent {
         this.projectName = projectName;
     }
 
-    public long getStartTime() {
+    public Calendar getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(Calendar startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public Calendar getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(Calendar endTime) {
         this.endTime = endTime;
     }
 
