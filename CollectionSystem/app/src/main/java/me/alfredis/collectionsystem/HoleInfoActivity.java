@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -39,6 +40,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button stableLevelButton;
     private Button recordDateButton;
     private Button reviewDateButton;
+    private Button offsetSignButton;
 
     private EditText mileageEditText;
     private EditText offsetEditText;
@@ -93,6 +95,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton = (Button) findViewById(R.id.button_stable_level_date);
         recordDateButton = (Button) findViewById(R.id.button_record_date);
         reviewDateButton = (Button) findViewById(R.id.button_review_date);
+        offsetSignButton = (Button) findViewById(R.id.button_offset_sign);
 
         mileageEditText = (EditText) findViewById(R.id.hole_mileage);
         offsetEditText = (EditText) findViewById(R.id.hole_offset);
@@ -131,6 +134,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setOnClickListener(this);
         recordDateButton.setOnClickListener(this);
         reviewDateButton.setOnClickListener(this);
+        offsetSignButton.setOnClickListener(this);
 
         projectStageSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
         projectStageSpinner.setAdapter(projectStageSpinnerAdapter);
@@ -719,6 +723,15 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                     }
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
+            case R.id.button_offset_sign:
+                try {
+                    hole.setOffset(-Double.valueOf(offsetEditText.getText().toString()));
+                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+                Toast.makeText(getApplicationContext(), String.valueOf(hole.getOffset()), Toast.LENGTH_SHORT);
+                offsetEditText.setText(String.valueOf(hole.getOffset()));
             default:
                 break;
         }
@@ -754,6 +767,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewerEditText.setText(hole.getReviewerName());
         captainEditText.setText(hole.getCaptainName());
         squadEditText.setText(hole.getSquadName());
+        offsetEditText.setText(String.valueOf(hole.getOffset()));
 
         startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
         endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
