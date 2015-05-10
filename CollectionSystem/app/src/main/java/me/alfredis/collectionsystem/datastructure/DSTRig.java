@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Created by Alfred on 15/5/5.
  */
 public class DSTRig extends RigEvent{
+    public DSTRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
+        super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
+    }
+
     public class DynamicSoundingEvent {
         public double totalLength;      //探杆总长
         public double digDepth;         //入土深度
