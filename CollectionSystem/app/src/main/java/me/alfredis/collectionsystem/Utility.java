@@ -30,4 +30,32 @@ public class Utility {
     public static int getProjectIdPart3Index(String projectPart3) {
         return Integer.valueOf(projectPart3) - 1;
     }
+
+    public static int getHoleIdPart1Index(Hole.HoleIdPart1Type holeIdPart1) {
+        switch (holeIdPart1) {
+            case JC:
+                return 0;
+            case JZ:
+                return 1;
+            default:
+                return -1;
+        }
+    }
+
+    public static int getArticleIndex(Hole.ArticleType articleType) {
+        switch (articleType) {
+            case K:
+                return 0;
+            case DK:
+                return 1;
+            case AK:
+                return 2;
+            case ACK:
+                return 3;
+            case CDK:
+                return 4;
+            default:
+                return -1;
+        }
+    }
 }

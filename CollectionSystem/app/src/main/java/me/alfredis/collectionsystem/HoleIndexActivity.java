@@ -45,8 +45,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         buttonAddHole.setOnClickListener(this);
 
         //test code
-        holes.add(new Hole(Hole.HoleIdPart1.JC, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
-        holes.add(new Hole(Hole.HoleIdPart1.JC, "2015", "1", "1", "projectName2", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
+        holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
+        holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName2", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
 
         refreshTable();
     }

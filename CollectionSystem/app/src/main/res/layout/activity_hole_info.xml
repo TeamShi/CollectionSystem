@@ -91,12 +91,13 @@
                             android:background="@android:color/white"
                             android:layout_height="fill_parent"
                             android:layout_width="fill_parent"
-                            android:entries="@array/hole_id_part1"
+                            android:
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textview_hole_id_part2" />
+                            android:id="@+id/textview_hole_id_part2"
+                            android:text="IV15" />
                         <Spinner
                             android:id="@+id/spinner_hole_id_part3"
                             android:layout_weight="1"
@@ -104,7 +105,6 @@
                             android:background="@android:color/white"
                             android:layout_height="fill_parent"
                             android:layout_width="fill_parent"
-                            android:entries="@array/hole_id_part3"
                             />
                         <EditText
                             android:id="@+id/edittext_hole_id_part4"
@@ -157,7 +157,6 @@
                         android:background="@android:color/white"
                         android:layout_height="fill_parent"
                         android:layout_width="fill_parent" />
-                        <!--android:entries="@array/project_stage_options"-->
 
                     <TextView
                         android:text="完工日期"
@@ -198,7 +197,6 @@
                         android:background="@android:color/white"
                         android:layout_height="fill_parent"
                         android:layout_width="fill_parent"
-                        android:entries="@array/hole_article"
                         />
 
                     <TextView

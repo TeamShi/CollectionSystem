@@ -14,7 +14,7 @@ public class Hole implements Serializable {
     private String holeId;                      //钻孔编号
 
     //JC-III14-1-1
-    private HoleIdPart1 holeIdPart1;
+    private HoleIdPart1Type holeIdPart1;
     private String holeIdPart2Year;
     private String holeIdPart3;
     private String holeIdPart4;
@@ -55,7 +55,7 @@ public class Hole implements Serializable {
 
     private ArrayList<RigEvent> rigLists;       //钻孔作业列表
 
-    public enum HoleIdPart1 {
+    public enum HoleIdPart1Type {
         JC, JZ
     }
 
@@ -71,7 +71,7 @@ public class Hole implements Serializable {
         Calendar c = Calendar.getInstance();
 
         this.projectName = "";
-        this.holeIdPart1 = HoleIdPart1.JC;
+        this.holeIdPart1 = HoleIdPart1Type.JC;
         this.holeIdPart2Year = String.valueOf(c.get(Calendar.YEAR) - 2000);
         this.holeIdPart3 = "1";
         this.holeIdPart4 = "1";
@@ -105,7 +105,7 @@ public class Hole implements Serializable {
 
     }
 
-    public Hole(HoleIdPart1 holeIdPart1,
+    public Hole(HoleIdPart1Type holeIdPart1,
                 String holeIdPart2Year,
                 String holeIdPart3,
                 String holeIdPart4,
@@ -428,7 +428,7 @@ public class Hole implements Serializable {
         this.rigLists = rigLists;
     }
 
-    public void setHoleIdPart1(HoleIdPart1 holeIdPart1) {
+    public void setHoleIdPart1(HoleIdPart1Type holeIdPart1) {
         this.holeIdPart1 = holeIdPart1;
     }
 
@@ -443,6 +443,8 @@ public class Hole implements Serializable {
     public void setHoleIdPart4(String holeIdPart4) {
         this.holeIdPart4 = holeIdPart4;
     }
+
+    public HoleIdPart1Type getHoleIdPart1() {return holeIdPart1;}
 
     public String getHoleIdPart3() {
         return holeIdPart3;

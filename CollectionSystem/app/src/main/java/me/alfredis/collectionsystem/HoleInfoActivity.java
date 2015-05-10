@@ -152,7 +152,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         holeIdPart1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1.class, parent.getItemAtPosition(position).toString()));
+                hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1Type.class, parent.getItemAtPosition(position).toString()));
             }
 
             @Override
@@ -727,11 +727,18 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private void refreshHoleInfoTable() {
         projectNameEditText.setText(hole.getProjectName());
 
-        projectStageSpinner.setSelection(Utility.getProjectStageIndex(hole.getProjectStage()));
-
+        holeIdPart1Spinner.setSelection(Utility.getHoleIdPart1Index(hole.getHoleIdPart1()));
         holeIdPart2TextView.setText(hole.getHoleIdPart2());
         holeIdPart3Spinner.setSelection(Utility.getProjectIdPart3Index(hole.getHoleIdPart3()));
         holeIdPart4EditText.setText(hole.getHoleIdPart4());
+
+        projectStageSpinner.setSelection(Utility.getProjectStageIndex(hole.getProjectStage()));
+        articleSpinner.setSelection(Utility.getArticleIndex(hole.getArticle()));
+
+        mileageEditText.setText(hole.getMileage());
+        rigTypeEditText.setText(hole.getRigType());
+        engineTypeEditText.setText(hole.getEngineType());
+        pumpTypeEditText.setText(hole.getPumpType());
 
         startDateButton.setText(Utility.formatCalendarDateString(hole.getStartDate()));
         endDateButton.setText(Utility.formatCalendarDateString(hole.getEndDate()));
