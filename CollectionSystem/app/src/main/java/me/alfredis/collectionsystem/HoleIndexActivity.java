@@ -141,8 +141,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         row.addView(createHeaderTextView("附注"));
         row.addView(createHeaderTextView("孔深"));
 
-        registerForContextMenu(row);
-
         holesTable.addView(row);
     }
 
