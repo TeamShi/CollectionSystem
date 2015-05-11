@@ -20,6 +20,10 @@
             android:name=".HoleInfoActivity"
             android:label="@string/title_activity_hole_info" >
         </activity>
+        <activity
+            android:name=".RigActivity"
+            android:label="@string/title_activity_rig" >
+        </activity>
     </application>
 
 </manifest>

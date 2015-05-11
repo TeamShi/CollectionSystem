@@ -25,6 +25,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     private static final String TAG = "CollectionSystem";
     private static final int ADD_HOLE = 1;
     private static final int QUERY_HOLE = 2;
+    private static final int EDIT_RIG = 3;
 
     private static final int CONTEXT_MENU_QUERY = 0;
     private static final int CONTEXT_MENU_INPUT = 1;
@@ -65,6 +66,10 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 startActivityForResult(intent, QUERY_HOLE);
                 break;
             case CONTEXT_MENU_INPUT:
+                Log.d(TAG, "Input rigs " + holeId);
+                Intent intentRig = new Intent(this, RigActivity.class);
+                intentRig.putExtra("holeIndex", DataManager.getHoleIndexByHoleId(holeId));
+                startActivityForResult(intentRig, EDIT_RIG);
                 break;
             case CONTEXT_MENU_DELETE:
                 Log.d(TAG, "Remove hole " + holeId);
