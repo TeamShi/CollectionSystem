@@ -23,4 +23,13 @@ public class DataManager {
 
         return false;
     }
+
+    public static int getHoleIndexByHoleId(String id) {
+        for (int i = 0; i < holes.size(); i++) {
+            if (holes.get(i).getHoleId().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

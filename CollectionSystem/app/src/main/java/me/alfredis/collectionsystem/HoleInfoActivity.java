@@ -169,7 +169,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         holeIdPart3Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                hole.setHoleIdPart3(String.valueOf(parent.getItemIdAtPosition(position)));
+                hole.setHoleIdPart3(String.valueOf(parent.getItemAtPosition(position)));
             }
 
             @Override
@@ -558,6 +558,22 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 }
             }
         });
+        holeIdPart4EditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hole.setHoleIdPart4(s.toString());
+            }
+        });
 
         requestCode = getIntent().getStringExtra("requestCode");
 
@@ -569,7 +585,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
                 break;
             case "QUERY_HOLE":
-                hole = (Hole) getIntent().getSerializableExtra("hole");
+                hole = DataManager.holes.get(getIntent().getIntExtra("holeIndex", -1));
 
                 refreshHoleInfoTable();
                 break;
@@ -619,14 +635,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         this.finish();
                     }
                 } else if (requestCode.equals("QUERY_HOLE")) {
-                    for (int i = 0; i < DataManager.holes.size(); i++) {
-                        if (DataManager.holes.get(i).getHoleId().equals(hole.getHoleId())) {
-                            DataManager.holes.set(i, hole);
-                            this.setResult(RESULT_OK);
-                            this.finish();
-                            break;
-                        }
-                    }
+                    DataManager.holes.set(getIntent().getIntExtra("holeIndex", -1), hole);
+                    this.setResult(RESULT_OK);
+                    this.finish();
                 }
                 break;
             case R.id.button_cancel_add_hole:

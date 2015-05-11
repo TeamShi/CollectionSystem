@@ -40,10 +40,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
         buttonAddHole.setOnClickListener(this);
 
-        //test code
-        DataManager.holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
-        DataManager.holes.add(new Hole(Hole.HoleIdPart1Type.JC, "2015", "1", "1", "projectName2", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
-
         refreshTable();
     }
 
@@ -63,17 +59,9 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             case CONTEXT_MENU_QUERY:
                 Log.d(TAG, "Query hole " + holeId);
 
-                Hole queryHole = new Hole();
-                for (Hole hole : DataManager.holes) {
-                    if (hole.getHoleId().equals(holeId)) {
-                        queryHole = hole;
-                        break;
-                    }
-                }
-
                 Intent intent = new Intent(this, HoleInfoActivity.class);
                 intent.putExtra("requestCode", "QUERY_HOLE");
-                intent.putExtra("hole", queryHole);
+                intent.putExtra("holeIndex", DataManager.getHoleIndexByHoleId(holeId));
                 startActivityForResult(intent, QUERY_HOLE);
                 break;
             case CONTEXT_MENU_INPUT:
