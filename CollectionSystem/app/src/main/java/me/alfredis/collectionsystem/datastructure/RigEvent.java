@@ -314,5 +314,43 @@ public class RigEvent {
         this.Note = note;
     }
 
+    public String getPenetrationDiameter() {
+        return penetrationDiameter;
+    }
 
+    public void setPenetrationDiameter(String penetrationDiameter) {
+        this.penetrationDiameter = penetrationDiameter;
+    }
+
+    public String getPenetrationLength() {
+        return penetrationLength;
+    }
+
+    public void setPenetrationLength(String penetrationLength) {
+        this.penetrationLength = penetrationLength;
+    }
+
+    public String getDynamicSoundingType() {
+        return DynamicSoundingType;
+    }
+
+    public void setDynamicSoundingType(String dynamicSoundingType) {
+        DynamicSoundingType = dynamicSoundingType;
+    }
+
+    public String getSoundingDiameter() {
+        return SoundingDiameter;
+    }
+
+    public void setSoundingDiameter(String soundingDiameter) {
+        SoundingDiameter = soundingDiameter;
+    }
+
+    public String getSoundingLength() {
+        return SoundingLength;
+    }
+
+    public void setSoundingLength(String soundingLength) {
+        SoundingLength = soundingLength;
+    }
 }
