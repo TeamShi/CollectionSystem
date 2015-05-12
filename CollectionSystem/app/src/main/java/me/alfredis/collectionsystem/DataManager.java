@@ -3,6 +3,7 @@ package me.alfredis.collectionsystem;
 import java.util.ArrayList;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.datastructure.RigEvent;
 
 /**
  * Created by Alfred on 15/5/10.
@@ -31,5 +32,9 @@ public class DataManager {
             }
         }
         return -1;
+    }
+
+    public static ArrayList<RigEvent> getRigEventListByHoleIndex(int index) {
+        return holes.get(index).getRigLists();
     }
 }

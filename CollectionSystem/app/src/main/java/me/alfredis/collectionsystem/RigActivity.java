@@ -1,24 +1,36 @@
 package me.alfredis.collectionsystem;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TableLayout;
+
+import me.alfredis.collectionsystem.datastructure.RigEvent;
 
 
 public class RigActivity extends ActionBarActivity {
     private TableLayout rigsTable;
     private Button buttonAddRig;
+    private Spinner holeSpinner;
 
-    private static final String TAG = "";
+    private int holeIndex;
+
+    private static final String TAG = "ColletionSystem";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rig);
 
+        rigsTable = (TableLayout) findViewById(R.id.rig_table);
+        holeSpinner = (Spinner) findViewById(R.id.spinner_hole);
+
+        holeIndex = getIntent().getIntExtra("holeIndex", -1);
+
+        refreshTable();
 
     }
 
@@ -45,8 +57,13 @@ public class RigActivity extends ActionBarActivity {
     }
 
     private void refreshTable() {
+        while (rigsTable.getChildCount() != 1) {
+            rigsTable.removeViewAt(1);
+        }
 
+        for (RigEvent rig : DataManager.getRigEventListByHoleIndex(holeIndex)) {
+            //TODO: draw rig
+        }
     }
-
 
 }
