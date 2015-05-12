@@ -1,5 +1,6 @@
 package me.alfredis.collectionsystem;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -8,6 +9,13 @@ import me.alfredis.collectionsystem.datastructure.Hole;
  * Created by Alfred on 15/5/8.
  */
 public class Utility {
+
+    public static String formatCalendarDateString(Calendar calendar ,String simpleDateFormat) {
+        SimpleDateFormat fmt = new SimpleDateFormat(simpleDateFormat);// example "yyyy年MM月dd日"
+        String dateStr = fmt.format(calendar.getTime());
+        return dateStr;
+    }
+
     public static String formatCalendarDateString(Calendar c) {
         return c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH);
     }
@@ -58,4 +66,16 @@ public class Utility {
                 return -1;
         }
     }
+
+    public static String[] convert2Array(String string) {
+        String[] row = string.split(",");
+        for (int j = 0, colLen = row.length; j < colLen; j++) {
+            System.out.println(row[j]);
+            if (row[j].equals("null")) {
+                row[j] = "";
+            }
+        }
+        return row;
+    }
+
 }
