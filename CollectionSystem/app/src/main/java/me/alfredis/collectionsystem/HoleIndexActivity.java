@@ -112,42 +112,13 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void refreshTable() {
-        holesTable.removeAllViews();
-
-        drawTableHead();
+        while (holesTable.getChildCount() != 1) {
+            holesTable.removeViewAt(1);
+        }
 
         drawHoleContent();
     }
 
-    private void drawTableHead() {
-        Log.d(TAG, "Draw table head");
-        TableRow row = new TableRow(this);
-
-        row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-
-        TableLayout.LayoutParams tableLayoutParam = new TableLayout.LayoutParams();
-        tableLayoutParam.setMargins(2, 2, 2, 2);
-        row.setLayoutParams(tableLayoutParam);
-
-        row.addView(createHeaderTextView("勘探点名称"));
-        row.addView(createHeaderTextView("工程名称"));
-        row.addView(createHeaderTextView("阶段"));
-        row.addView(createHeaderTextView("冠词"));
-        row.addView(createHeaderTextView("里程"));
-        row.addView(createHeaderTextView("偏移量"));
-        row.addView(createHeaderTextView("高程"));
-        row.addView(createHeaderTextView("经距X"));
-        row.addView(createHeaderTextView("纬距Y"));
-        row.addView(createHeaderTextView("位置描述"));
-        row.addView(createHeaderTextView("记录者"));
-        row.addView(createHeaderTextView("记录日期"));
-        row.addView(createHeaderTextView("复核者"));
-        row.addView(createHeaderTextView("复核日期"));
-        row.addView(createHeaderTextView("附注"));
-        row.addView(createHeaderTextView("孔深"));
-
-        holesTable.addView(row);
-    }
 
     private void drawHoleContent() {
         Log.d(TAG, "Draw hole information");

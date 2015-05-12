@@ -171,22 +171,6 @@
                             android:textColor="@android:color/black"
                             android:layout_margin="2dip"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="修改"
-                            android:background="@android:color/holo_green_light"
-                            android:textColor="@android:color/black"
-                            android:layout_margin="2dip"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="删除"
-                            android:background="@android:color/holo_green_light"
-                            android:textColor="@android:color/black"
-                            android:layout_margin="2dip"/>
-
                     </TableRow>
                     
                 </TableLayout>
