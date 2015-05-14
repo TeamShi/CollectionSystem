@@ -82,9 +82,9 @@ public class RigIndexActivity extends ActionBarActivity {
     }
 
     private void refreshTable() {
-        while (rigsTable.getChildCount() > 2) {
-            rigsTable.removeViewAt(2);
-        }
+        //while (rigsTable.getChildCount() > 2) {
+          //   rigsTable.removeViewAt(2);
+        //}
 
         for (RigEvent rig : DataManager.getRigEventListByHoleId(holeId)) {
             //TODO: draw rig
