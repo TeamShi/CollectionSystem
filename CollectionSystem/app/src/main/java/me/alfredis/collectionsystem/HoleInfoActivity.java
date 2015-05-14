@@ -76,6 +76,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private ArrayAdapter<String> articleSpinnerAdapter;
 
     private static final String TAG = "CollectionSystem";
+
     private static final String[] PROJECT_ID_PART1_SPINNER_OPTIONS = {"JC", "JZ"};
     private static final String[] PROJECT_STAGE_SPINNER_OPTIONS = {"I", "II", "III", "IV"};
     private static final String[] PROJECT_ID_PART3_SPINNER_OPTIONS = {"1", "2", "3", "4"};

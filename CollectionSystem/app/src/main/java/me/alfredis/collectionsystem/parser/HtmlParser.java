@@ -100,7 +100,7 @@ public class HtmlParser {
         for (int i = 0; i < rows; i++) {
             SPTRig sptRigEvent = sptRigEvents.get(i);
             StringBuffer sb = new StringBuffer();
-            sb.append(sptRigEvent.getId()).append(",");
+            sb.append(sptRigEvent.getClassPeopleCount()).append(",");
             sb.append(formatCalendarDateString(sptRigEvent.getDate(), "yyyy年MM月dd日")).append(",");
             sb.append(formatCalendarDateString(sptRigEvent.getStartTime(), "hh时mm分")).append(",");
             sb.append(formatCalendarDateString(sptRigEvent.getEndTime(), "hh时mm分")).append(",");
@@ -144,7 +144,7 @@ public class HtmlParser {
             for (int j = 0, size = events.size(); j < size; j++) {
                 DSTRig.DynamicSoundingEvent event = events.get(j);
                 StringBuffer sb = new StringBuffer();
-                sb.append(dstRig.getId()).append(",");
+                sb.append(dstRig.getClassPeopleCount()).append(",");
                 sb.append(formatCalendarDateString(dstRig.getDate(), "yyyy年MM月dd日")).append(",");
                 sb.append(formatCalendarDateString(dstRig.getStartTime(), "hh时mm分")).append(",");
                 sb.append(formatCalendarDateString(dstRig.getEndTime(), "hh时mm分")).append(",");
@@ -173,7 +173,7 @@ public class HtmlParser {
         for (int i = 0; i < rows; i++) {
             RigEvent rigEvent = rigEvents.get(i);
             StringBuffer sb = new StringBuffer();
-            sb.append(rigEvent.getId()).append(",");
+            sb.append(rigEvent.getClassPeopleCount()).append(",");
             sb.append(formatCalendarDateString(rigEvent.getDate(), "yyyy年MM月dd日")).append(",");
             sb.append(formatCalendarDateString(rigEvent.getStartTime(), "hh时mm分")).append(",");
             sb.append(formatCalendarDateString(rigEvent.getEndTime(), "hh时mm分")).append(",");

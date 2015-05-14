@@ -1,9 +1,11 @@
 package me.alfredis.collectionsystem;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,8 +25,12 @@ public class RigInfoActivity extends ActionBarActivity {
 
     private Spinner rigTypeSpinner;
 
-    private static final String[] PROJECT_ID_PART1_SPINNER_OPTIONS = {"°á¼ÒÒÆ¿×¡¢ÏÂÓêÍ£¹¤£¬ÆäËû",
-            "¸É×ê¡¢ºÏË®×ê¡¢½ğ¸ÕÊ¯×ê¼°ÆäËû", "±ê×¼¹áÈëÊÔÑé", "¶¯Á¦´¥Ì½ÊÔÑé", "ÏÂÌ×¹Ü"};
+    private static final String TAG = "CollectionSystem";
+
+    private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"æ¬å®¶ç§»å­”ã€ä¸‹é›¨åœå·¥ï¼Œå…¶ä»–",
+            "å¹²é’»ã€åˆæ°´é’»ã€é‡‘åˆšçŸ³é’»åŠå…¶ä»–", "æ ‡å‡†è´¯å…¥è¯•éªŒ", "åŠ¨åŠ›è§¦æ¢è¯•éªŒ", "ä¸‹å¥—ç®¡"};
+
+    private  ArrayAdapter<String> rigTypeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class RigInfoActivity extends ActionBarActivity {
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
 
+        rigTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, RIG_TYPE_SPINNER_OPTIONS);
+        rigTypeSpinner.setAdapter(rigTypeAdapter);
 
     }
 
