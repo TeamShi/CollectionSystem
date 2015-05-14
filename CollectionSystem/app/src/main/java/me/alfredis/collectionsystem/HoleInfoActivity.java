@@ -135,7 +135,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewDateButton.setOnClickListener(this);
         offsetSignButton.setOnClickListener(this);
 
-        projectStageSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
+        projectStageSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
         projectStageSpinner.setAdapter(projectStageSpinnerAdapter);
         projectStageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

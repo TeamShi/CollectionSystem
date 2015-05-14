@@ -6,13 +6,13 @@ import java.util.Calendar;
  * Created by Alfred on 15/5/4.
  */
 public class RigEvent {
-    protected String id;                      //班次/人数
-    protected Calendar date;                      //日期
+    protected String classPeopleCount;        //班次/人数
+    protected Calendar date;                  //日期
     protected String projectName;             //作业项目
 
     //时间
-    protected Calendar startTime;                 //开始时间
-    protected Calendar endTime;                   //结束时间
+    protected Calendar startTime;             //开始时间
+    protected Calendar endTime;               //结束时间
 
 
     //钻杆组成
@@ -73,9 +73,9 @@ public class RigEvent {
     }
 
 
-    public RigEvent(String id,String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
+    public RigEvent(String classPeopleCount, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
         Calendar c = Calendar.getInstance();
-        this.id = id;
+        this.classPeopleCount = classPeopleCount;
         this.date = c;
         this.startTime = c;
         this.endTime = c;
@@ -90,12 +90,12 @@ public class RigEvent {
         Note = note;
     }
 
-    public String getId() {
-        return id;
+    public String getClassPeopleCount() {
+        return classPeopleCount;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String classPeopleCount) {
+        this.classPeopleCount = classPeopleCount;
     }
 
     public Calendar getDate() {

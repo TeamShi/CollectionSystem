@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="me.alfredis.collectionsystem.parser.RigInfoActivity">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_confirm_add_rig"
+                android:text="提交"/>
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hole_info_table"
+                android:background="@android:color/holo_green_dark"
+                android:layout_margin="2dip">
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dip">
+                    <TextView
+                        android:text="班次/人数"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        />
+                    <EditText
+                        android:id="@+id/class_people_count"
+                        android:layout_height="fill_parent"
+                        android:inputType="text"
+                        android:background="@android:color/white"
+                        android:layout_weight="3"
+                        android:layout_margin="2dip"
+                        android:singleLine="true"/>
+
+                    <TextView
+                        android:text="日期"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        />
+                    <Button
+                        android:id="@+id/button_rig_date"
+                        android:background="@android:color/white"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:layout_width="fill_parent" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dip">
+
+                    <TextView
+                        android:text="日期"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner_rig_type"
+                        android:layout_height="fill_parent"
+                        android:inputType="text"
+                        android:background="@android:color/white"
+                        android:layout_weight="5"
+                        android:layout_margin="2dip"
+                        android:singleLine="true"/>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

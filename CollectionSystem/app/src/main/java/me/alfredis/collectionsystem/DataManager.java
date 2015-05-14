@@ -34,7 +34,12 @@ public class DataManager {
         return -1;
     }
 
-    public static ArrayList<RigEvent> getRigEventListByHoleIndex(int index) {
-        return holes.get(index).getRigLists();
+    public static ArrayList<RigEvent> getRigEventListByHoleId(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                return hole.getRigLists();
+            }
+        }
+        return null;
     }
 }

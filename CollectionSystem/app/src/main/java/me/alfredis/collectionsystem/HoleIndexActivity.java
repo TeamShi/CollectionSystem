@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,8 +66,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 break;
             case CONTEXT_MENU_INPUT:
                 Log.d(TAG, "Input rigs " + holeId);
-                Intent intentRig = new Intent(this, RigActivity.class);
-                intentRig.putExtra("holeIndex", DataManager.getHoleIndexByHoleId(holeId));
+                Intent intentRig = new Intent(this, RigIndexActivity.class);
+                intentRig.putExtra("holeId", holeId);
                 startActivityForResult(intentRig, EDIT_RIG);
                 break;
             case CONTEXT_MENU_DELETE:
@@ -165,20 +164,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         }
 
     }
-
-    private TextView createHeaderTextView(String text) {
-        TextView temp = new TextView(this);
-        temp.setText(text);
-        temp.setGravity(Gravity.CENTER);
-        temp.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-
-        TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
-        tableRowParam.setMargins(2,2,2,2);
-        temp.setLayoutParams(tableRowParam);
-
-        return temp;
-    }
-
     private TextView createHoleContentTextView(String text) {
         TextView temp = new TextView(this);
         temp.setText(text);

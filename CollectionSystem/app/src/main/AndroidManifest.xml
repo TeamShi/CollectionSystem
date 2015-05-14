@@ -21,8 +21,12 @@
             android:label="@string/title_activity_hole_info" >
         </activity>
         <activity
-            android:name=".RigActivity"
+            android:name=".RigIndexActivity"
             android:label="@string/title_activity_rig" >
+        </activity>
+        <activity
+            android:name=".parser.RigInfoActivity"
+            android:label="@string/title_activity_rig_info" >
         </activity>
     </application>
 
