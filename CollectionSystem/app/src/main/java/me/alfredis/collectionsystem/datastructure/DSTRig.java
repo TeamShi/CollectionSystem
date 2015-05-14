@@ -16,10 +16,60 @@ public class DSTRig extends RigEvent{
         public double penetration;      //贯入度
         public int hammeringCount;      //锤击数
         public String compactness;      //密实度
+
+        public DynamicSoundingEvent() {
+        }
+
+        public double getTotalLength() {
+            return totalLength;
+        }
+
+        public void setTotalLength(double totalLength) {
+            this.totalLength = totalLength;
+        }
+
+        public double getDigDepth() {
+            return digDepth;
+        }
+
+        public void setDigDepth(double digDepth) {
+            this.digDepth = digDepth;
+        }
+
+        public double getPenetration() {
+            return penetration;
+        }
+
+        public void setPenetration(double penetration) {
+            this.penetration = penetration;
+        }
+
+        public int getHammeringCount() {
+            return hammeringCount;
+        }
+
+        public void setHammeringCount(int hammeringCount) {
+            this.hammeringCount = hammeringCount;
+        }
+
+        public String getCompactness() {
+            return compactness;
+        }
+
+        public void setCompactness(String compactness) {
+            this.compactness = compactness;
+        }
+
+
     }
 
-    private ArrayList<DynamicSoundingEvent> dynamicSoundingEvents;      //动力触探录入
+    private ArrayList<DynamicSoundingEvent> dynamicSoundingEvents;     //动力触探录入
     private String groundName;                                          //岩土名称
+
+    public DSTRig() {
+        this.dynamicSoundingEvents = new ArrayList<DynamicSoundingEvent>();
+        this.groundName ="groundName";
+    }
 
     public ArrayList<DynamicSoundingEvent> getDynamicSoundingEvents() {
         return dynamicSoundingEvents;

@@ -6,26 +6,24 @@ import org.jsoup.nodes.Element;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import me.alfredis.collectionsystem.Utility;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
 
-import static me.alfredis.collectionsystem.Utility.convert2Array;
-import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
+import static me.alfredis.collectionsystem.Utility.*;
 
 /**
  * Created by jishshi on 2015/5/10.
  */
 public class HtmlParser {
 
-    public static String BASIC_RIG_EVENT_TEMPLATE = "." +File.separator+"template"+File.separator+"RigEventTable.html";
+    public static String BASIC_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "RigEventTable.html";
+    public static String SPT_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "SPTRigEventTable.html";
+    public static String DST_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "DSTRigEventTable.html";
 
     public static String TBODY_ID = "tableBody";
-
 
     public static boolean write(String outPath, String[][] data, String templatePath) throws IOException {
         String fileType = outPath.substring(outPath.lastIndexOf(".") + 1, outPath.length());
@@ -63,21 +61,21 @@ public class HtmlParser {
 
     }
 
-    public static boolean parse(String dirPath,ArrayList<Hole> holes) throws IOException {
+    public static boolean parse(String dirPath, ArrayList<Hole> holes) throws IOException {
         ArrayList<RigEvent> rigEvents = new ArrayList<RigEvent>();
         ArrayList<SPTRig> sptRigEvents = new ArrayList<SPTRig>();
-        ArrayList<DSTRig> dstRigEvents  = new ArrayList<DSTRig>();
+        ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
 
         for (int i = 0, len = holes.size(); i < len; i++) {
-            ArrayList<RigEvent> currRigEvents= holes.get(i).getRigLists();
+            ArrayList<RigEvent> currRigEvents = holes.get(i).getRigLists();
             rigEvents.addAll(currRigEvents);
-            for(int j= 0,size=currRigEvents.size();j<size;j++){
-                RigEvent currRigEvent = rigEvents.get(0);
-                if(currRigEvent instanceof SPTRig) {
+            for (int j = 0, size = currRigEvents.size(); j < size; j++) {
+                RigEvent currRigEvent = rigEvents.get(j);
+                if (currRigEvent instanceof SPTRig) {
                     sptRigEvents.add((SPTRig) currRigEvent);
-                }else if(rigEvents.get(j) instanceof DSTRig){
+                } else if (rigEvents.get(j) instanceof DSTRig) {
                     dstRigEvents.add((DSTRig) currRigEvent);
-                }else{
+                } else {
                     // do nothing
                 }
             }
@@ -85,22 +83,100 @@ public class HtmlParser {
 
 
         //html output
-        String[][]  rigEventArray = convert(rigEvents);
-        write(dirPath + "rigEvent.html", rigEventArray, BASIC_RIG_EVENT_TEMPLATE);
+        String[][] rigEventArray = convert(rigEvents);
+        String[][] sptRigEventArray = convertSpt(sptRigEvents);
+        String[][] dstRigEventArray = convertDst(dstRigEvents);
 
-        return false;
+        write(dirPath + "rigEvent.html", rigEventArray, BASIC_RIG_EVENT_TEMPLATE);
+        write(dirPath + "sptRigEvent.html", sptRigEventArray, SPT_RIG_EVENT_TEMPLATE);
+        write(dirPath + "dstRigEvent.html", dstRigEventArray, DST_RIG_EVENT_TEMPLATE);
+
+        return true;
     }
+
+    private static String[][] convertSpt(ArrayList<SPTRig> sptRigEvents) {
+        int rows = sptRigEvents.size();
+        String[][] resultData = new String[rows][];
+        for (int i = 0; i < rows; i++) {
+            SPTRig sptRigEvent = sptRigEvents.get(i);
+            StringBuffer sb = new StringBuffer();
+            sb.append(sptRigEvent.getId()).append(",");
+            sb.append(formatCalendarDateString(sptRigEvent.getDate(), "yyyy年MM月dd日")).append(",");
+            sb.append(formatCalendarDateString(sptRigEvent.getStartTime(), "hh时mm分")).append(",");
+            sb.append(formatCalendarDateString(sptRigEvent.getEndTime(), "hh时mm分")).append(",");
+            sb.append(sptRigEvent.getPenetration1DepthFrom()).append(",");
+            sb.append(sptRigEvent.getPenetration1DepthTo()).append(",");
+
+            sb.append(sptRigEvent.getPenetration1DepthFrom()).append(",");
+            sb.append(sptRigEvent.getPenetration1DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration1Count()).append(",");
+            sb.append(sptRigEvent.getRig1DepthFrom()).append(",");
+            sb.append(sptRigEvent.getRig1DepthTo()).append(",");
+
+            sb.append(sptRigEvent.getPenetration2DepthFrom()).append(",");
+            sb.append(sptRigEvent.getPenetration2DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration2Count()).append(",");
+            sb.append(sptRigEvent.getRig2DepthFrom()).append(",");
+            sb.append(sptRigEvent.getRig2DepthTo()).append(",");
+
+            sb.append(sptRigEvent.getPenetration3DepthFrom()).append(",");
+            sb.append(sptRigEvent.getPenetration3DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration3Count()).append(",");
+            sb.append(sptRigEvent.getRig3DepthFrom()).append(",");
+            sb.append(sptRigEvent.getRig3DepthTo()).append(",");
+
+            sb.append(sptRigEvent.getGroundName()).append(",");
+            sb.append(sptRigEvent.getGroundColor()).append(",");
+            sb.append(sptRigEvent.getGroundSaturation()).append(",");
+            sb.append(sptRigEvent.getCumulativeCount()).append(",");
+            sb.append(sptRigEvent.getNote()).append(",");
+
+            resultData[i] = convert2Array(sb.toString());
+        }
+        return resultData;
+    }
+
+    private static String[][] convertDst(ArrayList<DSTRig> dstRigEvents) {
+        ArrayList<String> records = new ArrayList<>();
+        for (int i = 0, len = dstRigEvents.size(); i < len; i++) {
+            DSTRig dstRig = dstRigEvents.get(i);
+            ArrayList<DSTRig.DynamicSoundingEvent> events = dstRig.getDynamicSoundingEvents();
+            for (int j = 0, size = events.size(); j < size; j++) {
+                DSTRig.DynamicSoundingEvent event = events.get(j);
+                StringBuffer sb = new StringBuffer();
+                sb.append(dstRig.getId()).append(",");
+                sb.append(formatCalendarDateString(dstRig.getDate(), "yyyy年MM月dd日")).append(",");
+                sb.append(formatCalendarDateString(dstRig.getStartTime(), "hh时mm分")).append(",");
+                sb.append(formatCalendarDateString(dstRig.getEndTime(), "hh时mm分")).append(",");
+                sb.append(event.getTotalLength()).append(",");
+                sb.append(event.getDigDepth()).append(",");
+                sb.append(event.getPenetration()).append(",");
+                sb.append(event.getHammeringCount()).append(",");
+                sb.append(dstRig.getGroundName()).append(",");
+
+                records.add(sb.toString());
+            }
+        }
+        int rows = records.size();
+        String[][] resultData = new String[rows][];
+        for (int i = 0; i < rows; i++) {
+            resultData[i] = convert2Array(records.get(i));
+        }
+
+        return resultData;
+    }
+
 
     private static String[][] convert(ArrayList<RigEvent> rigEvents) {
         int rows = rigEvents.size();
-        String[][] rowDrillData = new String[rows][];
-        for (int i = 0 ;i < rows; i++) {
+        String[][] resultData = new String[rows][];
+        for (int i = 0; i < rows; i++) {
             RigEvent rigEvent = rigEvents.get(i);
-            StringBuffer sb = new StringBuffer("RigEvent{");
+            StringBuffer sb = new StringBuffer();
             sb.append(rigEvent.getId()).append(",");
             sb.append(formatCalendarDateString(rigEvent.getDate(), "yyyy年MM月dd日")).append(",");
-            sb.append(formatCalendarDateString(rigEvent.getStartTime(),"MM月dd日")).append(",");
-            sb.append(formatCalendarDateString(rigEvent.getEndTime(), "MM月dd日")).append(",");
+            sb.append(formatCalendarDateString(rigEvent.getStartTime(), "hh时mm分")).append(",");
+            sb.append(formatCalendarDateString(rigEvent.getEndTime(), "hh时mm分")).append(",");
             sb.append(rigEvent.getProjectName()).append(",");
             sb.append(rigEvent.getDrillPipeId()).append(",");
             sb.append(rigEvent.getDrillPipeLength()).append(",");
@@ -114,7 +190,7 @@ public class HtmlParser {
             sb.append(rigEvent.getPenetrationLength()).append(",");
             sb.append(rigEvent.getDynamicSoundingType()).append(",");
             sb.append(rigEvent.getSoundingDiameter()).append(",");
-            sb.append(rigEvent.getSoundingLength()).append(",");
+            sb.append(rigEvent.getSoundinglength()).append(",");
             sb.append(rigEvent.getDrillToolTotalLength()).append(",");
             sb.append(rigEvent.getDrillToolRemainLength()).append(",");
             sb.append(rigEvent.getRoundTripMeterage()).append(",");
@@ -122,18 +198,18 @@ public class HtmlParser {
             sb.append(rigEvent.getRockCoreId()).append(",");
             sb.append(rigEvent.getRockCoreLength()).append(",");
             sb.append(rigEvent.getRockCoreRecovery()).append(",");
-            sb.append(rigEvent.getEndDepth() - rigEvent.getStartDepth()).append(",");// 计算深度差
             sb.append(rigEvent.getGroundName()).append(",");
+            sb.append(rigEvent.getEndDepth() - rigEvent.getStartDepth()).append(",");// 计算深度差
             sb.append(rigEvent.getGroundColor()).append(",");
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");
             sb.append(rigEvent.getGroundWeathering()).append(",");
             sb.append(rigEvent.getNote()).append(",");
 
-            rowDrillData[i] = convert2Array(sb.toString());
+            resultData[i] = convert2Array(sb.toString());
         }
 
-        return rowDrillData;
+        return resultData;
     }
 
 }

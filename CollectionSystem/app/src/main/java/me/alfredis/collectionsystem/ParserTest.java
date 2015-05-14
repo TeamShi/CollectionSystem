@@ -3,8 +3,10 @@ package me.alfredis.collectionsystem;
 import java.io.File;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.datastructure.SPTRig;
 import me.alfredis.collectionsystem.parser.HtmlParser;
 
 
@@ -25,6 +27,20 @@ public class ParserTest {
         hole.setRigLists(new ArrayList<RigEvent>());
         ArrayList<RigEvent> rigEvents = hole.getRigLists();
         rigEvents.add(rigEvent);
+
+        SPTRig sptRigEvent = new SPTRig();
+        sptRigEvent.setPenetrationDiameter(0);
+        sptRigEvent.setPenetrationLength(0);
+        rigEvents.add(sptRigEvent);
+
+        DSTRig dstRig = new DSTRig();
+        dstRig.setDynamicSoundingType(RigEvent.DynamicSoundingType.HEAVY);
+        dstRig.setSoundingDiameter(0);
+        dstRig.setSoundinglength(0);
+        DSTRig.DynamicSoundingEvent dynamicSoundingEvent = dstRig.new DynamicSoundingEvent();
+        dstRig.getDynamicSoundingEvents().add(dynamicSoundingEvent);
+        rigEvents.add(dstRig);
+
         ArrayList<Hole> holes = new ArrayList<Hole>();
         holes.add(hole);
 
