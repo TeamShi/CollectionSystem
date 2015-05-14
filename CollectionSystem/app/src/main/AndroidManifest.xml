@@ -25,7 +25,7 @@
             android:label="@string/title_activity_rig" >
         </activity>
         <activity
-            android:name=".parser.RigInfoActivity"
+            android:name=".RigInfoActivity"
             android:label="@string/title_activity_rig_info" >
         </activity>
     </application>
