@@ -31,14 +31,14 @@ public class RigEvent {
     protected double drillLength;             //钻头长度
 
     //贯入器组成
-    protected String penetrationDiameter; //贯入器直径
-    protected String penetrationLength; //贯入器长度
+    protected double penetrationDiameter; //贯入器直径
+    protected double penetrationLength; //贯入器长度
 
     //动探类型
-    protected String DynamicSoundingType;
+    protected DynamicSoundingType dynamicSoundingType;
     //探头组成
-    protected String SoundingDiameter; //探头直接
-    protected String SoundingLength; //探头长度
+    protected double soundingDiameter; //探头直接
+    protected double soundinglength; //探头长度
 
     //进尺
     protected double drillToolTotalLength;    //钻具总长
@@ -61,6 +61,10 @@ public class RigEvent {
     protected String groundWeathering;       //岩石风化程度
 
     protected String Note;                     //TODO 岩土岩性?特殊情况记录
+
+    public RigEvent() {
+        this("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "test note");
+    }
 
     public enum DynamicSoundingType {
         //动探类型： 轻型，重型，超重型
@@ -314,43 +318,43 @@ public class RigEvent {
         this.Note = note;
     }
 
-    public String getPenetrationDiameter() {
+    public double getPenetrationDiameter() {
         return penetrationDiameter;
     }
 
-    public void setPenetrationDiameter(String penetrationDiameter) {
+    public void setPenetrationDiameter(double penetrationDiameter) {
         this.penetrationDiameter = penetrationDiameter;
     }
 
-    public String getPenetrationLength() {
+    public double getPenetrationLength() {
         return penetrationLength;
     }
 
-    public void setPenetrationLength(String penetrationLength) {
+    public void setPenetrationLength(double penetrationLength) {
         this.penetrationLength = penetrationLength;
     }
 
-    public String getDynamicSoundingType() {
-        return DynamicSoundingType;
+    public DynamicSoundingType getDynamicSoundingType() {
+        return dynamicSoundingType;
     }
 
-    public void setDynamicSoundingType(String dynamicSoundingType) {
-        DynamicSoundingType = dynamicSoundingType;
+    public void setDynamicSoundingType(DynamicSoundingType dynamicSoundingType) {
+        this.dynamicSoundingType = dynamicSoundingType;
     }
 
-    public String getSoundingDiameter() {
-        return SoundingDiameter;
+    public double getSoundingDiameter() {
+        return soundingDiameter;
     }
 
-    public void setSoundingDiameter(String soundingDiameter) {
-        SoundingDiameter = soundingDiameter;
+    public void setSoundingDiameter(double soundingDiameter) {
+        this.soundingDiameter = soundingDiameter;
     }
 
-    public String getSoundingLength() {
-        return SoundingLength;
+    public double getSoundinglength() {
+        return soundinglength;
     }
 
-    public void setSoundingLength(String soundingLength) {
-        SoundingLength = soundingLength;
+    public void setSoundinglength(double soundinglength) {
+        this.soundinglength = soundinglength;
     }
 }

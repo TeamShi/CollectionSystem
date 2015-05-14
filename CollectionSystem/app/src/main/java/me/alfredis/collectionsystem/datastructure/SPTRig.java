@@ -35,6 +35,36 @@ public class SPTRig extends RigEvent {
         super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
     }
 
+    public SPTRig() {
+        this.penetrationFrom = 123.45;
+        this.penetrationFrom = 123.45;
+
+        this.penetration1DepthFrom =123.45;
+        this.penetration1DepthTo =123.45;
+        this.penetration1Count =0;
+        this.rig1DepthFrom = 0;
+        this.rig1DepthTo =0;
+
+        this.penetration2DepthFrom =123.45;
+        this.penetration2DepthTo =123.45;
+        this.penetration2Count =0;
+        this.rig2DepthFrom = 0;
+        this.rig2DepthTo =0;
+
+        this.penetration3DepthFrom =123.45;
+        this.penetration3DepthTo =123.45;
+        this.penetration3Count =0;
+        this.rig3DepthFrom = 0;
+        this.rig3DepthTo =0;
+
+        this.groundName = "groundName";
+        this.groundColor ="groundColor";
+        this.groundSaturability ="groundSaturability";
+        this.cumulativeCount = 0;
+
+        this.note = "test note";
+    }
+
     public double getPenetrationFrom() {
         return penetrationFrom;
     }
