@@ -185,7 +185,7 @@ public class HtmlParser {
             sb.append(rigEvent.getCoreBarreliLength()).append(",");
             sb.append(rigEvent.getDrillType()).append(",");
             sb.append(rigEvent.getDrillDiameter()).append(",");
-            sb.append(rigEvent.getDrillPipeLength()).append(",");
+            sb.append(rigEvent.getDrillLength()).append(",");
             sb.append(rigEvent.getPenetrationDiameter()).append(",");
             sb.append(rigEvent.getPenetrationLength()).append(",");
             sb.append(rigEvent.getDynamicSoundingType()).append(",");
