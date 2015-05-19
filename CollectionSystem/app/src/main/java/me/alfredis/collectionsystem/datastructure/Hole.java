@@ -14,7 +14,7 @@ public class Hole implements Serializable {
     private String holeId;                      //钻孔编号
 
     //JC-III14-1-1
-    private HoleIdPart1Type holeIdPart1;
+    private HoleIdPart1Type holeIdPart1;      //勘察点名称
     private String holeIdPart2Year;
     private String holeIdPart3;
     private String holeIdPart4;

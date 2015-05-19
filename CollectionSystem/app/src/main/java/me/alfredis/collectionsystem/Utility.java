@@ -1,7 +1,9 @@
 package me.alfredis.collectionsystem;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 
@@ -19,6 +21,20 @@ public class Utility {
     public static String formatCalendarDateString(Calendar c) {
         return c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH);
     }
+
+    public static Calendar getCalendarFromDateString(String dateString,String simpleDateFormat) {
+        SimpleDateFormat fmt = new SimpleDateFormat(simpleDateFormat);
+        Calendar  c = Calendar.getInstance();
+        Date date = null;
+        try {
+           date =  fmt.parse(dateString);
+            c.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  c;
+    }
+
 
     public static int getProjectStageIndex(Hole.ProjectStageType ps) {
         switch (ps) {

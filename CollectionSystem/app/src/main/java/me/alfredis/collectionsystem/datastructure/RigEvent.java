@@ -98,6 +98,10 @@ public class RigEvent {
         return classPeopleCount;
     }
 
+    public void setClassPeopleCount(String classPeopleCount) {
+        this.classPeopleCount = classPeopleCount;
+    }
+
     public void setId(String classPeopleCount) {
         this.classPeopleCount = classPeopleCount;
     }
