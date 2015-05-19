@@ -78,4 +78,8 @@ public class Utility {
         return row;
     }
 
+    public static String formatTimeString(Calendar c) {
+
+    }
+
 }

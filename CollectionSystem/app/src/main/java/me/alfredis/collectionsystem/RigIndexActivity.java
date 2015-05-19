@@ -2,6 +2,7 @@ package me.alfredis.collectionsystem;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 
 
@@ -55,8 +59,6 @@ public class RigIndexActivity extends ActionBarActivity {
         holeId = getIntent().getStringExtra("holeId");
 
         refreshHoleSpinner();
-
-
     }
 
     @Override
@@ -82,13 +84,39 @@ public class RigIndexActivity extends ActionBarActivity {
     }
 
     private void refreshTable() {
-        //while (rigsTable.getChildCount() > 2) {
-          //   rigsTable.removeViewAt(2);
-        //}
+        while (rigsTable.getChildCount() > 3) {
+            rigsTable.removeViewAt(3);
+        }
+
+        Log.d(TAG, "Draw hole rigs");
 
         for (RigEvent rig : DataManager.getRigEventListByHoleId(holeId)) {
-            //TODO: draw rig
+            TableRow row = new TableRow(this);
+
+            row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+
+            TableLayout.LayoutParams tableLayoutParam = new TableLayout.LayoutParams();
+            tableLayoutParam.setMargins(2, 2, 2, 2);
+            row.setLayoutParams(tableLayoutParam);
+
+            row.addView(createRigContentTextView(rig.getClassPeopleCount()));
+            row.addView(createRigContentTextView(Utility.formatCalendarDateString(rig.getDate())));
+            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getStartTime())));
+            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));l
+
         }
+    }
+
+    private TextView createRigContentTextView(String text) {
+        TextView temp = new TextView(this);
+        temp.setText(text);
+        temp.setBackgroundColor(getResources().getColor(android.R.color.white));
+
+        TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
+        tableRowParam.setMargins(2, 2, 2, 2);
+        temp.setLayoutParams(tableRowParam);
+
+        return temp;
     }
 
     private void refreshHoleSpinner() {
