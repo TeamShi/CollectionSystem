@@ -102,7 +102,7 @@ public class RigIndexActivity extends ActionBarActivity {
             row.addView(createRigContentTextView(rig.getClassPeopleCount()));
             row.addView(createRigContentTextView(Utility.formatCalendarDateString(rig.getDate())));
             row.addView(createRigContentTextView(Utility.formatTimeString(rig.getStartTime())));
-            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));l
+            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));
 
         }
     }

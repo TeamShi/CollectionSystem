@@ -95,7 +95,7 @@ public class Utility {
     }
 
     public static String formatTimeString(Calendar c) {
-
+        return null;
     }
 
 }
