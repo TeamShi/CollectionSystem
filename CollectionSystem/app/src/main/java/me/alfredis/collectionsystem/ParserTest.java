@@ -50,6 +50,7 @@ public class ParserTest {
         //excel output
 //        XlsParser.parse(OutPath,holes);
 
+        //excel input
         XlsParser.parse(OutPath);
 
     }

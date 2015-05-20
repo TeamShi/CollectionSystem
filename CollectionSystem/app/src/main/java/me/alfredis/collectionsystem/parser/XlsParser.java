@@ -36,10 +36,12 @@ import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
  */
 public class XlsParser {
 
+    public static  String[] HOLE_HEADER =  new String[]{"勘察点名称","工程名称","阶 段","冠 词","里  程","偏移量","高  程","经距X","纬距Y","位置描述","记录者",	"记录日期","复核者","复核日期","附  注","孔  深"};
     public static String[] RIGEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
     public static String[] SPTEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
     public static String[] DSTEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
 
+    public static String HOLES_NAME = "钻孔记录";
     public static String RIGEVENT_NAME = "钻孔原始记录";
     public static String SPTEVENT_NAME = "标准贯入表";
     public static String DSTEVENT_NAME = "动力触探表";
@@ -92,69 +94,44 @@ public class XlsParser {
     }
 
     public static ArrayList<Hole> parse(String dirPath) throws Exception {
-        ArrayList<Hole> holes = new ArrayList<Hole>();
+        ArrayList<String[]> holes = read(dirPath + "test.xls");
+        ArrayList<Hole> holeList = convert2Holes(holes);
 
-        HashMap<String, ArrayList<String[]>> map = XlsParser.read(dirPath + "test.xls");
-        ArrayList<String[]> rigRcords = map.get(RIGEVENT_NAME);
-        ArrayList<String[]> sptRcords = map.get(SPTEVENT_NAME);
-        ArrayList<String[]> dstRcords = map.get(DSTEVENT_NAME);
-
-        ArrayList<RigEvent> rigEvents = convert2Rig(rigRcords); //TODO event Id not added
-//      ArrayList<SPTRig> sptEvens =convert2Spt(sptRcords);
-
-        return holes;
+        return holeList;
     }
 
-    private static ArrayList<SPTRig> convert2Spt(ArrayList<String[]> sptRcords) {
+    private static ArrayList<Hole> convert2Holes(ArrayList<String[]> holes) {
+        ArrayList<Hole> list = new ArrayList<>();
 
-        ArrayList<SPTRig> list = new ArrayList<>();
+        for(int i =1,len = holes.size() ;i<len;i++) {
+            String[] values = holes.get(i);
+            Hole hole = new Hole();
+            //set holeId
+            String [] holeIdParts = values[0].split("-");
+            hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1Type.class, holeIdParts[0]));
+            hole.setHoleIdPart2Year(holeIdParts[1].substring(1));
+            hole.setHoleIdPart3(holeIdParts[2]);
+            hole.setHoleIdPart4(holeIdParts[3]);
 
-        for(int i =1,len = sptRcords.size() ;i<len;i++) {
-            String[] values = sptRcords.get(i);
-            SPTRig rigEvent = new SPTRig();
-            rigEvent.setClassPeopleCount(values[0]);
+            hole.setProjectName(values[1]);
+            hole.setProjectStage(Enum.valueOf(Hole.ProjectStageType.class, values[2]));
+            hole.setArticle(Enum.valueOf(Hole.ArticleType.class, values[3]));
+            hole.setMileage(Double.parseDouble(values[4]));
+            hole.setOffset(Double.parseDouble(values[5]));
+            hole.setHoleElevation(Double.parseDouble(values[6]));
+            hole.setLongitudeDistance(Double.parseDouble(values[7]));
+            hole.setLatitudeDistance(Double.parseDouble(values[8]));
 
-            String date = values[1];
-            rigEvent.setDate(Utility.getCalendarFromDateString(date, "yyyy年MM月dd日"));
+            // values[9] --> 位置描述
+            hole.setRecorderName(values[10]);
+            hole.setRecordDate(Utility.getCalendarFromDateString(values[11], "yyyy年MM月dd日"));
 
-            String startDate = date + values[2];
-            rigEvent.setStartTime(Utility.getCalendarFromDateString(startDate, "yyyy年MM月dd日hh时mm分"));
+            hole.setReviewerName(values[10]);
+            hole.setReviewDate(Utility.getCalendarFromDateString(values[11], "yyyy年MM月dd日"));
+            hole.setNote(values[14]);
+            hole.setActuralDepth(Double.parseDouble(values[15]));
 
-            String endDate = date+ values[3];
-            rigEvent.setEndTime(Utility.getCalendarFromDateString(endDate, "yyyy年MM月dd日hh时mm分"));
-
-            rigEvent.setProjectName(values[4]);
-            rigEvent.setDrillPipeId(Integer.parseInt(values[5]));
-            rigEvent.setDrillPipeLength(Double.parseDouble(values[6]));
-            rigEvent.setCumulativeLength(Double.parseDouble(values[7]));
-            rigEvent.setCoreBarreliDiameter(Double.parseDouble(values[8]));
-            rigEvent.setCoreBarreliLength(Double.parseDouble(values[9]));
-            rigEvent.setDrillType(values[10]);
-            rigEvent.setDrillDiameter(Double.parseDouble(values[11]));
-            rigEvent.setDrillLength(Double.parseDouble(values[12]));
-            rigEvent.setPenetrationDiameter(Double.parseDouble(values[13]));
-            rigEvent.setPenetrationLength(Double.parseDouble(values[14]));
-            if(!values [15].equals("")) {
-                rigEvent.setDynamicSoundingType(Enum.valueOf(RigEvent.DynamicSoundingType.class, values[15]));
-            }
-            rigEvent.setSoundingDiameter(Double.parseDouble(values[16]));
-            rigEvent.setSoundinglength(Double.parseDouble(values[17]));
-            rigEvent.setDrillToolTotalLength(Double.parseDouble(values[18]));
-            rigEvent.setDrillToolRemainLength(Double.parseDouble(values[19]));
-            rigEvent.setRoundTripMeterage(Double.parseDouble(values[20]));
-            rigEvent.setCumulativeMeterage(Double.parseDouble(values[21]));
-            rigEvent.setRockCoreId(values[22]);
-            rigEvent.setRockCoreLength(Double.parseDouble(values[23]));
-            rigEvent.setRockCoreRecovery(Double.parseDouble(values[24]));
-            rigEvent.setGroundName(values[25]);
-            rigEvent.setStartDepth(Double.parseDouble(values[26]));
-            rigEvent.setEndDepth(Double.parseDouble(values[27]));
-            rigEvent.setGroundColor(values[28]);
-            rigEvent.setGroundDensity(values[29]);
-            rigEvent.setGroundSaturation(values[30]);
-            rigEvent.setGroundWeathering(values[31]);
-            rigEvent.setNote(values[32]);
-            list.add(rigEvent);
+            list.add(hole);
         }
 
         return list;
@@ -214,7 +191,7 @@ public class XlsParser {
         return list;
     }
 
-    private static HashMap<String, ArrayList<String[]>> read(String filePath) throws IOException {
+    private static ArrayList<String[]> read(String filePath) throws IOException {
         String fileType = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
         InputStream stream = new FileInputStream(filePath);
         Workbook wb = null;
@@ -225,27 +202,17 @@ public class XlsParser {
         } else {
             System.out.println("您输入的excel格式不正确");
         }
-        Sheet rigEventSheet = wb.getSheet(RIGEVENT_NAME);
-        ArrayList<String[]> rigRecords = convertSheet(rigEventSheet);
+        Sheet holesSheet = wb.getSheet(HOLES_NAME);
+        ArrayList<String[]> holes = convertSheet(holesSheet);
 
-        Sheet sptEventSheet = wb.getSheet(SPTEVENT_NAME);
-        ArrayList<String[]> sptRecords = convertSheet(sptEventSheet);
-
-        Sheet dstEventSheet = wb.getSheet(DSTEVENT_NAME);
-        ArrayList<String[]> dstRecords = convertSheet(dstEventSheet);
-
-        HashMap<String, ArrayList<String[]>> map = new HashMap<>();
-        map.put(RIGEVENT_NAME,rigRecords);
-        map.put(SPTEVENT_NAME,sptRecords);
-        map.put(DSTEVENT_NAME, dstRecords);
         stream.close();
 
-        return  map;
+        return  holes;
     }
 
-    private static ArrayList<String[]> convertSheet(Sheet rigEventSheet) {
+    private static ArrayList<String[]> convertSheet(Sheet sheet) {
         ArrayList<String[]> records = new ArrayList<String[]>();
-        for (Row row : rigEventSheet) {
+        for (Row row : sheet) {
             StringBuffer sb = new StringBuffer();
             for (Cell cell : row) {
                 sb.append(cell.getStringCellValue() + ",");
@@ -257,33 +224,43 @@ public class XlsParser {
 
 
     public static void parse(String dirPath, ArrayList<Hole> holes) throws Exception {
-        ArrayList<RigEvent> rigEvents = new ArrayList<RigEvent>();
-        ArrayList<SPTRig> sptRigEvents = new ArrayList<SPTRig>();
-        ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
 
+        String[][] holeArray = convertHoles(holes);
+        XlsParser.write(dirPath + "test.xls", holeArray,HOLES_NAME);
+
+    }
+
+    private static String[][] convertHoles(ArrayList<Hole> holes) {
+        ArrayList<String> records = new ArrayList<>();
         for (int i = 0, len = holes.size(); i < len; i++) {
-            ArrayList<RigEvent> currRigEvents = holes.get(i).getRigLists();
-            rigEvents.addAll(currRigEvents);
-            for (int j = 0, size = currRigEvents.size(); j < size; j++) {
-                RigEvent currRigEvent = rigEvents.get(j);
-                if (currRigEvent instanceof SPTRig) {
-                    sptRigEvents.add((SPTRig) currRigEvent);
-                } else if (rigEvents.get(j) instanceof DSTRig) {
-                    dstRigEvents.add((DSTRig) currRigEvent);
-                } else {
-                    // do nothing
-                }
-            }
+            Hole hole = holes.get(i);
+            StringBuffer sb = new StringBuffer();
+            sb.append(hole.getHoleId()).append(",");
+            sb.append(hole.getProjectName()).append(",");
+            sb.append(hole.getProjectStage()).append(",");
+            sb.append(hole.getArticle()).append(",");
+            sb.append(hole.getMileage()).append(",");
+            sb.append(hole.getOffset()).append(",");
+            sb.append(hole.getHoleElevation()).append(",");
+            sb.append(hole.getLongitudeDistance()).append(",");
+            sb.append(hole.getLatitudeDistance()).append(",");
+            sb.append("position placeholder").append(",");
+            sb.append(hole.getRecorderName()).append(",");
+            sb.append(Utility.formatCalendarDateString(hole.getRecordDate(), "yyyy年MM月dd日")).append(",");
+            sb.append(hole.getReviewerName()).append(",");
+            sb.append(Utility.formatCalendarDateString(hole.getReviewDate(), "yyyy年MM月dd日")).append(",");
+            sb.append(hole.getNote()).append(",");
+            sb.append(hole.getActuralDepth()).append(",");
+
+            records.add(sb.toString());
         }
-
-        String[][] rigEventArray = convertRig(rigEvents);
-        String[][] sptRigEventArray = convertSpt(sptRigEvents);
-        String[][] dstRigEventArray = convertDst(dstRigEvents);
-
-        XlsParser.write(dirPath + "test.xls", rigEventArray,RIGEVENT_NAME);
-        XlsParser.write(dirPath + "test.xls", sptRigEventArray, SPTEVENT_NAME);
-        XlsParser.write(dirPath + "test.xls", dstRigEventArray, DSTEVENT_NAME);
-
+        int rows = records.size() + 1;
+        String[][] resultData = new String[rows][];
+        resultData[0] = HOLE_HEADER;
+        for (int i = 1; i < rows; i++) {
+            resultData[i] = convert2Array(records.get(i - 1));
+        }
+        return resultData;
     }
 
     private static String[][] convertDst(ArrayList<DSTRig> dstRigEvents) {

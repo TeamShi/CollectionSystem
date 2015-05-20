@@ -50,7 +50,6 @@ public class MdbParser {
                         .toTable(db);
                 newTable.addRow(1, "foo");
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
