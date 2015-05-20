@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 
 
@@ -100,9 +99,51 @@ public class RigIndexActivity extends ActionBarActivity {
             row.setLayoutParams(tableLayoutParam);
 
             row.addView(createRigContentTextView(rig.getClassPeopleCount()));
+
             row.addView(createRigContentTextView(Utility.formatCalendarDateString(rig.getDate())));
             row.addView(createRigContentTextView(Utility.formatTimeString(rig.getStartTime())));
             row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));
+            row.addView(createRigContentTextView("TimeSpan placeHolders"));
+
+            row.addView(createRigContentTextView(rig.getProjectName()));
+
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillPipeId())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillPipeLength())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getCumulativeLength())));
+
+            row.addView(createRigContentTextView(String.valueOf(rig.getCoreBarreliDiameter())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getCoreBarreliLength())));
+
+            row.addView(createRigContentTextView(rig.getDrillType()));
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillDiameter())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillLength())));
+
+            row.addView(createRigContentTextView("hole state placeHolder"));
+
+            row.addView(createRigContentTextView(rig.getRockCoreId()));
+            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreLength())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreRecovery())));
+
+            row.addView(createRigContentTextView("rug placeholder 1"));
+            row.addView(createRigContentTextView("rug placeholder 2"));
+            row.addView(createRigContentTextView("rug placeholder 3"));
+            row.addView(createRigContentTextView("rug placeholder 4"));
+
+            row.addView(createRigContentTextView("water placeholder 1"));
+            row.addView(createRigContentTextView("water placeholder 2"));
+            row.addView(createRigContentTextView("water placeholder 3"));
+
+            row.addView(createRigContentTextView("ground placeholder 1"));
+            row.addView(createRigContentTextView("ground placeholder 2"));
+            row.addView(createRigContentTextView("ground placeholder 3"));
+            row.addView(createRigContentTextView("ground placeholder 4"));
+            row.addView(createRigContentTextView("ground placeholder 5"));
+            row.addView(createRigContentTextView("water placeholder 1"));
+            row.addView(createRigContentTextView("water placeholder 2"));
+            row.addView(createRigContentTextView("water placeholder 3"));
+            row.addView(createRigContentTextView("water placeholder 4"));
+
+            row.addView(createRigContentTextView(rig.getNote()));
 
         }
     }
