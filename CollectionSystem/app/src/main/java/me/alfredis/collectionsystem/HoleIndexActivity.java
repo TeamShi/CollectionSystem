@@ -20,6 +20,8 @@ import me.alfredis.collectionsystem.datastructure.Hole;
 public class HoleIndexActivity extends ActionBarActivity implements View.OnClickListener{
     private TableLayout holesTable;
     private Button buttonAddHole;
+    private Button buttonImportData;
+    private Button buttonOutputData;
 
     private static final String TAG = "CollectionSystem";
     private static final int ADD_HOLE = 1;
@@ -37,6 +39,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
         holesTable = (TableLayout) findViewById(R.id.hole_table);
         buttonAddHole = (Button) findViewById(R.id.button_add_hole);
+        buttonOutputData = (Button) findViewById(R.id.button_output_data);
+        buttonImportData = (Button) findViewById(R.id.button_import_data);
 
         buttonAddHole.setOnClickListener(this);
 
@@ -184,6 +188,25 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 Intent intent = new Intent(this, HoleInfoActivity.class);
                 intent.putExtra("requestCode", "ADD_HOLE");
                 startActivityForResult(intent, ADD_HOLE);
+                break;
+            case R.id.button_import_data:
+                Log.d(TAG, "Import data button clicked.");
+
+
+                //TODO: import data
+                DataManager.holes.clear();
+
+
+                Toast.makeText(getApplicationContext(), "导入成功！" , Toast.LENGTH_SHORT).show();
+                refreshTable();
+                break;
+            case R.id.button_output_data:
+                Log.d(TAG, "Output data button clicked.");
+
+                //TODO: output data
+
+                Toast.makeText(getApplicationContext(), "导出成功！" , Toast.LENGTH_SHORT).show();
+                refreshTable();
                 break;
             default:
                 break;
