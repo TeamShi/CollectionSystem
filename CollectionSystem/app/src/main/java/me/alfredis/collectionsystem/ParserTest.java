@@ -8,6 +8,7 @@ import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
 import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
@@ -51,8 +52,10 @@ public class ParserTest {
 //        XlsParser.parse(OutPath,holes);
 
         //excel input
-        XlsParser.parse(OutPath);
+//        XlsParser.parse(OutPath+"/test.xls");
 
+        //mdb output
+        MdbParser.parse(OutPath+"/test.xls",holes);
     }
 
 }

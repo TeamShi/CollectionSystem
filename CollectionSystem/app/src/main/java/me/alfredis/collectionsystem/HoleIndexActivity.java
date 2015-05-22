@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class HoleIndexActivity extends ActionBarActivity implements View.OnClickListener{
@@ -194,20 +195,27 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             case R.id.button_import_data:
                 Log.d(TAG, "Import data button clicked.");
 
-
-                //TODO: import data
-                DataManager.holes.clear();
-
-
-                Toast.makeText(getApplicationContext(), "导入成功！" , Toast.LENGTH_SHORT).show();
-                refreshTable();
+                try {
+                    DataManager.holes.clear();
+                    String path = getFilesDir().getPath().toString()+"/test.xls";
+                    DataManager.holes.addAll(XlsParser.parse(path));
+                    Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
+                    refreshTable();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_output_data:
                 Log.d(TAG, "Output data button clicked.");
-
-                //TODO: output data
-
-                Toast.makeText(getApplicationContext(), "导出成功！" , Toast.LENGTH_SHORT).show();
+                String path = getFilesDir().getPath().toString()+"/test.xls";
+                try {
+                    XlsParser.parse(path,DataManager.holes);
+                    Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 refreshTable();
                 break;
             default:

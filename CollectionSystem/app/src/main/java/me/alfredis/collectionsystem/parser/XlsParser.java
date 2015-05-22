@@ -36,7 +36,7 @@ import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
  */
 public class XlsParser {
 
-    public static  String[] HOLE_HEADER =  new String[]{"勘察点名称","工程名称","阶 段","冠 词","里  程","偏移量","高  程","经距X","纬距Y","位置描述","记录者",	"记录日期","复核者","复核日期","附  注","孔  深"};
+    public static String[] HOLE_HEADER = new String[]{"勘察点名称", "工程名称", "阶 段", "冠 词", "里  程", "偏移量", "高  程", "经距X", "纬距Y", "位置描述", "记录者", "记录日期", "复核者", "复核日期", "附  注", "孔  深"};
     public static String[] RIGEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
     public static String[] SPTEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
     public static String[] DSTEVENT_HEADER = new String[]{"班次/人数", "日期", "作业项目", "开始时间", "结束时间", "钻杆编号"};
@@ -51,26 +51,26 @@ public class XlsParser {
         String fileType = outPath.substring(outPath.lastIndexOf(".") + 1, outPath.length());
         File file = new File(outPath);
         Workbook wb = null;
-        if (file.exists()) {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            if (fileType.equals("xls")) {
-                wb = new HSSFWorkbook(fileInputStream);
-            } else if (fileType.equals("xlsx")) {
-                wb = new XSSFWorkbook(fileInputStream);
-            } else {
-                System.out.println("您的文档格式不正确！");
-                return false;
-            }
+//        if (file.exists()) {
+//            FileInputStream fileInputStream = new FileInputStream(file);
+//            if (fileType.equals("xls")) {
+//                wb = new HSSFWorkbook(fileInputStream);
+//            } else if (fileType.equals("xlsx")) {
+//                wb = new XSSFWorkbook(fileInputStream);
+//            } else {
+//                System.out.println("您的文档格式不正确！");
+//                return false;
+//            }
+//        } else {
+        if (fileType.equals("xls")) {
+            wb = new HSSFWorkbook();
+        } else if (fileType.equals("xlsx")) {
+            wb = new XSSFWorkbook();
         } else {
-            if (fileType.equals("xls")) {
-                wb = new HSSFWorkbook();
-            } else if (fileType.equals("xlsx")) {
-                wb = new XSSFWorkbook();
-            } else {
-                System.out.println("您的文档格式不正确！");
-                return false;
-            }
+            System.out.println("您的文档格式不正确！");
+            return false;
         }
+//        }
 
         Sheet sheet1 = wb.createSheet(sheetName);
         // 循环写入行数据
@@ -85,7 +85,7 @@ public class XlsParser {
         }
 
         // 创建文件流
-        OutputStream stream = new FileOutputStream(file);
+        OutputStream stream = new FileOutputStream(file,false);
         // 写入数据
         wb.write(stream);
         // 关闭文件流
@@ -94,7 +94,7 @@ public class XlsParser {
     }
 
     public static ArrayList<Hole> parse(String dirPath) throws Exception {
-        ArrayList<String[]> holes = read(dirPath + "test.xls");
+        ArrayList<String[]> holes = read(dirPath);
         ArrayList<Hole> holeList = convert2Holes(holes);
 
         return holeList;
@@ -103,11 +103,11 @@ public class XlsParser {
     private static ArrayList<Hole> convert2Holes(ArrayList<String[]> holes) {
         ArrayList<Hole> list = new ArrayList<>();
 
-        for(int i =1,len = holes.size() ;i<len;i++) {
+        for (int i = 1, len = holes.size(); i < len; i++) {
             String[] values = holes.get(i);
             Hole hole = new Hole();
             //set holeId
-            String [] holeIdParts = values[0].split("-");
+            String[] holeIdParts = values[0].split("-");
             hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1Type.class, holeIdParts[0]));
             hole.setHoleIdPart2Year(holeIdParts[1].substring(1));
             hole.setHoleIdPart3(holeIdParts[2]);
@@ -140,7 +140,7 @@ public class XlsParser {
     private static ArrayList<RigEvent> convert2Rig(ArrayList<String[]> rigRcords) {
         ArrayList<RigEvent> list = new ArrayList<>();
 
-        for(int i =1,len = rigRcords.size() ;i<len;i++) {
+        for (int i = 1, len = rigRcords.size(); i < len; i++) {
             String[] values = rigRcords.get(i);
             RigEvent rigEvent = new RigEvent();
             rigEvent.setClassPeopleCount(values[0]);
@@ -151,7 +151,7 @@ public class XlsParser {
             String startDate = date + values[2];
             rigEvent.setStartTime(Utility.getCalendarFromDateString(startDate, "yyyy年MM月dd日hh时mm分"));
 
-            String endDate = date+ values[3];
+            String endDate = date + values[3];
             rigEvent.setEndTime(Utility.getCalendarFromDateString(endDate, "yyyy年MM月dd日hh时mm分"));
 
             rigEvent.setProjectName(values[4]);
@@ -165,7 +165,7 @@ public class XlsParser {
             rigEvent.setDrillLength(Double.parseDouble(values[12]));
             rigEvent.setPenetrationDiameter(Double.parseDouble(values[13]));
             rigEvent.setPenetrationLength(Double.parseDouble(values[14]));
-            if(!values [15].equals("")) {
+            if (!values[15].equals("")) {
                 rigEvent.setDynamicSoundingType(Enum.valueOf(RigEvent.DynamicSoundingType.class, values[15]));
             }
             rigEvent.setSoundingDiameter(Double.parseDouble(values[16]));
@@ -207,7 +207,7 @@ public class XlsParser {
 
         stream.close();
 
-        return  holes;
+        return holes;
     }
 
     private static ArrayList<String[]> convertSheet(Sheet sheet) {
@@ -223,11 +223,10 @@ public class XlsParser {
     }
 
 
-    public static void parse(String dirPath, ArrayList<Hole> holes) throws Exception {
+    public static void parse(String path, ArrayList<Hole> holes) throws Exception {
 
         String[][] holeArray = convertHoles(holes);
-        XlsParser.write(dirPath + "test.xls", holeArray,HOLES_NAME);
-
+        XlsParser.write(path, holeArray, HOLES_NAME);
     }
 
     private static String[][] convertHoles(ArrayList<Hole> holes) {
