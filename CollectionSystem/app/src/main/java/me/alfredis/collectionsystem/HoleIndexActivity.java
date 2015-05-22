@@ -43,6 +43,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         buttonImportData = (Button) findViewById(R.id.button_import_data);
 
         buttonAddHole.setOnClickListener(this);
+        buttonImportData.setOnClickListener(this);
+        buttonOutputData.setOnClickListener(this);
 
         refreshTable();
     }
