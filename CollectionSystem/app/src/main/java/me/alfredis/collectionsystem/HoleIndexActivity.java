@@ -185,6 +185,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        String baseDir = getFilesDir().getPath().toString();
+        String xlsPath = baseDir + "/test.xls";
         switch (v.getId()) {
             case R.id.button_add_hole:
                 Log.d(TAG, "Add new hole button clicked.");
@@ -197,8 +199,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
                 try {
                     DataManager.holes.clear();
-                    String path = getFilesDir().getPath().toString()+"/test.xls";
-                    DataManager.holes.addAll(XlsParser.parse(path));
+                    DataManager.holes.addAll(XlsParser.parse(xlsPath));
                     Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
                     refreshTable();
                 } catch (Exception e) {
@@ -208,9 +209,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 break;
             case R.id.button_output_data:
                 Log.d(TAG, "Output data button clicked.");
-                String path = getFilesDir().getPath().toString()+"/test.xls";
                 try {
-                    XlsParser.parse(path,DataManager.holes);
+                    XlsParser.parse(xlsPath,DataManager.holes);
                     Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
