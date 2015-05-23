@@ -223,10 +223,10 @@ public class XlsParser {
     }
 
 
-    public static void parse(String path, ArrayList<Hole> holes) throws Exception {
+    public static boolean parse(String path, ArrayList<Hole> holes) throws Exception {
 
         String[][] holeArray = convertHoles(holes);
-        XlsParser.write(path, holeArray, HOLES_NAME);
+        return  XlsParser.write(path, holeArray, HOLES_NAME);
     }
 
     private static String[][] convertHoles(ArrayList<Hole> holes) {

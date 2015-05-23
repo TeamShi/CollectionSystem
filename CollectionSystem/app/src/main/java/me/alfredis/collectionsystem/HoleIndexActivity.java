@@ -1,7 +1,9 @@
 package me.alfredis.collectionsystem;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.parser.HtmlParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
@@ -184,8 +187,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        String baseDir = getFilesDir().getPath().toString();
-        String xlsPath = baseDir + "/test.xls";
+        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
+        String xlsPath = baseDir + "test.xls";
         switch (v.getId()) {
             case R.id.button_add_hole:
                 Log.d(TAG, "Add new hole button clicked.");
@@ -198,8 +201,11 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
                 try {
                     DataManager.holes.clear();
-                    DataManager.holes.addAll(XlsParser.parse(xlsPath));
-                    Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
+                    if(DataManager.holes.addAll(XlsParser.parse(xlsPath))){
+                        Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
+                    }
                     refreshTable();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
@@ -209,8 +215,12 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             case R.id.button_output_data:
                 Log.d(TAG, "Output data button clicked.");
                 try {
-                    XlsParser.parse(xlsPath,DataManager.holes);
-                    Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
+                    AssetManager assetManageer = getAssets();
+                    if( XlsParser.parse(xlsPath,DataManager.holes) && HtmlParser.parse(baseDir, DataManager.holes,assetManageer) ){
+                        Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
                     e.printStackTrace();

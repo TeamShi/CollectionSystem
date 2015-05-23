@@ -1,5 +1,11 @@
 package me.alfredis.collectionsystem.parser;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.net.Uri;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,6 +13,7 @@ import org.jsoup.nodes.Element;
 import java.io.*;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.R;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -19,13 +26,13 @@ import static me.alfredis.collectionsystem.Utility.*;
  */
 public class HtmlParser {
 
-    public static String BASIC_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "RigEventTable.html";
-    public static String SPT_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "SPTRigEventTable.html";
-    public static String DST_RIG_EVENT_TEMPLATE = "." + File.separator + "template" + File.separator + "DSTRigEventTable.html";
+    public static String BASIC_RIG_EVENT_TEMPLATE = "RigEventTable.html";
+    public static String SPT_RIG_EVENT_TEMPLATE = "SPTRigEventTable.html";
+    public static String DST_RIG_EVENT_TEMPLATE = "DSTRigEventTable.html";
 
     public static String TBODY_ID = "tableBody";
 
-    public static boolean write(String outPath, String[][] data, String templatePath) throws IOException {
+    public static boolean write(String outPath, String[][] data, InputStream inputStream) throws IOException {
         String fileType = outPath.substring(outPath.lastIndexOf(".") + 1, outPath.length());
         if (!fileType.equals("html")) {
             System.out.println("您的文档格式不正确(非html)！");
@@ -33,8 +40,7 @@ public class HtmlParser {
         }
 
         //读模版文件
-        File input = new File(templatePath);
-        Document doc = Jsoup.parse(input, "UTF-8");
+        Document doc = Jsoup.parse(inputStream, "UTF-8","./");
         Element tbody = doc.getElementById(TBODY_ID);
 
         // 循环写入行数据
@@ -56,12 +62,13 @@ public class HtmlParser {
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write(doc.outerHtml());
         bufferedWriter.close();
+        fileWriter.close();
 
         return true;
 
     }
 
-    public static boolean parse(String dirPath, ArrayList<Hole> holes) throws IOException {
+    public static boolean parse(String dirPath, ArrayList<Hole> holes, AssetManager assetManager) throws IOException {
         ArrayList<RigEvent> rigEvents = new ArrayList<RigEvent>();
         ArrayList<SPTRig> sptRigEvents = new ArrayList<SPTRig>();
         ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
@@ -87,9 +94,9 @@ public class HtmlParser {
         String[][] sptRigEventArray = convertSpt(sptRigEvents);
         String[][] dstRigEventArray = convertDst(dstRigEvents);
 
-        write(dirPath + "rigEvent.html", rigEventArray, BASIC_RIG_EVENT_TEMPLATE);
-        write(dirPath + "sptRigEvent.html", sptRigEventArray, SPT_RIG_EVENT_TEMPLATE);
-        write(dirPath + "dstRigEvent.html", dstRigEventArray, DST_RIG_EVENT_TEMPLATE);
+        write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+        write(dirPath + "sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+        write(dirPath + "dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
 
         return true;
     }

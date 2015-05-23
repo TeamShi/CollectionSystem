@@ -1,5 +1,7 @@
 package me.alfredis.collectionsystem;
 
+import android.content.res.AssetManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

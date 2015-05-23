@@ -46,7 +46,7 @@ public class ParserTest {
         holes.add(hole);
 
         //html output
-        HtmlParser.parse(OutPath,holes);
+//        HtmlParser.parse(OutPath,holes, "./template/");
 
         //excel output
 //        XlsParser.parse(OutPath,holes);
