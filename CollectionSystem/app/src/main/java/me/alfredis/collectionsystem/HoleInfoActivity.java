@@ -39,7 +39,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button stableLevelButton;
     private Button recordDateButton;
     private Button reviewDateButton;
-    private Button offsetSignButton;
 
     private EditText mileageEditText;
     private EditText offsetEditText;
@@ -95,7 +94,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton = (Button) findViewById(R.id.button_stable_level_date);
         recordDateButton = (Button) findViewById(R.id.button_record_date);
         reviewDateButton = (Button) findViewById(R.id.button_review_date);
-        offsetSignButton = (Button) findViewById(R.id.button_offset_sign);
 
         mileageEditText = (EditText) findViewById(R.id.hole_mileage);
         offsetEditText = (EditText) findViewById(R.id.hole_offset);
@@ -134,7 +132,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setOnClickListener(this);
         recordDateButton.setOnClickListener(this);
         reviewDateButton.setOnClickListener(this);
-        offsetSignButton.setOnClickListener(this);
 
         projectStageSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
         projectStageSpinner.setAdapter(projectStageSpinnerAdapter);

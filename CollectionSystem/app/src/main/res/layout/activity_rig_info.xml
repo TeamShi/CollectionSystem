@@ -85,7 +85,7 @@
                     android:layout_margin="2dip">
 
                     <TextView
-                        android:text="日期"
+                        android:text="作业项目"
                         android:background="@android:color/holo_green_light"
                         android:layout_margin="2dip"
                         android:gravity="center"
@@ -104,8 +104,21 @@
                         android:layout_margin="2dip"
                         android:singleLine="true"/>
                 </TableRow>
+
+                <fragment
+                    android:id="@+id/fragment_rig_details"
+                    android:name="me.alfredis.collectionsystem.BlankRigFragment"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    tools:layout="@layout/fragment_blank_rig">
+                </fragment>
             </TableLayout>
         </ScrollView>
+
+
+
+
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -125,7 +125,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         drawHoleContent();
     }
 
-
     private void drawHoleContent() {
         Log.d(TAG, "Draw hole information");
         for (Hole hole : DataManager.holes) {
@@ -177,7 +176,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         temp.setBackgroundColor(getResources().getColor(android.R.color.white));
 
         TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
-        tableRowParam.setMargins(2,2,2,2);
+        tableRowParam.setMargins(2, 2, 2, 2);
         temp.setLayoutParams(tableRowParam);
 
         return temp;

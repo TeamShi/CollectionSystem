@@ -1,5 +1,6 @@
 package me.alfredis.collectionsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 
 
-public class RigIndexActivity extends ActionBarActivity {
+public class RigIndexActivity extends ActionBarActivity implements View.OnClickListener{
     private TableLayout rigsTable;
     private Button buttonAddRig;
     private Spinner holeSpinner;
@@ -31,6 +32,8 @@ public class RigIndexActivity extends ActionBarActivity {
 
     private static final String TAG = "ColletionSystem";
 
+    private static final int ADD_RIG = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,11 @@ public class RigIndexActivity extends ActionBarActivity {
 
         holeSpinner = (Spinner) findViewById(R.id.spinner_hole);
 
+        buttonAddRig = (Button) findViewById(R.id.button_add_rig);
+
         holeArray = new ArrayList<>();
+
+        buttonAddRig.setOnClickListener(this);
 
         holeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -177,5 +184,17 @@ public class RigIndexActivity extends ActionBarActivity {
         holeSpinner.setAdapter(holeAdapter);
 
         holeSpinner.setSelection(selectedIndex);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_add_rig:
+                Log.d(TAG, "Add new rig button clicked.");
+                Intent intent = new Intent(this, RigInfoActivity.class);
+                intent.putExtra("requestCode", "ADD_RIG");
+                startActivityForResult(intent, ADD_RIG);
+                break;
+        }
     }
 }
