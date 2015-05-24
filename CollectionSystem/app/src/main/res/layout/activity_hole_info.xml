@@ -276,11 +276,6 @@
                         android:layout_height="wrap_content"
                         android:layout_width="fill_parent"
                         android:layout_weight="3">
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/button_offset_sign"
-                            android:text="+/-"/>
                         <EditText
                             android:id="@+id/hole_offset"
                             android:inputType="text"
@@ -289,8 +284,8 @@
                             android:layout_margin="2dip"
                             android:singleLine="true"
                             android:layout_height="fill_parent"
-                            android:layout_width="fill_parent"/>
-
+                            android:layout_width="fill_parent"
+                            android:hint="左-右+"/>
                     </LinearLayout>
 
 
