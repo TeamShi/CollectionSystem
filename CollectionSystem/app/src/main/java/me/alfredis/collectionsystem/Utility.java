@@ -1,7 +1,9 @@
 package me.alfredis.collectionsystem;
 
-import android.content.res.AssetManager;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -98,6 +100,22 @@ public class Utility {
 
     public static String formatTimeString(Calendar c) {
         return null;
+    }
+
+    public static void copyFile(InputStream is, File dest) throws IOException {
+        FileOutputStream fos = new FileOutputStream(dest);
+        byte[] buffer = new byte[1024];
+        int count = 0;
+        while (true) {
+            count++;
+            int len = is.read(buffer);
+            if (len == -1) {
+                break;
+            }
+            fos.write(buffer, 0, len);
+        }
+        is.close();
+        fos.close();
     }
 
 }
