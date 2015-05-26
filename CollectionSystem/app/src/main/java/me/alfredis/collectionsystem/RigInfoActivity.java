@@ -1,9 +1,7 @@
 package me.alfredis.collectionsystem;
 
-import android.app.Fragment;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import me.alfredis.collectionsystem.R;
-import me.alfredis.collectionsystem.datastructure.CasedRig;
-import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
-import me.alfredis.collectionsystem.datastructure.SPTRig;
 
 public class RigInfoActivity extends ActionBarActivity {
 
@@ -36,7 +30,7 @@ public class RigInfoActivity extends ActionBarActivity {
     private static final int ADD_RIG = 0;
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
-            "干钻、合水钻、金刚石钻及其他", "标准贯入试验", "动力触探试验", "下套管"};
+            "干钻", "合水钻", "金刚石钻", "x粒钻", "标准贯入试验", "动力触探试验", "下套管"};
 
     private  ArrayAdapter<String> rigTypeAdapter;
 
@@ -73,15 +67,18 @@ public class RigInfoActivity extends ActionBarActivity {
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, blankRigFragment).commit();
                         break;
                     case 1:
+                    case 2:
+                    case 3:
+                    case 4:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
-                    case 2:
+                    case 5:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
-                    case 3:
+                    case 6:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
-                    case 4:
+                    case 7:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:

@@ -740,15 +740,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                     }
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
-            case R.id.button_offset_sign:
-                try {
-                    hole.setOffset(-Double.valueOf(offsetEditText.getText().toString()));
-                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
-                } catch (Exception e) {
-                    offsetEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-                }
-                Toast.makeText(getApplicationContext(), String.valueOf(hole.getOffset()), Toast.LENGTH_SHORT);
-                offsetEditText.setText(String.valueOf(hole.getOffset()));
             default:
                 break;
         }
