@@ -104,6 +104,69 @@
                         android:layout_margin="2dip"
                         android:singleLine="true"/>
                 </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dip">
+                    <TextView
+                        android:text="时间"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        />
+                    <TextView
+                        android:text="自时、分"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="wrap_content"
+                        />
+                    <Button
+                        android:id="@+id/button_start_time"
+                        android:background="@android:color/white"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:text="至时、分"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="wrap_content"
+                        />
+                    <Button
+                        android:id="@+id/button_end_time"
+                        android:background="@android:color/white"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="计时分"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="wrap_content"
+                        />
+                    <TextView
+                        android:id="@+id/textview_rig_time_duration"
+                        android:text="0:00"
+                        android:background="@android:color/white"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
 
                 <fragment
                     android:id="@+id/fragment_rig_details"
