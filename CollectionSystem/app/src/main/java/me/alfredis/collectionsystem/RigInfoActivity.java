@@ -107,7 +107,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     default:
                         break;
                 }
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override

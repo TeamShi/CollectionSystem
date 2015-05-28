@@ -29,11 +29,15 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TableLayout
+            android:layout_height="fill_parent">
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/hole_info_table"
                 android:background="@android:color/holo_green_dark"
                 android:layout_margin="2dip">
@@ -49,14 +53,15 @@
                         android:textColor="@android:color/black"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="1"
+                        android:layout_span="2"
                         />
                     <EditText
                         android:id="@+id/class_people_count"
                         android:layout_height="fill_parent"
                         android:inputType="text"
                         android:background="@android:color/white"
-                        android:layout_weight="3"
+                        android:layout_width="match_parent"
+                        android:layout_span="1"
                         android:layout_margin="2dip"
                         android:singleLine="true"/>
 
@@ -69,6 +74,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:layout_span="1"
                         />
                     <Button
                         android:id="@+id/button_rig_date"
@@ -102,7 +108,8 @@
                         android:background="@android:color/white"
                         android:layout_weight="5"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:layout_width="match_parent" />
                 </TableRow>
                 <TableRow
                     android:layout_width="fill_parent"
@@ -130,7 +137,8 @@
                         android:id="@+id/button_start_time"
                         android:background="@android:color/white"
                         android:layout_height="fill_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:layout_width="match_parent" />
                     <TextView
                         android:text="至时、分"
                         android:background="@android:color/holo_green_light"
@@ -145,7 +153,7 @@
                         android:background="@android:color/white"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        />
+                        android:layout_width="match_parent" />
                     <TextView
                         android:text="计时分"
                         android:background="@android:color/holo_green_light"
@@ -164,18 +172,31 @@
                         android:textColor="@android:color/black"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        />
+                        android:layout_width="match_parent" />
 
                 </TableRow>
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="4px"
+                        android:layout_margin="2dip"
+                        android:background="@android:color/black">
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="4px"></EditText>
+                    </TableRow>
+            </TableLayout>
+
+
 
                 <fragment
                     android:id="@+id/fragment_rig_details"
                     android:name="me.alfredis.collectionsystem.BlankRigFragment"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    tools:layout="@layout/fragment_blank_rig">
+                    tools:layout="@layout/fragment_normal_rig">
                 </fragment>
-            </TableLayout>
+
+            </LinearLayout>
         </ScrollView>
 
 
