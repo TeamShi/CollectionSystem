@@ -67,6 +67,7 @@ public class RigEvent {
 
         Calendar c = Calendar.getInstance();
 
+        this.date = c;
         this.startTime = c;
         this.endTime = c;
     }
