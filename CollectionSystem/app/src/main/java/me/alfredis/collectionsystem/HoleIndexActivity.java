@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.parser.HtmlParser;
 import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
@@ -226,7 +228,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                         InputStream is = assetManageer.open("DlcGeoInfo.mdb");
                         Utility.copyFile(is,mdbFile);
                     }
-                    if( XlsParser.parse(xlsPath,DataManager.holes) && HtmlParser.parse(baseDir, DataManager.holes,assetManageer) && MdbParser.parse(mdbFile,DataManager.holes)){
+                    ArrayList<Hole> holeList = DataManager.holes;
+                    for(Hole hole:holeList) {
+                        if(null == hole.getRigLists()){
+                            hole.setRigLists(new ArrayList<RigEvent>());
+                        }
+                    }
+
+                    boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
+                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes,assetManageer);
+                    boolean exportMdb =  MdbParser.parse(mdbFile,DataManager.holes);
+
+                    if( exportHtml&& exportMdb &&exportXls){
                         Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
