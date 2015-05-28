@@ -64,6 +64,12 @@ public class RigEvent {
 
     public RigEvent() {
         this("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "test note");
+
+        Calendar c = Calendar.getInstance();
+
+        this.date = c;
+        this.startTime = c;
+        this.endTime = c;
     }
 
     public enum DynamicSoundingType {
@@ -75,8 +81,6 @@ public class RigEvent {
         //作业类型： 合钻，标贯，动探
         NormalRig, StandardPenetration, DynamicSounding
     }
-
-
     public RigEvent(String classPeopleCount, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
         Calendar c = Calendar.getInstance();
         this.classPeopleCount = classPeopleCount;

@@ -16,8 +16,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.InputStream;
+
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
@@ -189,6 +193,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     public void onClick(View v) {
         String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
         String xlsPath = baseDir + "test.xls";
+        String mdbPath = baseDir+"DlcGeoInfo.mdb";
         switch (v.getId()) {
             case R.id.button_add_hole:
                 Log.d(TAG, "Add new hole button clicked.");
@@ -216,7 +221,12 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 Log.d(TAG, "Output data button clicked.");
                 try {
                     AssetManager assetManageer = getAssets();
-                    if( XlsParser.parse(xlsPath,DataManager.holes) && HtmlParser.parse(baseDir, DataManager.holes,assetManageer) ){
+                    File mdbFile = new File(mdbPath);
+                    if(!mdbFile.exists()) {
+                        InputStream is = assetManageer.open("DlcGeoInfo.mdb");
+                        Utility.copyFile(is,mdbFile);
+                    }
+                    if( XlsParser.parse(xlsPath,DataManager.holes) && HtmlParser.parse(baseDir, DataManager.holes,assetManageer) && MdbParser.parse(mdbFile,DataManager.holes)){
                         Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();

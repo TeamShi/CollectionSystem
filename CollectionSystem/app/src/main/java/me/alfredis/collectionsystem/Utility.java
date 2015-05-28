@@ -1,7 +1,9 @@
 package me.alfredis.collectionsystem;
 
-import android.content.res.AssetManager;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -97,7 +99,47 @@ public class Utility {
     }
 
     public static String formatTimeString(Calendar c) {
-        return null;
+        return c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+    }
+
+    public static void copyFile(InputStream is, File dest) throws IOException {
+        FileOutputStream fos = new FileOutputStream(dest);
+        byte[] buffer = new byte[1024];
+        int count = 0;
+        while (true) {
+            count++;
+            int len = is.read(buffer);
+            if (len == -1) {
+                break;
+            }
+            fos.write(buffer, 0, len);
+        }
+        is.close();
+        fos.close();
+    }
+
+    public static String calculateTimeSpan(Calendar c1, Calendar c2) {
+        int hour1 = c1.get(Calendar.HOUR_OF_DAY);
+        int hour2 = c2.get(Calendar.HOUR_OF_DAY);
+        int minute1 = c1.get(Calendar.MINUTE);
+        int minute2 = c2.get(Calendar.MINUTE);
+
+        int answerHour = 0;
+        int answerMinute = 0;
+
+        if (minute2 < minute1) {
+            answerMinute = minute2 + 60 - minute1;
+            answerHour = hour2 - hour1;
+        } else {
+            answerHour = hour2 - hour1;
+            answerMinute = minute2 - minute1;
+        }
+
+        if (answerMinute < 10) {
+            return answerHour + ":0" + answerMinute;
+        } else {
+            return answerHour + ":" + answerMinute;
+        }
     }
 
 }

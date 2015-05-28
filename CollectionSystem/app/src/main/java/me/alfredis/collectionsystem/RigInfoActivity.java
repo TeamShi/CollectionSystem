@@ -1,26 +1,28 @@
 package me.alfredis.collectionsystem;
 
-import android.app.Fragment;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.ActionBarActivity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import me.alfredis.collectionsystem.R;
-import me.alfredis.collectionsystem.datastructure.CasedRig;
-import me.alfredis.collectionsystem.datastructure.Hole;
-import me.alfredis.collectionsystem.datastructure.RigEvent;
-import me.alfredis.collectionsystem.datastructure.SPTRig;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-public class RigInfoActivity extends ActionBarActivity {
+import me.alfredis.collectionsystem.datastructure.RigEvent;
+
+public class RigInfoActivity extends ActionBarActivity implements View.OnClickListener {
 
     private RigEvent rig;
     private String requestCode;
@@ -28,6 +30,11 @@ public class RigInfoActivity extends ActionBarActivity {
     private EditText classPeopleCountEditText;
 
     private Button addRigButton;
+    private Button startTimeButton;
+    private Button endTimeButton;
+    private Button rigDateButton;
+
+    private TextView rigTimeDurationTextView;
 
     private Spinner rigTypeSpinner;
 
@@ -36,7 +43,7 @@ public class RigInfoActivity extends ActionBarActivity {
     private static final int ADD_RIG = 0;
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
-            "干钻、合水钻、金刚石钻及其他", "标准贯入试验", "动力触探试验", "下套管"};
+            "干钻", "合水钻", "金刚石钻", "x粒钻", "标准贯入试验", "动力触探试验", "下套管"};
 
     private  ArrayAdapter<String> rigTypeAdapter;
 
@@ -59,7 +66,17 @@ public class RigInfoActivity extends ActionBarActivity {
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
 
-        addRigButton = (Button) findViewById(R.id.button_add_rig);
+        addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
+        startTimeButton = (Button) findViewById(R.id.button_start_time);
+        endTimeButton = (Button) findViewById(R.id.button_end_time);
+        rigDateButton = (Button) findViewById(R.id.button_rig_date);
+
+        addRigButton.setOnClickListener(this);
+        startTimeButton.setOnClickListener(this);
+        endTimeButton.setOnClickListener(this);
+        rigDateButton.setOnClickListener(this);
+
+        rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
 
@@ -73,15 +90,18 @@ public class RigInfoActivity extends ActionBarActivity {
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, blankRigFragment).commit();
                         break;
                     case 1:
+                    case 2:
+                    case 3:
+                    case 4:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
-                    case 2:
+                    case 5:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
-                    case 3:
+                    case 6:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
-                    case 4:
+                    case 7:
                         getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:
@@ -95,6 +115,18 @@ public class RigInfoActivity extends ActionBarActivity {
 
             }
         });
+
+        requestCode = getIntent().getStringExtra("requestCode");
+
+        switch (requestCode) {
+            case "ADD_RIG":
+                rig = new RigEvent();
+
+                refreshRigInfoTable();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -117,5 +149,71 @@ public class RigInfoActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Calendar calendar = Calendar.getInstance();
+
+        switch (v.getId()) {
+            case R.id.button_rig_date:
+                Calendar rigDate = rig.getDate();
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(year, monthOfYear, dayOfMonth);
+                        rig.setDate(temp);
+                        rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
+                    }
+                }, rigDate.get(Calendar.YEAR), rigDate.get(Calendar.MONTH), rigDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.button_confirm_add_rig:
+                break;
+            case R.id.button_start_time:
+                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(1, 1, 1, hourOfDay, minute);
+                        rig.setStartTime(temp);
+                        if (rig.getStartTime().get(Calendar.HOUR_OF_DAY) > rig.getEndTime().get(Calendar.HOUR_OF_DAY)
+                                || (rig.getStartTime().get(Calendar.HOUR_OF_DAY) == rig.getEndTime().get(Calendar.HOUR_OF_DAY)
+                                && (rig.getStartTime().get(Calendar.MINUTE) > rig.getEndTime().get(Calendar.MINUTE)))) {
+                            rig.setEndTime(rig.getStartTime());
+                            endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
+                        }
+                        startTimeButton.setText(Utility.formatTimeString(rig.getStartTime()));
+                        rigTimeDurationTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
+                    }
+                }, rig.getStartTime().get(Calendar.HOUR), rig.getStartTime().get(Calendar.MINUTE), true).show();
+                break;
+            case R.id.button_end_time:
+                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        GregorianCalendar temp = new GregorianCalendar();
+                        temp.set(1, 1, 1, hourOfDay, minute);
+                        rig.setEndTime(temp);
+                        if (rig.getStartTime().get(Calendar.HOUR_OF_DAY) > rig.getEndTime().get(Calendar.HOUR_OF_DAY)
+                                || (rig.getStartTime().get(Calendar.HOUR_OF_DAY) == rig.getEndTime().get(Calendar.HOUR_OF_DAY)
+                                && (rig.getStartTime().get(Calendar.MINUTE) > rig.getEndTime().get(Calendar.MINUTE)))) {
+                            rig.setStartTime(rig.getEndTime());
+                            startTimeButton.setText(Utility.formatTimeString(rig.getStartTime()));
+                        }
+                        endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
+                        rigTimeDurationTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
+                    }
+                }, rig.getStartTime().get(Calendar.HOUR), rig.getStartTime().get(Calendar.MINUTE), true).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void refreshRigInfoTable() {
+        startTimeButton.setText(Utility.formatTimeString(rig.getStartTime()));
+        endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
+        rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
     }
 }
