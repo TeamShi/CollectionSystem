@@ -90,7 +90,7 @@ public class Utility {
     public static String[] convert2Array(String string) {
         String[] row = string.split(",");
         for (int j = 0, colLen = row.length; j < colLen; j++) {
-            System.out.println(row[j]);
+//            System.out.println(row[j]);
             if (row[j].equals("null")) {
                 row[j] = "";
             }

@@ -6,6 +6,8 @@ import java.util.Calendar;
  * Created by Alfred on 15/5/4.
  */
 public class RigEvent {
+    protected String holeId ; //勘察点ID
+    protected  String eventId;  //作业ID
     protected String classPeopleCount;        //班次/人数
     protected Calendar date;                  //日期
     protected String projectName;             //作业项目
@@ -37,7 +39,7 @@ public class RigEvent {
     //动探类型
     protected DynamicSoundingType dynamicSoundingType;
     //探头组成
-    protected double soundingDiameter; //探头直接
+    protected double soundingDiameter; //探头直径
     protected double soundinglength; //探头长度
 
     //进尺
@@ -56,7 +58,7 @@ public class RigEvent {
     protected double endDepth;                //本钻止深度
     protected String groundName;              //岩土名称
     protected String groundColor;             //岩土颜色
-    protected String groundDensity;           //岩土臭密度
+    protected String groundDensity;           //岩土稠密度
     protected String groundSaturation;       //岩土饱和度
     protected String groundWeathering;       //岩石风化程度
 
@@ -364,5 +366,21 @@ public class RigEvent {
 
     public void setSoundinglength(double soundinglength) {
         this.soundinglength = soundinglength;
+    }
+
+    public String getHoleId() {
+        return holeId;
+    }
+
+    public void setHoleId(String holeId) {
+        this.holeId = holeId;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }

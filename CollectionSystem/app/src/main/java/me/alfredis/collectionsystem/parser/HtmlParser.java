@@ -1,25 +1,24 @@
 package me.alfredis.collectionsystem.parser;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.net.Uri;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
-import me.alfredis.collectionsystem.R;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
 
-import static me.alfredis.collectionsystem.Utility.*;
+import static me.alfredis.collectionsystem.Utility.convert2Array;
+import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
 
 /**
  * Created by jishshi on 2015/5/10.

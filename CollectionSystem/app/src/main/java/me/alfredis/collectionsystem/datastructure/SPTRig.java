@@ -15,7 +15,7 @@ public class SPTRig extends RigEvent {
     private int penetration2Count;              //第二击贯入击数
     private double penetration3DepthFrom;       //第三击起深度
     private double penetration3DepthTo;         //第三击止深度
-    private double penetration3Count;           //第三击中贯入击数
+    private int penetration3Count;           //第三击中贯入击数
 
     private double rig1DepthFrom;               //钻进1深度起
     private double rig1DepthTo;                 //钻进1深度止
@@ -36,6 +36,7 @@ public class SPTRig extends RigEvent {
     }
 
     public SPTRig() {
+        this.projectName = "标贯";
         this.penetrationFrom = 123.45;
         this.penetrationFrom = 123.45;
 
@@ -64,6 +65,7 @@ public class SPTRig extends RigEvent {
 
         this.note = "test note";
     }
+
 
     public double getPenetrationFrom() {
         return penetrationFrom;
@@ -145,11 +147,11 @@ public class SPTRig extends RigEvent {
         this.penetration3DepthTo = penetration3DepthTo;
     }
 
-    public double getPenetration3Count() {
+    public int getPenetration3Count() {
         return penetration3Count;
     }
 
-    public void setPenetration3Count(double penetration3Count) {
+    public void setPenetration3Count(int penetration3Count) {
         this.penetration3Count = penetration3Count;
     }
 

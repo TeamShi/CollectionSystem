@@ -10,7 +10,7 @@ public class DSTRig extends RigEvent{
         super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
     }
 
-    public class DynamicSoundingEvent {
+    public static class DynamicSoundingEvent {
         public double totalLength;      //探杆总长
         public double digDepth;         //入土深度
         public double penetration;      //贯入度
@@ -18,6 +18,7 @@ public class DSTRig extends RigEvent{
         public String compactness;      //密实度
 
         public DynamicSoundingEvent() {
+            this.compactness = "密实";
         }
 
         public double getTotalLength() {
@@ -67,6 +68,7 @@ public class DSTRig extends RigEvent{
     private String groundName;                                          //岩土名称
 
     public DSTRig() {
+        this.projectName= "动探";
         this.dynamicSoundingEvents = new ArrayList<DynamicSoundingEvent>();
         this.groundName ="groundName";
     }
