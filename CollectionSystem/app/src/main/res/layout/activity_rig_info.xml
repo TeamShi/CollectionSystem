@@ -179,10 +179,9 @@
                         android:id="@+id/rig_drill_table_row"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_margin="2dip"
-                        android:visibility="gone">
+                        android:layout_margin="2dip">
                         <TextView
-                            android:text="时间"
+                            android:text="钻杆组成"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -192,7 +191,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="钻杆编号（增加）"
+                            android:text="钻杆长度（增加）"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -230,7 +229,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="钻杆编号（增加）"
+                            android:text="累计长度"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -253,8 +252,7 @@
                         android:id="@+id/coreBarreli_table_row"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_margin="2dip"
-                        android:visibility="gone">
+                        android:layout_margin="2dip">
                         <TextView
                             android:text="岩芯管"
                             android:background="@android:color/holo_green_light"
@@ -305,11 +303,64 @@
                             android:layout_weight="3"/>
                     </TableRow>
                     <TableRow
+                        android:id="@+id/penetration_table_row"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2dip">
+                        <TextView
+                            android:text="贯入器"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <TextView
+                            android:text="直径"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_core_bnarreli_diameter_penetration"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:text="长度"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_core_bnarreli_length_penetration"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"
+                            android:layout_weight="3"/>
+                    </TableRow>
+                    <TableRow
                         android:id="@+id/drill_table_row"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_margin="2dip"
-                        android:visibility="gone">
+                        android:layout_margin="2dip">
                         <TextView
                             android:text="钻头组成"
                             android:background="@android:color/holo_green_light"
@@ -382,8 +433,7 @@
                         android:id="@+id/drill_tool_table_row"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_margin="2dip"
-                        android:visibility="gone">
+                        android:layout_margin="2dip">
                         <TextView
                             android:text="进尺"
                             android:background="@android:color/holo_green_light"
@@ -447,8 +497,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip"
-                        android:id="@+id/drill_tool_table_row_2"
-                        android:visibility="gone">
+                        android:id="@+id/drill_tool_table_row_2">
                         <TextView
                             android:text=""
                             android:background="@android:color/holo_green_dark"
@@ -512,8 +561,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip"
-                        android:id="@+id/rock_core_table_row"
-                        android:visibility="gone">
+                        android:id="@+id/rock_core_table_row">
                         <TextView
                             android:text="岩芯采取"
                             android:background="@android:color/holo_green_light"
@@ -586,8 +634,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip"
-                        android:id="@+id/ground_table_row"
-                        android:visibility="gone">
+                        android:id="@+id/ground_table_row">
                         <TextView
                             android:text="地层"
                             android:background="@android:color/holo_green_light"
@@ -660,8 +707,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip"
-                        android:id="@+id/ground_table_row_2"
-                        android:visibility="gone">
+                        android:id="@+id/ground_table_row_2">
                         <TextView
                             android:text=""
                             android:background="@android:color/holo_green_dark"
@@ -734,8 +780,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip"
-                        android:id="@+id/ground_table_row_3"
-                        android:visibility="gone">
+                        android:id="@+id/ground_table_row_3">
                         <TextView
                             android:text=""
                             android:background="@android:color/holo_green_dark"
@@ -762,6 +807,153 @@
                             android:inputType="text"
                             android:background="@android:color/white"
                             android:layout_weight="5"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                    </TableRow>
+                    <TableRow
+                    android:id="@+id/wall_table_row"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dip">
+                    <TextView
+                        android:text="护壁措施"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="护壁类型"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="套管"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="编号"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="直径"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="长度"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="总长"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_height="fill_parent"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        />
+                </TableRow>
+                    <TableRow
+                        android:id="@+id/wall_table_row_2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2dip">
+                        <TextView
+                            android:text=""
+                            android:background="@android:color/holo_green_dark"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_wall_type"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                        <TextView
+                            android:text=""
+                            android:background="@android:color/holo_green_dark"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_wall_number"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                        <EditText
+                            android:id="@+id/edit_text_wall_diameter"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                        <EditText
+                            android:id="@+id/edit_text_wall_length"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                        <EditText
+                            android:id="@+id/edit_text_wall_total_length"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
                             android:layout_margin="2dip"
                             android:singleLine="true"
                             android:layout_width="0dip"/>

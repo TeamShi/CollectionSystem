@@ -40,6 +40,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private TableRow rigDrillTableRow;
     private TableRow coreBarreliTableRow;
+    private TableRow penetrationTableRow;
     private TableRow drillTableRow;
     private TableRow drillToolTableRow1;
     private TableRow drillToolTableRow2;
@@ -47,6 +48,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private TableRow groundTableRow;
     private TableRow groundTableRow2;
     private TableRow groundTableRow3;
+    private TableRow wallTableRow;
+    private TableRow wallTableRow2;
 
 
 
@@ -67,12 +70,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigDrillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
         drillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
         coreBarreliTableRow = (TableRow) findViewById(R.id.coreBarreli_table_row);
+        penetrationTableRow = (TableRow) findViewById(R.id.penetration_table_row);
         drillToolTableRow1 = (TableRow) findViewById(R.id.drill_tool_table_row);
         drillToolTableRow2 = (TableRow) findViewById(R.id.drill_tool_table_row_2);
         rockCoreTableRow = (TableRow) findViewById(R.id.rock_core_table_row);
         groundTableRow = (TableRow) findViewById(R.id.ground_table_row);
         groundTableRow2 = (TableRow) findViewById(R.id.ground_table_row_2);
         groundTableRow3 = (TableRow) findViewById(R.id.ground_table_row_3);
+        wallTableRow = (TableRow) findViewById(R.id.wall_table_row);
+        wallTableRow2 = (TableRow) findViewById(R.id.wall_table_row_2);
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
 
@@ -101,12 +107,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.GONE);
                         coreBarreliTableRow.setVisibility(View.GONE);
+                        penetrationTableRow.setVisibility(View.GONE);
                         drillToolTableRow1.setVisibility(View.GONE);
                         drillToolTableRow2.setVisibility(View.GONE);
                         rockCoreTableRow.setVisibility(View.GONE);
                         groundTableRow.setVisibility(View.GONE);
                         groundTableRow2.setVisibility(View.GONE);
                         groundTableRow3.setVisibility(View.GONE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
                         break;
                     case 1:
                     case 2:
@@ -115,30 +124,60 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rigDrillTableRow.setVisibility(View.VISIBLE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.VISIBLE);
                         drillToolTableRow1.setVisibility(View.VISIBLE);
                         drillToolTableRow2.setVisibility(View.VISIBLE);
                         rockCoreTableRow.setVisibility(View.VISIBLE);
                         groundTableRow.setVisibility(View.VISIBLE);
                         groundTableRow2.setVisibility(View.VISIBLE);
                         groundTableRow3.setVisibility(View.VISIBLE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
                     case 5:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.VISIBLE);
-                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.GONE);
+                        penetrationTableRow.setVisibility(View.VISIBLE);
                         drillToolTableRow1.setVisibility(View.VISIBLE);
                         drillToolTableRow2.setVisibility(View.VISIBLE);
                         rockCoreTableRow.setVisibility(View.GONE);
                         groundTableRow.setVisibility(View.GONE);
                         groundTableRow2.setVisibility(View.GONE);
                         groundTableRow3.setVisibility(View.GONE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
                     case 6:
+                        rigDrillTableRow.setVisibility(View.GONE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.GONE);
+                        groundTableRow.setVisibility(View.GONE);
+                        groundTableRow2.setVisibility(View.GONE);
+                        groundTableRow3.setVisibility(View.GONE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
                     case 7:
+                        rigDrillTableRow.setVisibility(View.GONE);
+                        drillTableRow.setVisibility(View.GONE);
+                        coreBarreliTableRow.setVisibility(View.GONE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.GONE);
+                        drillToolTableRow2.setVisibility(View.GONE);
+                        rockCoreTableRow.setVisibility(View.GONE);
+                        groundTableRow.setVisibility(View.GONE);
+                        groundTableRow2.setVisibility(View.GONE);
+                        groundTableRow3.setVisibility(View.GONE);
+                        wallTableRow.setVisibility(View.VISIBLE);
+                        wallTableRow2.setVisibility(View.VISIBLE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:
