@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -38,6 +38,18 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private Spinner rigTypeSpinner;
 
+    private TableRow rigDrillTableRow;
+    private TableRow coreBarreliTableRow;
+    private TableRow drillTableRow;
+    private TableRow drillToolTableRow1;
+    private TableRow drillToolTableRow2;
+    private TableRow rockCoreTableRow;
+    private TableRow groundTableRow;
+    private TableRow groundTableRow2;
+    private TableRow groundTableRow3;
+
+
+
     private static final String TAG = "CollectionSystem";
 
     private static final int ADD_RIG = 0;
@@ -47,22 +59,20 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private  ArrayAdapter<String> rigTypeAdapter;
 
-    private BlankRigFragment blankRigFragment;
-    private NormalRigFragment normalRigFragment;
-    private DSTRigFragment dstRigFragment;
-    private SPTRigFragment sptRigFragment;
-    private CasedRigFragment casedRigFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rig_info);
 
-        blankRigFragment = new BlankRigFragment();
-        normalRigFragment = new NormalRigFragment();
-        dstRigFragment = new DSTRigFragment();
-        sptRigFragment = new SPTRigFragment();
-        casedRigFragment = new CasedRigFragment();
+        rigDrillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
+        drillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
+        coreBarreliTableRow = (TableRow) findViewById(R.id.coreBarreli_table_row);
+        drillToolTableRow1 = (TableRow) findViewById(R.id.drill_tool_table_row);
+        drillToolTableRow2 = (TableRow) findViewById(R.id.drill_tool_table_row_2);
+        rockCoreTableRow = (TableRow) findViewById(R.id.rock_core_table_row);
+        groundTableRow = (TableRow) findViewById(R.id.ground_table_row);
+        groundTableRow2 = (TableRow) findViewById(R.id.ground_table_row_2);
+        groundTableRow3 = (TableRow) findViewById(R.id.ground_table_row_3);
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
 
@@ -87,22 +97,49 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, blankRigFragment).commit();
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, blankRigFragment).commit();
+                        rigDrillTableRow.setVisibility(View.GONE);
+                        drillTableRow.setVisibility(View.GONE);
+                        coreBarreliTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.GONE);
+                        drillToolTableRow2.setVisibility(View.GONE);
+                        rockCoreTableRow.setVisibility(View.GONE);
+                        groundTableRow.setVisibility(View.GONE);
+                        groundTableRow2.setVisibility(View.GONE);
+                        groundTableRow3.setVisibility(View.GONE);
                         break;
                     case 1:
                     case 2:
                     case 3:
                     case 4:
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
+                        rigDrillTableRow.setVisibility(View.VISIBLE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow2.setVisibility(View.VISIBLE);
+                        groundTableRow3.setVisibility(View.VISIBLE);
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
                     case 5:
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
+                        rigDrillTableRow.setVisibility(View.GONE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.GONE);
+                        groundTableRow.setVisibility(View.GONE);
+                        groundTableRow2.setVisibility(View.GONE);
+                        groundTableRow3.setVisibility(View.GONE);
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
                     case 6:
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
                     case 7:
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:
                         break;
