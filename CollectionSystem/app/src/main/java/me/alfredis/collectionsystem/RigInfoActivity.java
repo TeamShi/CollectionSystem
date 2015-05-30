@@ -33,6 +33,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private Button startTimeButton;
     private Button endTimeButton;
     private Button rigDateButton;
+    private Button sptButton;
+    private Button dstButton;
 
     private TextView rigTimeDurationTextView;
 
@@ -50,8 +52,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private TableRow groundTableRow3;
     private TableRow wallTableRow;
     private TableRow wallTableRow2;
-
-
+    private TableRow specialRigRow;
 
     private static final String TAG = "CollectionSystem";
 
@@ -79,6 +80,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundTableRow3 = (TableRow) findViewById(R.id.ground_table_row_3);
         wallTableRow = (TableRow) findViewById(R.id.wall_table_row);
         wallTableRow2 = (TableRow) findViewById(R.id.wall_table_row_2);
+        specialRigRow = (TableRow) findViewById(R.id.special_rig_table_row);
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
 
@@ -86,11 +88,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         startTimeButton = (Button) findViewById(R.id.button_start_time);
         endTimeButton = (Button) findViewById(R.id.button_end_time);
         rigDateButton = (Button) findViewById(R.id.button_rig_date);
+        sptButton = (Button) findViewById(R.id.button_spt_detail);
+        dstButton = (Button) findViewById(R.id.button_dst_detail);
 
         addRigButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
         rigDateButton.setOnClickListener(this);
+        sptButton.setOnClickListener(this);
+        dstButton.setOnClickListener(this);
 
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
@@ -116,6 +122,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         groundTableRow3.setVisibility(View.GONE);
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.GONE);
                         break;
                     case 1:
                     case 2:
@@ -133,6 +140,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         groundTableRow3.setVisibility(View.VISIBLE);
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
                     case 5:
@@ -148,6 +156,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         groundTableRow3.setVisibility(View.GONE);
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.VISIBLE);
+                        sptButton.setVisibility(View.VISIBLE);
+                        dstButton.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
                     case 6:
@@ -163,6 +174,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         groundTableRow3.setVisibility(View.GONE);
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.VISIBLE);
+                        sptButton.setVisibility(View.GONE);
+                        dstButton.setVisibility(View.VISIBLE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
                     case 7:
@@ -178,6 +192,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         groundTableRow3.setVisibility(View.GONE);
                         wallTableRow.setVisibility(View.VISIBLE);
                         wallTableRow2.setVisibility(View.VISIBLE);
+                        specialRigRow.setVisibility(View.GONE);
                         //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:
