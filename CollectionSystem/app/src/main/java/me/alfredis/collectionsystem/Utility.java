@@ -100,7 +100,7 @@ public class Utility {
 
     public static String formatTimeString(Calendar c) {
         int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
         if (minute < 10) {
             return hour + ":0" + minute;
         } else {

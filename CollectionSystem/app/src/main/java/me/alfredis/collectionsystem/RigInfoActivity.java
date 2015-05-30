@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private RigEvent rig;
     private String requestCode;
     private String holeId;
+    private int selectedRigType;
 
     private static final int STOP_RIG = 0;
     private static final int DRY_RIG = 1;
@@ -40,6 +43,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int DOWN_RIG = 7;
 
     private EditText classPeopleCountEditText;
+    private EditText drillPipeIdEditText;
+    private EditText drillPipeLengthEditText;
+    private EditText cumulativeLengthEditText;
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -97,6 +103,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         specialRigRow = (TableRow) findViewById(R.id.special_rig_table_row);
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
+        drillPipeIdEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_id);
+        drillPipeLengthEditText = (EditText) findViewById(R.id.edit_text_drill_length);
+        cumulativeLengthEditText = (EditText) findViewById(R.id.edit_text_cumulative_length);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -111,6 +120,56 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigDateButton.setOnClickListener(this);
         sptButton.setOnClickListener(this);
         dstButton.setOnClickListener(this);
+
+        drillPipeIdEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        drillPipeLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        cumulativeLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
@@ -136,6 +195,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
+                        selectedRigType = STOP_RIG;
                         break;
                     case DRY_RIG:
                     case WATER_MIX_RIG:
@@ -154,6 +214,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
+                        selectedRigType = DRY_RIG;
                         break;
                     case SPT_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -171,6 +232,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
+                        selectedRigType = SPT_RIG;
                         break;
                     case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -188,6 +250,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
+                        selectedRigType = DST_RIG;
                         break;
                     case DOWN_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -203,6 +266,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.VISIBLE);
                         wallTableRow2.setVisibility(View.VISIBLE);
                         specialRigRow.setVisibility(View.GONE);
+                        selectedRigType = DOWN_RIG;
                         break;
                     default:
                         break;
@@ -286,7 +350,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rig.setStartTime(temp);
                         if (rig.getStartTime().get(Calendar.HOUR_OF_DAY) > rig.getEndTime().get(Calendar.HOUR_OF_DAY)
                                 || (rig.getStartTime().get(Calendar.HOUR_OF_DAY) == rig.getEndTime().get(Calendar.HOUR_OF_DAY)
-                                && (rig.getStartTime().get(Calendar.MINUTE) > rig.getEndTime().get(Calendar.MINUTE)))) {
+                                && rig.getStartTime().get(Calendar.MINUTE) > rig.getEndTime().get(Calendar.MINUTE))) {
                             rig.setEndTime(rig.getStartTime());
                             endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
                         }

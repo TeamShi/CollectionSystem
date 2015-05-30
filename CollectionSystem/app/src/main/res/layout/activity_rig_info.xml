@@ -194,7 +194,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="钻杆长度（增加）"
+                            android:text="钻杆编号（增加）"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -213,7 +213,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="钻杆编号（增加）"
+                            android:text="钻杆长度（增加）"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
