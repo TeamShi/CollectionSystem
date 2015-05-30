@@ -59,7 +59,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int ADD_RIG = 0;
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
-            "干钻", "合水钻", "金刚石钻", "x粒钻", "标准贯入试验", "动力触探试验", "下套管"};
+            "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
 
     private  ArrayAdapter<String> rigTypeAdapter;
 

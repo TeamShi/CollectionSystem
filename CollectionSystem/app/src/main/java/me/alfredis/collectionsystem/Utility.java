@@ -99,7 +99,13 @@ public class Utility {
     }
 
     public static String formatTimeString(Calendar c) {
-        return c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.HOUR_OF_DAY);
+        if (minute < 10) {
+            return hour + ":0" + minute;
+        } else {
+            return hour + ":" + minute;
+        }
     }
 
     public static void copyFile(InputStream is, File dest) throws IOException {
