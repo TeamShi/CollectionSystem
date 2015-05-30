@@ -30,6 +30,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private String requestCode;
     private String holeId;
 
+    private static final int STOP_RIG = 0;
+    private static final int DRY_RIG = 1;
+    private static final int WATER_MIX_RIG = 2;
+    private static final int D_RIG = 3;
+    private static final int STEEL_RIG = 4;
+    private static final int SPT_RIG = 5;
+    private static final int DST_RIG = 6;
+    private static final int DOWN_RIG = 7;
+
     private EditText classPeopleCountEditText;
 
     private Button addRigButton;
@@ -113,7 +122,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case 0:
+                    case STOP_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.GONE);
                         coreBarreliTableRow.setVisibility(View.GONE);
@@ -128,10 +137,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
+                    case DRY_RIG:
+                    case WATER_MIX_RIG:
+                    case D_RIG:
+                    case STEEL_RIG:
                         rigDrillTableRow.setVisibility(View.VISIBLE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.VISIBLE);
@@ -146,7 +155,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         break;
-                    case 5:
+                    case SPT_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.GONE);
@@ -163,7 +172,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
                         break;
-                    case 6:
+                    case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.VISIBLE);
@@ -180,7 +189,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
                         break;
-                    case 7:
+                    case DOWN_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.GONE);
                         coreBarreliTableRow.setVisibility(View.GONE);
