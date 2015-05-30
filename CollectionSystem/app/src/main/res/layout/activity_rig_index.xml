@@ -28,6 +28,22 @@
                 android:text="录入"
                 android:id="@+id/button_add_rig" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导出钻孔信息表"
+                android:id="@+id/button_export_normal_rig_table" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导出标贯信息表"
+                android:id="@+id/button_export_spt_rig_table" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导出动探信息表"
+                android:id="@+id/button_export_dst_rig_table" />
+
         </LinearLayout>
 
         <HorizontalScrollView

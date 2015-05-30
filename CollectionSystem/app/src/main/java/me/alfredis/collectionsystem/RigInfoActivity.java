@@ -74,7 +74,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         holeId = getIntent().getStringExtra("holeId");
 
         rigDrillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
-        drillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
+        drillTableRow = (TableRow) findViewById(R.id.drill_table_row);
         coreBarreliTableRow = (TableRow) findViewById(R.id.coreBarreli_table_row);
         penetrationTableRow = (TableRow) findViewById(R.id.penetration_table_row);
         drillToolTableRow1 = (TableRow) findViewById(R.id.drill_tool_table_row);
