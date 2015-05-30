@@ -27,10 +27,16 @@
                 android:id="@+id/button_output_data" />
 
             <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="导入"
+            android:id="@+id/button_import_data" />
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="导入"
-                android:id="@+id/button_import_data" />
+                android:text="导出所有功能"
+                android:id="@+id/button_export_all" />
         </LinearLayout>
 
         <HorizontalScrollView
