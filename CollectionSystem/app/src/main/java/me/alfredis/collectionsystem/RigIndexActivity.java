@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,9 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
     private static final String TAG = "ColletionSystem";
 
     private static final int ADD_RIG = 0;
+
+    private static final int CONTEXT_MENU_QUERY = 0;
+    private static final int CONTEXT_MENU_DELETE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,32 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_rig, menu);
+
+        return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.add(0, CONTEXT_MENU_QUERY, 0, "查询");
+        menu.add(0, CONTEXT_MENU_DELETE, 0, "删除");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String rigIndex = getIntent().getStringExtra("SelectedRigIndex");
+        switch (item.getItemId()) {
+            case CONTEXT_MENU_QUERY:
+
+                break;
+            case CONTEXT_MENU_DELETE:
+                DataManager.deleteRig(holeId, Integer.valueOf(rigIndex));
+                Toast.makeText(getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show();
+
+                refreshTable();
+                break;
+        }
         return true;
     }
 
@@ -96,6 +127,7 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
 
         Log.d(TAG, "Draw hole rigs");
 
+        int index = 0;
         for (RigEvent rig : DataManager.getRigEventListByHoleId(holeId)) {
             TableRow row = new TableRow(this);
 
@@ -152,6 +184,19 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
 
             row.addView(createRigContentTextView(rig.getNote()));
 
+            row.setTag(index);
+            index++;
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    setIntent(getIntent().putExtra("SelectedRigIndex", v.getTag().toString()));
+                    return false;
+                }
+            });
+
+            registerForContextMenu(row);
+
+            rigsTable.addView(row);
         }
     }
 
@@ -193,8 +238,21 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
                 Log.d(TAG, "Add new rig button clicked.");
                 Intent intent = new Intent(this, RigInfoActivity.class);
                 intent.putExtra("requestCode", "ADD_RIG");
+                intent.putExtra("holeId", holeId);
                 startActivityForResult(intent, ADD_RIG);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_RIG) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "Get new hole.");
+                refreshTable();
+            }
         }
     }
 }

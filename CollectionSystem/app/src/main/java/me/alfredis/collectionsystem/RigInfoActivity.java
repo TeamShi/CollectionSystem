@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,6 +28,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private RigEvent rig;
     private String requestCode;
+    private String holeId;
 
     private EditText classPeopleCountEditText;
 
@@ -68,6 +71,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rig_info);
 
+        holeId = getIntent().getStringExtra("holeId");
+
         rigDrillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
         drillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
         coreBarreliTableRow = (TableRow) findViewById(R.id.coreBarreli_table_row);
@@ -109,7 +114,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, blankRigFragment).commit();
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.GONE);
                         coreBarreliTableRow.setVisibility(View.GONE);
@@ -141,7 +145,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, normalRigFragment).commit();
                         break;
                     case 5:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -159,7 +162,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, dstRigFragment).commit();
                         break;
                     case 6:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -177,7 +179,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, sptRigFragment).commit();
                         break;
                     case 7:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -193,7 +194,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.VISIBLE);
                         wallTableRow2.setVisibility(View.VISIBLE);
                         specialRigRow.setVisibility(View.GONE);
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_rig_details, casedRigFragment).commit();
                         break;
                     default:
                         break;
@@ -259,6 +259,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 }, rigDate.get(Calendar.YEAR), rigDate.get(Calendar.MONTH), rigDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_confirm_add_rig:
+                Log.d(TAG, "Add button clicked.");
+
+                if (requestCode.equals("ADD_RIG")) {
+                    DataManager.AddRigByHoleId(holeId, rig);
+                    this.setResult(RESULT_OK);
+                    this.finish();
+                } else if (requestCode.equals("QUERY_RIG")) {
+                }
                 break;
             case R.id.button_start_time:
                 new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -302,6 +310,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void refreshRigInfoTable() {
+        classPeopleCountEditText.setText(rig.getClassPeopleCount());
         startTimeButton.setText(Utility.formatTimeString(rig.getStartTime()));
         endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));

@@ -4,8 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_hole_info">基本信息表</string>
-    <string name="title_activity_rig">RigActivity</string>
-    <string name="title_activity_rig_info">RigInfoActivity</string>
+    <string name="title_activity_rig">钻探信息表</string>
+    <string name="title_activity_rig_info">钻探原始信息录入</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

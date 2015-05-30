@@ -42,4 +42,20 @@ public class DataManager {
         }
         return null;
     }
+
+    public static void AddRigByHoleId (String holeId, RigEvent rig) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                hole.getRigLists().add(rig);
+            }
+        }
+    }
+
+    public static void deleteRig(String holeId, int index) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                hole.getRigLists().remove(index);
+            }
+        }
+    }
 }
