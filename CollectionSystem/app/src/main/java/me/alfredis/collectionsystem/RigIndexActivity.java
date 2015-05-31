@@ -1,7 +1,9 @@
 package me.alfredis.collectionsystem;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -17,9 +19,16 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.MdbParser;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class RigIndexActivity extends ActionBarActivity implements View.OnClickListener{
@@ -251,6 +260,9 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
+        AssetManager assetManageer = getAssets();
+        ArrayList<RigEvent> rigEvents = DataManager.getRigEventListByHoleId(holeId);
         switch (v.getId()) {
             case R.id.button_add_rig:
                 Log.d(TAG, "Add new rig button clicked.");
@@ -260,20 +272,29 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
                 startActivityForResult(intent, ADD_RIG);
                 break;
             case R.id.button_export_normal_rig_table:
-                //TODO: EXPORT
                 //holeId is the one you need to output.
-
-                Toast.makeText(getApplicationContext(), "导出钻探信息表成功", Toast.LENGTH_SHORT).show();
+                boolean exportHtml = HtmlParser.parseRig(baseDir, rigEvents, assetManageer);
+                if (exportHtml) {
+                    Toast.makeText(getApplicationContext(), "导出钻探信息表成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "导出钻探信息表失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.button_export_spt_rig_table:
-                //TODO: EXPORT
-
-                Toast.makeText(getApplicationContext(), "导出标贯信息表成功", Toast.LENGTH_SHORT).show();
+                boolean exportSPTHtml = HtmlParser.parseSptRig(baseDir, rigEvents, assetManageer);
+                if (exportSPTHtml) {
+                    Toast.makeText(getApplicationContext(), "导出标贯信息表成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "导出标贯信息表失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.button_export_dst_rig_table:
-                //TODO: EXPORT
-
-                Toast.makeText(getApplicationContext(), "导出动探信息表成功", Toast.LENGTH_SHORT).show();
+                boolean exportDSTHtml = HtmlParser.parseDstRig(baseDir, rigEvents, assetManageer);
+                if (exportDSTHtml) {
+                    Toast.makeText(getApplicationContext(), "导出动探信息表成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "导出动探信息表失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

@@ -55,14 +55,14 @@ public class RigEvent implements Serializable {
     protected double rockCoreRecovery;        //岩芯采取旅
 
     //地层
-    protected double startDepth;              //本钻起深度 TODO 计算深度差?
+    protected double startDepth;              //本钻起深度
     protected double endDepth;                //本钻止深度
     protected String groundName;              //岩土名称
     protected String groundColor;             //岩土颜色
     protected String groundDensity;           //岩土稠密度
     protected String groundSaturation;       //岩土饱和度
     protected String groundWeathering;       //岩石风化程度
-    protected String note;                     //TODO 岩土岩性?特殊情况记录
+    protected String note;                     //岩土岩性
 
     protected String startEndDiscription;
 

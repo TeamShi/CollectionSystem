@@ -7,6 +7,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,14 +69,13 @@ public class HtmlParser {
 
     }
 
-    public static boolean parse(String dirPath, ArrayList<Hole> holes, AssetManager assetManager) throws IOException {
+    public static boolean parse(String dirPath, ArrayList<Hole> holes, AssetManager assetManager) {
         ArrayList<RigEvent> rigEvents = new ArrayList<RigEvent>();
         ArrayList<SPTRig> sptRigEvents = new ArrayList<SPTRig>();
         ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
 
         for (int i = 0, len = holes.size(); i < len; i++) {
             ArrayList<RigEvent> currRigEvents = holes.get(i).getRigList();
-            rigEvents.addAll(currRigEvents);
             for (int j = 0, size = currRigEvents.size(); j < size; j++) {
                 RigEvent currRigEvent = rigEvents.get(j);
                 if (currRigEvent instanceof SPTRig) {
@@ -82,7 +83,7 @@ public class HtmlParser {
                 } else if (rigEvents.get(j) instanceof DSTRig) {
                     dstRigEvents.add((DSTRig) currRigEvent);
                 } else {
-                    // do nothing
+                    rigEvents.add(currRigEvent);
                 }
             }
         }
@@ -93,9 +94,89 @@ public class HtmlParser {
         String[][] sptRigEventArray = convertSpt(sptRigEvents);
         String[][] dstRigEventArray = convertDst(dstRigEvents);
 
-        write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
-        write(dirPath + "sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
-        write(dirPath + "dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+        try {
+            write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            write(dirPath + "sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+            write(dirPath + "dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean parseRig(String dirPath, ArrayList<RigEvent> rigEvents, AssetManager assetManager) {
+        if(rigEvents == null) {
+            return false;
+        }
+
+        ArrayList<RigEvent> list = new ArrayList<RigEvent>();
+        for (int j = 0, size = rigEvents.size(); j < size; j++) {
+            RigEvent currRigEvent = rigEvents.get(j);
+            if (currRigEvent != null && !(currRigEvent instanceof SPTRig) && !(rigEvents.get(j) instanceof DSTRig)) {
+                list.add(currRigEvent);
+            }
+        }
+
+        String[][] rigEventArray = convert(list);
+
+        try {
+            write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean parseSptRig(String dirPath, ArrayList<RigEvent> rigEvents, AssetManager assetManager) {
+        if(rigEvents == null) {
+            return false;
+        }
+
+        ArrayList<SPTRig> list = new ArrayList<SPTRig>();
+        for (int j = 0, size = rigEvents.size(); j < size; j++) {
+            RigEvent currRigEvent = rigEvents.get(j);
+            if (currRigEvent instanceof SPTRig) {
+                list.add((SPTRig) currRigEvent);
+            }
+        }
+
+        String[][] sptEventArray = convertSpt(list);
+
+        try {
+            write(dirPath + "sptRigEvent.html", sptEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean parseDstRig(String dirPath, ArrayList<RigEvent> rigEvents, AssetManager assetManager) {
+        if(rigEvents == null) {
+            return false;
+        }
+
+        ArrayList<DSTRig> list = new ArrayList<DSTRig>();
+        for (int j = 0, size = rigEvents.size(); j < size; j++) {
+            RigEvent currRigEvent = rigEvents.get(j);
+            if (currRigEvent instanceof DSTRig) {
+                list.add((DSTRig) currRigEvent);
+            }
+        }
+
+        String[][] dstEventArray = convertDst(list);
+
+        try {
+            write(dirPath + "dstRigEvent.html", dstEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         return true;
     }
@@ -216,6 +297,40 @@ public class HtmlParser {
         }
 
         return resultData;
+    }
+
+    public static boolean parseToLocal(String outPath, ArrayList<Hole> holes, String srcTemplate) throws IOException {
+        ArrayList<RigEvent> rigEvents = new ArrayList<RigEvent>();
+        ArrayList<SPTRig> sptRigEvents = new ArrayList<SPTRig>();
+        ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
+
+        for (int i = 0, len = holes.size(); i < len; i++) {
+            ArrayList<RigEvent> currRigEvents = holes.get(i).getRigList();
+            rigEvents.addAll(currRigEvents);
+            for (int j = 0, size = currRigEvents.size(); j < size; j++) {
+                RigEvent currRigEvent = rigEvents.get(j);
+                if (currRigEvent instanceof SPTRig) {
+                    sptRigEvents.add((SPTRig) currRigEvent);
+                } else if (rigEvents.get(j) instanceof DSTRig) {
+                    dstRigEvents.add((DSTRig) currRigEvent);
+                } else {
+                    // do nothing
+                }
+            }
+        }
+
+
+        //html output
+        String[][] rigEventArray = convert(rigEvents);
+        String[][] sptRigEventArray = convertSpt(sptRigEvents);
+        String[][] dstRigEventArray = convertDst(dstRigEvents);
+
+        write(outPath + "rigEvent.html", rigEventArray, new FileInputStream(srcTemplate+"/"+BASIC_RIG_EVENT_TEMPLATE));
+        write(outPath + "sptRigEvent.html", sptRigEventArray, new FileInputStream(srcTemplate+"/"+SPT_RIG_EVENT_TEMPLATE));
+        write(outPath + "dstRigEvent.html", dstRigEventArray, new FileInputStream(srcTemplate + "/"+DST_RIG_EVENT_TEMPLATE));
+
+        return true;
+
     }
 
 }

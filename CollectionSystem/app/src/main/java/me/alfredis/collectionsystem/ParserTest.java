@@ -61,7 +61,6 @@ public class ParserTest {
         ArrayList<Hole> list = XlsParser.parse(OutPath + "test.xls");
 
         //mdb output
-        //TODO: Compile error.
 //        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
     }
 
