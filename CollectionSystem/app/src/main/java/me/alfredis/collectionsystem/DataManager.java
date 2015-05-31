@@ -81,7 +81,7 @@ public class DataManager {
             if (hole.getHoleId().equals(holeId)) {
                 double length = 0;
                 for (RigEvent rig : hole.getRigList()) {
-                    length += rig.getCumulativeLength();
+                    length += rig.getDrillPipeLength();
                 }
                 return length;
             }

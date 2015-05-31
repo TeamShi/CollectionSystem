@@ -151,7 +151,7 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView(Utility.formatCalendarDateString(rig.getDate())));
             row.addView(createRigContentTextView(Utility.formatTimeString(rig.getStartTime())));
             row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));
-            row.addView(createRigContentTextView("TimeSpan placeHolders"));
+            row.addView(createRigContentTextView(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime())));
 
             row.addView(createRigContentTextView(rig.getProjectName()));
 

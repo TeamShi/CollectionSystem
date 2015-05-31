@@ -3,6 +3,7 @@ package me.alfredis.collectionsystem;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -160,8 +161,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 try {
                     rig.setDrillPipeLength(Double.parseDouble(s.toString()));
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
-                    rig.setCumulativeLength(rig.getCumulativeLength() + Double.parseDouble(s.toString()));
-                    cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
+                    cumulativeLengthEditText.setText(String.valueOf(DataManager.calculateCumulativePipeLength(holeId) + Double.parseDouble(s.toString())));
                 } catch (Exception e) {
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -182,7 +182,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-                    rig.setDrillPipeLength(Double.parseDouble(s.toString()));
+                    rig.setCumulativeLength(Double.parseDouble(s.toString()));
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -362,6 +362,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 break;
             case R.id.button_confirm_add_rig:
                 Log.d(TAG, "Add button clicked.");
+
+                rig.setCumulativeLength(Double.valueOf(cumulativeLengthEditText.getText().toString()));
 
                 if (requestCode.equals("ADD_RIG")) {
                     DataManager.AddRigByHoleId(holeId, rig);
