@@ -49,6 +49,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText drillPipeIdEditText;
     private EditText drillPipeLengthEditText;
     private EditText cumulativeLengthEditText;
+    private EditText coreBarreliDiameterEditText;
+    private EditText coreBarreliLengthEditText;
+    private EditText coreBarreliDiameterPenetrationEditText;
+    private EditText coreBarreliLengthPenetrationEditText;
+    private EditText drillTypeEditText;
+    private EditText drillDiameterEditText;
+    private EditText drillLengthEditText;
+
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -109,6 +117,13 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillPipeIdEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_id);
         drillPipeLengthEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_length);
         cumulativeLengthEditText = (EditText) findViewById(R.id.edit_text_cumulative_length);
+        coreBarreliDiameterEditText = (EditText) findViewById(R.id.edit_text_core_barreli_diameter);
+        coreBarreliLengthEditText = (EditText) findViewById(R.id.edit_text_core_barreli_length);
+        coreBarreliDiameterPenetrationEditText = (EditText) findViewById(R.id.edit_text_core_barreli_diameter_penetration);
+        coreBarreliLengthPenetrationEditText = (EditText) findViewById(R.id.edit_text_core_barreli_length_penetration);
+        drillTypeEditText = (EditText) findViewById(R.id.edit_text_drill_type);
+        drillDiameterEditText = (EditText) findViewById(R.id.edit_text_drill_diameter);
+        drillLengthEditText = (EditText) findViewById(R.id.edit_text_drill_length);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -190,6 +205,141 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
+        coreBarreliDiameterEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setCoreBarreliDiameter(Double.parseDouble(s.toString()));
+                    coreBarreliDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    coreBarreliDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        coreBarreliLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setCoreBarreliLength(Double.parseDouble(s.toString()));
+                    coreBarreliLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    coreBarreliLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        //TODO: for SPT
+        coreBarreliDiameterPenetrationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        //TODO: for SPT
+        coreBarreliLengthPenetrationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        drillTypeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                rig.setDrillType(s.toString());
+            }
+        });
+        drillDiameterEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setDrillDiameter(Double.parseDouble(s.toString()));
+                    drillDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        drillLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setDrillLength(Double.parseDouble(s.toString()));
+                    drillLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
@@ -225,7 +375,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rigDrillTableRow.setVisibility(View.VISIBLE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.VISIBLE);
-                        penetrationTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.GONE);
                         drillToolTableRow1.setVisibility(View.VISIBLE);
                         drillToolTableRow2.setVisibility(View.VISIBLE);
                         rockCoreTableRow.setVisibility(View.VISIBLE);

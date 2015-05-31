@@ -277,7 +277,7 @@
                             android:layout_weight="1"
                             />
                         <EditText
-                            android:id="@+id/edit_text_core_bnarreli_diameter"
+                            android:id="@+id/edit_text_core_barreli_diameter"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -296,7 +296,7 @@
                             android:layout_width="0dip"
                             />
                         <EditText
-                            android:id="@+id/edit_text_core_bnarreli_length"
+                            android:id="@+id/edit_text_core_barreli_length"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -331,7 +331,7 @@
                             android:layout_weight="1"
                             />
                         <EditText
-                            android:id="@+id/edit_text_core_bnarreli_diameter_penetration"
+                            android:id="@+id/edit_text_core_barreli_diameter_penetration"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -350,7 +350,7 @@
                             android:layout_width="0dip"
                             />
                         <EditText
-                            android:id="@+id/edit_text_core_bnarreli_length_penetration"
+                            android:id="@+id/edit_text_core_barreli_length_penetration"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
