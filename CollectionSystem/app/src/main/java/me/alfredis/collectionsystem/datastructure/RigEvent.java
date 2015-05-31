@@ -61,11 +61,12 @@ public class RigEvent {
     protected String groundDensity;           //岩土稠密度
     protected String groundSaturation;       //岩土饱和度
     protected String groundWeathering;       //岩石风化程度
+    protected String note;                     //TODO 岩土岩性?特殊情况记录
 
-    protected String Note;                     //TODO 岩土岩性?特殊情况记录
+    protected String startEndDiscription;
 
     public RigEvent() {
-        this("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "test note");
+        this("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "");
 
         Calendar c = Calendar.getInstance();
 
@@ -85,6 +86,7 @@ public class RigEvent {
         this.classPeopleCount = "";
         this.drillType = "";
         this.rockCoreId = "";
+        this.groundName = "黏土";
     }
 
     public enum DynamicSoundingType {
@@ -110,7 +112,7 @@ public class RigEvent {
         this.drillToolRemainLength = drillToolRemainLength;
         this.roundTripMeterage = roundTripMeterage;
         this.cumulativeMeterage = cumulativeMeterage;
-        Note = note;
+        this.note = note;
     }
 
     public String getClassPeopleCount() {
@@ -334,11 +336,11 @@ public class RigEvent {
     }
 
     public String getNote() {
-        return Note;
+        return note;
     }
 
     public void setNote(String note) {
-        this.Note = note;
+        this.note = note;
     }
 
     public double getPenetrationDiameter() {
@@ -395,5 +397,13 @@ public class RigEvent {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public String getStartEndDiscription() {
+        return startEndDiscription;
+    }
+
+    public void setStartEndDiscription(String startEndDiscription) {
+        this.startEndDiscription = startEndDiscription;
     }
 }

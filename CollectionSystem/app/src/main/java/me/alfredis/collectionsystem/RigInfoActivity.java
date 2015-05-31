@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -61,6 +62,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText rockCoreIdEditText;
     private EditText rockCoreLengthEditText;
     private EditText rockCoreRecoveryEditText;
+    private EditText startEndDepthEditText;
+    private EditText groundColorEditText;
+    private EditText groundDensityEditText;
+    private EditText groundSaturationEditText;
+    private EditText groundWeatheringEditText;
+    private EditText groundNoteEditText;
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -74,6 +81,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private Spinner rigTypeSpinner;
     private Spinner coreBarreliDiameterSpinner;
     private Spinner coreBarreliDiameterPenetrationSpinner;
+    private Spinner groundNameSpinner;
 
     private TableRow rigDrillTableRow;
     private TableRow coreBarreliTableRow;
@@ -97,10 +105,42 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
     private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"98cm", "108cm", "130cm"};
     private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"98cm", "108cm", "130cm"};
+    private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "粗砂",
+    "砾砂", "细圆砾土", "粗圆砾土", "卵石", "块石", "漂石", "灰岩"};
+
+    private static final HashMap<String, String> GROUND_COLOR_MAP = new HashMap<String, String>();
+    private static final HashMap<String, String> GROUND_DENSITY_MAP = new HashMap<String, String>();
+    private static final HashMap<String, String> GROUND_SATURATION_MAP = new HashMap<String, String>();
+    private static final HashMap<String, String> GROUND_WEATHERING_MAP = new HashMap<String, String>();
+    private static final HashMap<String, String> GROUND_NOTE_MAP = new HashMap<String, String>();
+
+    static {
+        for (String str : GROUND_NAME_OPTION) {
+            GROUND_COLOR_MAP.put(str, str + "颜色");
+        }
+
+        for (String str : GROUND_NAME_OPTION) {
+            GROUND_DENSITY_MAP.put(str, str + "稠度/密实度");
+        }
+
+        for (String str : GROUND_NAME_OPTION) {
+            GROUND_SATURATION_MAP.put(str, str + "饱和度");
+        }
+
+        for (String str : GROUND_NAME_OPTION) {
+            GROUND_WEATHERING_MAP.put(str, str + "风化程度");
+        }
+
+        for (String str : GROUND_NAME_OPTION) {
+            GROUND_NOTE_MAP.put(str, str + "名称及岩性");
+        }
+
+    }
 
     private ArrayAdapter<String> rigTypeAdapter;
     private ArrayAdapter<String> coreBarreliDiameterAdapter;
     private ArrayAdapter<String> coreBarreliDiameterPenetrationAdapter;
+    private ArrayAdapter<String> groundNameAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +180,13 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rockCoreIdEditText = (EditText) findViewById(R.id.edit_text_rock_core_id);
         rockCoreLengthEditText = (EditText) findViewById(R.id.edit_text_rock_core_length);
         rockCoreRecoveryEditText  = (EditText) findViewById(R.id.edit_text_rock_core_recovery);
+
+        startEndDepthEditText = (EditText) findViewById(R.id.edit_text_start_depth);
+        groundColorEditText = (EditText) findViewById(R.id.edit_text_ground_color);
+        groundDensityEditText = (EditText) findViewById(R.id.edit_text_ground_density);
+        groundSaturationEditText = (EditText) findViewById(R.id.edit_text_ground_saturation);
+        groundWeatheringEditText = (EditText) findViewById(R.id.edit_text_ground_weathering);
+        groundNoteEditText = (EditText) findViewById(R.id.edit_text_ground_note);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -464,11 +511,29 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
+        startEndDepthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                rig.setStartEndDiscription(s.toString());
+            }
+        });
+
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
         coreBarreliDiameterSpinner = (Spinner) findViewById(R.id.spinner_core_barreli_diameter);
         coreBarreliDiameterPenetrationSpinner = (Spinner) findViewById(R.id.spinner_core_barreli_diameter_penetration);
+        groundNameSpinner = (Spinner) findViewById(R.id.spinner_ground_name);
 
         rigTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, RIG_TYPE_SPINNER_OPTIONS);
         rigTypeSpinner.setAdapter(rigTypeAdapter);
@@ -617,6 +682,28 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
             }
         });
+
+        groundNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GROUND_NAME_OPTION);
+        groundNameSpinner.setAdapter(groundNameAdapter);
+        groundNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rig.setGroundName(parent.getItemAtPosition(position).toString());
+                rig.setGroundColor(GROUND_COLOR_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setGroundDensity(GROUND_DENSITY_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setGroundSaturation(GROUND_SATURATION_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setGroundWeathering(GROUND_WEATHERING_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setNote(GROUND_NOTE_MAP.get(parent.getItemAtPosition(position).toString()));
+
+                refreshRigInfoTable();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         requestCode = getIntent().getStringExtra("requestCode");
 
         switch (requestCode) {
@@ -754,5 +841,18 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rockCoreIdEditText.setText(String.valueOf(rig.getRockCoreId()));
         rockCoreLengthEditText.setText(String.valueOf(rig.getRockCoreLength()));
         rockCoreRecoveryEditText.setText(String.valueOf(rig.getRockCoreRecovery()));
+
+        for (int i = 0; i < GROUND_NAME_OPTION.length; i++) {
+            if (rig.getGroundName().equals(GROUND_NAME_OPTION[i])) {
+                groundNameSpinner.setSelection(i);
+                break;
+            }
+        }
+
+        groundColorEditText.setText(rig.getGroundColor());
+        groundDensityEditText.setText(rig.getGroundDensity());
+        groundSaturationEditText.setText(rig.getGroundSaturation());
+        groundWeatheringEditText.setText(rig.getGroundWeathering());
+        groundNoteEditText.setText(rig.getNote());
     }
 }
