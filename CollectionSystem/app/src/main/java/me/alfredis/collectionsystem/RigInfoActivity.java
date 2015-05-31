@@ -58,6 +58,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText drillToolRemainLengthEditText;
     private EditText roundTripMeterageEditText;
     private EditText cumulativeMeteragEditText;
+    private EditText rockCoreIdEditText;
+    private EditText rockCoreLengthEditText;
+    private EditText rockCoreRecoveryEditText;
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -133,6 +136,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillToolRemainLengthEditText = (EditText) findViewById(R.id.edit_text_drill_tool_remain_length);
         roundTripMeterageEditText = (EditText) findViewById(R.id.edit_text_round_trip_meterage);
         cumulativeMeteragEditText = (EditText) findViewById(R.id.edit_text_cumulative_meterage);
+
+        rockCoreIdEditText = (EditText) findViewById(R.id.edit_text_rock_core_id);
+        rockCoreLengthEditText = (EditText) findViewById(R.id.edit_text_rock_core_length);
+        rockCoreRecoveryEditText  = (EditText) findViewById(R.id.edit_text_rock_core_recovery);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -393,6 +400,66 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     cumulativeMeteragEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
                     cumulativeMeteragEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+
+        rockCoreIdEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                rig.setRockCoreId(s.toString());
+            }
+        });
+        rockCoreLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRockCoreLength(Double.parseDouble(s.toString()));
+                    rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+
+        rockCoreRecoveryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRockCoreRecovery(Double.parseDouble(s.toString()));
+                    rockCoreRecoveryEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    rockCoreRecoveryEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
             }
         });
@@ -683,5 +750,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillToolRemainLengthEditText.setText(String.valueOf(rig.getDrillToolRemainLength()));
         roundTripMeterageEditText.setText(String.valueOf(rig.getRoundTripMeterage()));
         cumulativeMeteragEditText.setText(String.valueOf(rig.getCumulativeMeterage()));
+
+        rockCoreIdEditText.setText(String.valueOf(rig.getRockCoreId()));
+        rockCoreLengthEditText.setText(String.valueOf(rig.getRockCoreLength()));
+        rockCoreRecoveryEditText.setText(String.valueOf(rig.getRockCoreRecovery()));
     }
 }

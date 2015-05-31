@@ -179,7 +179,10 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
 
             row.addView(createRigContentTextView("water placeholder 1"));
             row.addView(createRigContentTextView("water placeholder 2"));
-            row.addView(createRigContentTextView("water placeholder 3"));
+
+            row.addView(createRigContentTextView(rig.getRockCoreId()));
+            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreLength())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreRecovery())));
 
             row.addView(createRigContentTextView("ground placeholder 1"));
             row.addView(createRigContentTextView("ground placeholder 2"));

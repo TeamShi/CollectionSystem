@@ -77,6 +77,14 @@ public class RigEvent {
         this.drillPipeLength = 0;
         this.cumulativeLength = 0;
 
+        this.drillToolTotalLength = 0;
+        this.drillToolRemainLength = 0;
+        this.roundTripMeterage = 0;
+        this.cumulativeMeterage = 0;
+
+        this.classPeopleCount = "";
+        this.drillType = "";
+        this.rockCoreId = "";
     }
 
     public enum DynamicSoundingType {
