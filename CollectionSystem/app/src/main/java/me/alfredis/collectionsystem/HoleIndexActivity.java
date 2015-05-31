@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -233,17 +234,19 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                         Utility.copyFile(is,mdbFile);
                     }
                     ArrayList<Hole> holeList = DataManager.holes;
-                    for(Hole hole:holeList) {
-                        if(null == hole.getRigList()){
-                            hole.setRigList(new ArrayList<RigEvent>());
+                    ArrayList<RigEvent> rigEvents = new ArrayList<>();
+                    for (Hole hole : holeList) {
+                        ArrayList<RigEvent> events = hole.getRigList();
+                        if (events != null) {
+                            rigEvents.addAll(hole.getRigList());
                         }
                     }
 
                     boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
-                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes,assetManageer);
+                    boolean exportRigHtml = HtmlParser.parseRig(baseDir, rigEvents, assetManageer);
                     boolean exportMdb =  MdbParser.parse(mdbFile,DataManager.holes);
 
-                    if( exportHtml&& exportMdb &&exportXls){
+                    if( exportRigHtml && exportMdb &&exportXls){
                         Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
@@ -255,8 +258,34 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 refreshTable();
                 break;
             case R.id.button_export_all:
-                //TODO: Export all
-                Toast.makeText(getApplicationContext(), "导出所有表格成功", Toast.LENGTH_SHORT).show();
+                try {
+                    AssetManager assetManageer = getAssets();
+                    File mdbFile = new File(mdbPath);
+                    if (!mdbFile.exists()) {
+                        InputStream is = null;
+                        is = assetManageer.open("DlcGeoInfo.mdb");
+                        Utility.copyFile(is, mdbFile);
+                    }
+                    ArrayList<Hole> holeList = DataManager.holes;
+                    for (Hole hole : holeList) {
+                        if (null == hole.getRigList()) {
+                            hole.setRigList(new ArrayList<RigEvent>());
+                        }
+                    }
+
+                    boolean exportXls = XlsParser.parse(xlsPath, DataManager.holes);
+                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes, assetManageer);
+                    boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
+
+                    if (exportHtml && exportMdb && exportXls) {
+                        Toast.makeText(getApplicationContext(), "导出所有表格成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;

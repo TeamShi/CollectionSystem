@@ -61,7 +61,7 @@ public class RigEvent {
     protected String groundDensity;           //岩土稠密度
     protected String groundSaturation;       //岩土饱和度
     protected String groundWeathering;       //岩石风化程度
-    protected String note;                     //TODO 岩土岩性?特殊情况记录
+    protected String note;                     //岩土岩性
 
     protected String startEndDiscription;
 
