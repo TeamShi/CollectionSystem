@@ -216,6 +216,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = STOP_RIG;
                         rig = new RigEvent();
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                         break;
                     case DRY_RIG:
                     case WATER_MIX_RIG:
@@ -240,6 +241,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rig.setDrillPipeId(DataManager.getLatestRigPipeId(holeId));
                         rig.setCumulativeLength(DataManager.calculateCumulativePipeLength(holeId));
 
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
+
                         refreshRigInfoTable();
                         break;
                     case SPT_RIG:
@@ -260,6 +263,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         dstButton.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
                         rig = new SPTRig();
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                         break;
                     case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -279,6 +283,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         dstButton.setVisibility(View.VISIBLE);
                         selectedRigType = DST_RIG;
                         rig = new DSTRig();
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                         break;
                     case DOWN_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -296,6 +301,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = DOWN_RIG;
                         rig = new RigEvent();
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                         break;
                     default:
                         break;
