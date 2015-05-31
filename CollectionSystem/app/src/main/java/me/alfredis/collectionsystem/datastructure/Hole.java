@@ -53,7 +53,7 @@ public class Hole implements Serializable {
 
     private String note;                        //附注
 
-    private ArrayList<RigEvent> rigLists;       //钻孔作业列表
+    private ArrayList<RigEvent> rigList;       //钻孔作业列表
 
     public enum HoleIdPart1Type {
         JC, JZ
@@ -100,7 +100,7 @@ public class Hole implements Serializable {
         this.recorderName = "";
         this.reviewDate = c;
         this.note = "";
-        this.rigLists = new ArrayList<RigEvent>();
+        this.rigList = new ArrayList<RigEvent>();
 
 
     }
@@ -420,12 +420,12 @@ public class Hole implements Serializable {
         this.reviewDate = reviewDate;
     }
 
-    public ArrayList<RigEvent> getRigLists() {
-        return rigLists;
+    public ArrayList<RigEvent> getRigList() {
+        return rigList;
     }
 
-    public void setRigLists(ArrayList<RigEvent> rigLists) {
-        this.rigLists = rigLists;
+    public void setRigList(ArrayList<RigEvent> rigList) {
+        this.rigList = rigList;
     }
 
     public void setHoleIdPart1(HoleIdPart1Type holeIdPart1) {

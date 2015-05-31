@@ -24,7 +24,9 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.datastructure.SPTRig;
 
 public class RigInfoActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -133,7 +135,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                try {
+                    rig.setDrillPipeId(Integer.parseInt(s.toString()));
+                    drillPipeIdEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillPipeIdEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
             }
         });
 
@@ -150,7 +157,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                try {
+                    rig.setDrillPipeLength(Double.parseDouble(s.toString()));
+                    drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
             }
         });
 
@@ -167,7 +179,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                try {
+                    rig.setDrillPipeLength(Double.parseDouble(s.toString()));
+                    drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
             }
         });
 
@@ -196,6 +213,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = STOP_RIG;
+                        rig = new RigEvent();
                         break;
                     case DRY_RIG:
                     case WATER_MIX_RIG:
@@ -215,6 +233,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = DRY_RIG;
+                        rig = new RigEvent();
+
+                        rig.setDrillPipeId(DataManager.getLatestRigPipeId(holeId));
+                        rig.setCumulativeLength(DataManager.calculateCumulativePipeLength(holeId));
+
+                        refreshRigInfoTable();
                         break;
                     case SPT_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -233,6 +257,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
+                        rig = new SPTRig();
                         break;
                     case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -251,6 +276,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
                         selectedRigType = DST_RIG;
+                        rig = new DSTRig();
                         break;
                     case DOWN_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -267,6 +293,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.VISIBLE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = DOWN_RIG;
+                        rig = new RigEvent();
                         break;
                     default:
                         break;
@@ -387,5 +414,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         startTimeButton.setText(Utility.formatTimeString(rig.getStartTime()));
         endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
+        rigTimeDurationTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
+        drillPipeIdEditText.setText(String.valueOf(rig.getDrillPipeId()));
+        drillPipeLengthEditText.setText(String.valueOf(rig.getDrillLength()));
+        cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
     }
 }

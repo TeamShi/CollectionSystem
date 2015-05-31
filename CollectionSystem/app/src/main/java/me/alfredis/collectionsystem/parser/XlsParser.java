@@ -166,7 +166,7 @@ public class XlsParser {
 
         for (Hole hole : holeList) {
             String holeId = hole.getHoleId();
-            hole.setRigLists(rigMap.get(holeId));
+            hole.setRigList(rigMap.get(holeId));
         }
 
         return holeList;
@@ -393,7 +393,7 @@ public class XlsParser {
         ArrayList<DSTRig> dstRigEvents = new ArrayList<>();
 
         for (Hole hole : holes) {
-            for (RigEvent rigEvent : hole.getRigLists()) {
+            for (RigEvent rigEvent : hole.getRigList()) {
                 rigEvent.setHoleId(hole.getHoleId());
                 rigEvent.setEventId(String.valueOf(UUID.randomUUID()));
                 if (rigEvent instanceof SPTRig) {

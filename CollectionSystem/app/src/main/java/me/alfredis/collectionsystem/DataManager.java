@@ -37,7 +37,7 @@ public class DataManager {
     public static ArrayList<RigEvent> getRigEventListByHoleId(String holeId) {
         for (Hole hole : holes) {
             if (hole.getHoleId().equals(holeId)) {
-                return hole.getRigLists();
+                return hole.getRigList();
             }
         }
         return null;
@@ -46,7 +46,7 @@ public class DataManager {
     public static void AddRigByHoleId (String holeId, RigEvent rig) {
         for (Hole hole : holes) {
             if (hole.getHoleId().equals(holeId)) {
-                hole.getRigLists().add(rig);
+                hole.getRigList().add(rig);
             }
         }
     }
@@ -54,8 +54,39 @@ public class DataManager {
     public static void deleteRig(String holeId, int index) {
         for (Hole hole : holes) {
             if (hole.getHoleId().equals(holeId)) {
-                hole.getRigLists().remove(index);
+                hole.getRigList().remove(index);
             }
         }
+    }
+
+    public static int getLatestRigPipeId(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                int pipeId = 1;
+                for (RigEvent rig : hole.getRigList()) {
+                    if (rig.getDrillPipeId() > pipeId) {
+                        pipeId = rig.getDrillPipeId();
+                    }
+                }
+
+                return pipeId;
+            }
+        }
+
+        return -1;
+    }
+
+    public static double calculateCumulativePipeLength(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                double length = 0;
+                for (RigEvent rig : hole.getRigList()) {
+                    length += rig.getCumulativeLength();
+                }
+                return length;
+            }
+        }
+
+        return -1;
     }
 }

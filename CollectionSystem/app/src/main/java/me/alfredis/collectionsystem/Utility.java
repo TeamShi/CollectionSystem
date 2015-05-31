@@ -135,7 +135,7 @@ public class Utility {
 
         if (minute2 < minute1) {
             answerMinute = minute2 + 60 - minute1;
-            answerHour = hour2 - hour1;
+            answerHour = hour2 - hour1 - 1;
         } else {
             answerHour = hour2 - hour1;
             answerMinute = minute2 - minute1;

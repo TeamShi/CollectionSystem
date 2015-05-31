@@ -97,7 +97,7 @@ public class MdbParser {
                 //导入标贯表 0; -> 标贯,1 -> 动探
                 Table sptTable = database.getTable("标贯表");
                 Table groundTable = database.getTable("地层表");
-                ArrayList<RigEvent> rigEvents = hole.getRigLists();
+                ArrayList<RigEvent> rigEvents = hole.getRigList();
                 for (RigEvent currRigEvent : rigEvents) {
                     HashMap<String,Object> hashMap = new HashMap<>();
                     if (currRigEvent instanceof SPTRig) {

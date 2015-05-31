@@ -7,7 +7,6 @@ import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
-import me.alfredis.collectionsystem.parser.HtmlParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
@@ -24,8 +23,8 @@ public class ParserTest {
         //generate date to Test
         Hole hole = (new Hole(Hole.HoleIdPart1Type.JZ, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
         RigEvent rigEvent = new RigEvent("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "test note");
-        hole.setRigLists(new ArrayList<RigEvent>());
-        ArrayList<RigEvent> rigEvents = hole.getRigLists();
+        hole.setRigList(new ArrayList<RigEvent>());
+        ArrayList<RigEvent> rigEvents = hole.getRigList();
         rigEvents.add(rigEvent);
 
         SPTRig sptRigEvent = new SPTRig();

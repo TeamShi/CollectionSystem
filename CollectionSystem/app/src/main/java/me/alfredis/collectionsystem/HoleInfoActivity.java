@@ -580,7 +580,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 hole = new Hole();
 
                 refreshHoleInfoTable();
-
                 break;
             case "QUERY_HOLE":
                 hole = DataManager.holes.get(getIntent().getIntExtra("holeIndex", -1));

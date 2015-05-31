@@ -234,8 +234,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                     }
                     ArrayList<Hole> holeList = DataManager.holes;
                     for(Hole hole:holeList) {
-                        if(null == hole.getRigLists()){
-                            hole.setRigLists(new ArrayList<RigEvent>());
+                        if(null == hole.getRigList()){
+                            hole.setRigList(new ArrayList<RigEvent>());
                         }
                     }
 

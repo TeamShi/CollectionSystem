@@ -72,6 +72,11 @@ public class RigEvent {
         this.date = c;
         this.startTime = c;
         this.endTime = c;
+
+        this.drillPipeId = 1;
+        this.drillLength = 0;
+        this.cumulativeLength = 0;
+
     }
 
     public enum DynamicSoundingType {

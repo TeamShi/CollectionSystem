@@ -73,7 +73,7 @@ public class HtmlParser {
         ArrayList<DSTRig> dstRigEvents = new ArrayList<DSTRig>();
 
         for (int i = 0, len = holes.size(); i < len; i++) {
-            ArrayList<RigEvent> currRigEvents = holes.get(i).getRigLists();
+            ArrayList<RigEvent> currRigEvents = holes.get(i).getRigList();
             rigEvents.addAll(currRigEvents);
             for (int j = 0, size = currRigEvents.size(); j < size; j++) {
                 RigEvent currRigEvent = rigEvents.get(j);
