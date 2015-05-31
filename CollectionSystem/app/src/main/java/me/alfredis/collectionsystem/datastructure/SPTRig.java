@@ -1,9 +1,11 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.io.Serializable;
+
 /**
  * Created by Alfred on 15/5/4.
  */
-public class SPTRig extends RigEvent {
+public class SPTRig extends RigEvent implements Serializable {
     private double penetrationFrom;             //贯入深度自
     private double penetrationTo;               //贯入深度至，一般为上值+0.45
 

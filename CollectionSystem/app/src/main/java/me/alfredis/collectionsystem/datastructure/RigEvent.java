@@ -1,11 +1,12 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Alfred on 15/5/4.
  */
-public class RigEvent {
+public class RigEvent implements Serializable {
     protected String holeId ; //勘察点ID
     protected  String eventId;  //作业ID
     protected String classPeopleCount;        //班次/人数

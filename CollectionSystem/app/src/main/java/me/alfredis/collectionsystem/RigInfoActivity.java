@@ -2,8 +2,8 @@ package me.alfredis.collectionsystem;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -48,6 +47,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int SPT_RIG = 5;
     private static final int DST_RIG = 6;
     private static final int DOWN_RIG = 7;
+
+    private static final int DST_DETAIL = 0;
+    private static final int SPT_DETAIL = 0;
 
     private EditText classPeopleCountEditText;
     private EditText drillPipeIdEditText;
@@ -746,6 +748,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             case "ADD_RIG":
                 rig = new RigEvent();
 
+                queryRigIndex = DataManager.getRigEventListByHoleId(holeId).size();
                 refreshRigInfoTable();
                 break;
             case "QUERY_RIG":
@@ -753,7 +756,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
                 rig = DataManager.getRigEventListByHoleId(holeId).get(queryRigIndex);
 
-                Toast.makeText(getApplicationContext(), String.valueOf(queryRigIndex), Toast.LENGTH_SHORT).show();
                 refreshRigInfoTable();
                 break;
             default:
@@ -850,6 +852,20 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rigTimeDurationTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
                     }
                 }, rig.getStartTime().get(Calendar.HOUR), rig.getStartTime().get(Calendar.MINUTE), true).show();
+                break;
+            case R.id.button_dst_detail:
+                Log.d(TAG, "Go to dst detail info.");
+                Intent intent = new Intent(this, DSTRigDetailedActivity.class);
+                intent.putExtra("holeId", holeId);
+                intent.putExtra("rigIndex", queryRigIndex);
+                startActivityForResult(intent, DST_DETAIL);
+                break;
+            case R.id.button_spt_detail:
+                Log.d(TAG, "Go to spt detail info.");
+                Intent intent2 = new Intent(this, SPTRigDetailedActivity.class);
+                intent2.putExtra("holeId", holeId);
+                intent2.putExtra("rig", rig);
+                startActivityForResult(intent2, SPT_DETAIL);
                 break;
             default:
                 break;
