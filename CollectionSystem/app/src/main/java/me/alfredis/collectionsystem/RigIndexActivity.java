@@ -166,11 +166,11 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView(String.valueOf(rig.getDrillDiameter())));
             row.addView(createRigContentTextView(String.valueOf(rig.getDrillLength())));
 
-            row.addView(createRigContentTextView("hole state placeHolder"));
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillToolTotalLength())));
 
-            row.addView(createRigContentTextView(rig.getRockCoreId()));
-            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreLength())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreRecovery())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getDrillToolRemainLength())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getRoundTripMeterage())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getCumulativeMeterage())));
 
             row.addView(createRigContentTextView("rug placeholder 1"));
             row.addView(createRigContentTextView("rug placeholder 2"));

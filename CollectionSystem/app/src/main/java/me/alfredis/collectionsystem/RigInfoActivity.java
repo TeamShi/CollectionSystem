@@ -54,7 +54,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText drillTypeEditText;
     private EditText drillDiameterEditText;
     private EditText drillLengthEditText;
-
+    private EditText drillToolTotalLengthEditText;
+    private EditText drillToolRemainLengthEditText;
+    private EditText roundTripMeterageEditText;
+    private EditText cumulativeMeteragEditText;
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -126,6 +129,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillTypeEditText = (EditText) findViewById(R.id.edit_text_drill_type);
         drillDiameterEditText = (EditText) findViewById(R.id.edit_text_drill_diameter);
         drillLengthEditText = (EditText) findViewById(R.id.edit_text_drill_length);
+        drillToolTotalLengthEditText = (EditText) findViewById(R.id.edit_text_drill_tool_total_length);
+        drillToolRemainLengthEditText = (EditText) findViewById(R.id.edit_text_drill_tool_remain_length);
+        roundTripMeterageEditText = (EditText) findViewById(R.id.edit_text_round_trip_meterage);
+        cumulativeMeteragEditText = (EditText) findViewById(R.id.edit_text_cumulative_meterage);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -301,6 +308,91 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     drillLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
                     drillLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+
+        drillToolTotalLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setDrillToolTotalLength(Double.parseDouble(s.toString()));
+                    drillToolTotalLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillToolTotalLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        drillToolRemainLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setDrillToolRemainLength(Double.parseDouble(s.toString()));
+                    drillToolRemainLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    drillToolRemainLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        roundTripMeterageEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRoundTripMeterage(Double.parseDouble(s.toString()));
+                    roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        cumulativeMeteragEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setCumulativeMeterage(Double.parseDouble(s.toString()));
+                    cumulativeMeteragEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    cumulativeMeteragEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
             }
         });
@@ -572,5 +664,24 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillPipeIdEditText.setText(String.valueOf(rig.getDrillPipeId()));
         drillPipeLengthEditText.setText(String.valueOf(rig.getDrillPipeLength()));
         cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
+
+        for (int i = 0; i < CORE_BARRELI_DIAMATER_OPTIONS.length; i++) {
+            if (Double.valueOf(CORE_BARRELI_DIAMATER_OPTIONS[i].substring(0, CORE_BARRELI_DIAMATER_OPTIONS[i].indexOf("cm")))
+                    == rig.getCoreBarreliDiameter()) {
+                coreBarreliDiameterSpinner.setSelection(i);
+                break;
+            }
+        }
+
+        coreBarreliLengthEditText.setText(String.valueOf(rig.getCoreBarreliLength()));
+
+        drillTypeEditText.setText(rig.getDrillType());
+        drillDiameterEditText.setText(String.valueOf(rig.getDrillDiameter()));
+        drillLengthEditText.setText(String.valueOf(rig.getDrillLength()));
+
+        drillToolTotalLengthEditText.setText(String.valueOf(rig.getDrillToolTotalLength()));
+        drillToolRemainLengthEditText.setText(String.valueOf(rig.getDrillToolRemainLength()));
+        roundTripMeterageEditText.setText(String.valueOf(rig.getRoundTripMeterage()));
+        cumulativeMeteragEditText.setText(String.valueOf(rig.getCumulativeMeterage()));
     }
 }
