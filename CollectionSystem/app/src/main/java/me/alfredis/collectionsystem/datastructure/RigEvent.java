@@ -54,7 +54,7 @@ public class RigEvent {
     protected double rockCoreRecovery;        //岩芯采取旅
 
     //地层
-    protected double startDepth;              //本钻起深度 TODO 计算深度差?
+    protected double startDepth;              //本钻起深度
     protected double endDepth;                //本钻止深度
     protected String groundName;              //岩土名称
     protected String groundColor;             //岩土颜色

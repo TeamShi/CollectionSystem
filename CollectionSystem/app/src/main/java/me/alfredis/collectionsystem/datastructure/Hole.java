@@ -41,7 +41,7 @@ public class Hole implements Serializable {
     private String machineNumber;               //机组编号
     private double acturalDepth;                //实际孔深
 
-    private String photo;                       //TODO: 钻孔示意图 ? 现场照片
+    private String photo;                       //钻孔示意图
 
     private String recorderName;                //记录者
     private Calendar recordDate;                //记录日期
