@@ -73,8 +73,8 @@ public class RigEvent {
         this.startTime = c;
         this.endTime = c;
 
-        this.drillPipeId = 1;
-        this.drillLength = 0;
+        this.drillPipeId = 0;
+        this.drillPipeLength = 0;
         this.cumulativeLength = 0;
 
     }

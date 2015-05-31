@@ -62,14 +62,14 @@ public class DataManager {
     public static int getLatestRigPipeId(String holeId) {
         for (Hole hole : holes) {
             if (hole.getHoleId().equals(holeId)) {
-                int pipeId = 1;
+                int pipeId = 0;
                 for (RigEvent rig : hole.getRigList()) {
                     if (rig.getDrillPipeId() > pipeId) {
                         pipeId = rig.getDrillPipeId();
                     }
                 }
 
-                return pipeId;
+                return pipeId + 1;
             }
         }
 

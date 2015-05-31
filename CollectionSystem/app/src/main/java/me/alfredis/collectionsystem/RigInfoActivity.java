@@ -106,7 +106,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
         drillPipeIdEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_id);
-        drillPipeLengthEditText = (EditText) findViewById(R.id.edit_text_drill_length);
+        drillPipeLengthEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_length);
         cumulativeLengthEditText = (EditText) findViewById(R.id.edit_text_cumulative_length);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
@@ -160,6 +160,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 try {
                     rig.setDrillPipeLength(Double.parseDouble(s.toString()));
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    rig.setCumulativeLength(rig.getCumulativeLength() + Double.parseDouble(s.toString()));
+                    cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
                 } catch (Exception e) {
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -416,7 +418,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
         rigTimeDurationTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
         drillPipeIdEditText.setText(String.valueOf(rig.getDrillPipeId()));
-        drillPipeLengthEditText.setText(String.valueOf(rig.getDrillLength()));
+        drillPipeLengthEditText.setText(String.valueOf(rig.getDrillPipeLength()));
         cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
     }
 }
