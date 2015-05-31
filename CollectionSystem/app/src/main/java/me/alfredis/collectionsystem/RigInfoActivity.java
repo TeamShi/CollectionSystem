@@ -49,9 +49,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText drillPipeIdEditText;
     private EditText drillPipeLengthEditText;
     private EditText cumulativeLengthEditText;
-    private EditText coreBarreliDiameterEditText;
     private EditText coreBarreliLengthEditText;
-    private EditText coreBarreliDiameterPenetrationEditText;
     private EditText coreBarreliLengthPenetrationEditText;
     private EditText drillTypeEditText;
     private EditText drillDiameterEditText;
@@ -68,6 +66,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private TextView rigTimeDurationTextView;
 
     private Spinner rigTypeSpinner;
+    private Spinner coreBarreliDiameterSpinner;
+    private Spinner coreBarreliDiameterPenetrationSpinner;
 
     private TableRow rigDrillTableRow;
     private TableRow coreBarreliTableRow;
@@ -89,8 +89,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
+    private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"98cm", "108cm", "130cm"};
+    private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"98cm", "108cm", "130cm"};
 
-    private  ArrayAdapter<String> rigTypeAdapter;
+    private ArrayAdapter<String> rigTypeAdapter;
+    private ArrayAdapter<String> coreBarreliDiameterAdapter;
+    private ArrayAdapter<String> coreBarreliDiameterPenetrationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +121,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillPipeIdEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_id);
         drillPipeLengthEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_length);
         cumulativeLengthEditText = (EditText) findViewById(R.id.edit_text_cumulative_length);
-        coreBarreliDiameterEditText = (EditText) findViewById(R.id.edit_text_core_barreli_diameter);
         coreBarreliLengthEditText = (EditText) findViewById(R.id.edit_text_core_barreli_length);
-        coreBarreliDiameterPenetrationEditText = (EditText) findViewById(R.id.edit_text_core_barreli_diameter_penetration);
         coreBarreliLengthPenetrationEditText = (EditText) findViewById(R.id.edit_text_core_barreli_length_penetration);
         drillTypeEditText = (EditText) findViewById(R.id.edit_text_drill_type);
         drillDiameterEditText = (EditText) findViewById(R.id.edit_text_drill_diameter);
@@ -205,27 +207,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
-        coreBarreliDiameterEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    rig.setCoreBarreliDiameter(Double.parseDouble(s.toString()));
-                    coreBarreliDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
-                } catch (Exception e) {
-                    coreBarreliDiameterEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-                }
-            }
-        });
         coreBarreliLengthEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,22 +226,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 } catch (Exception e) {
                     coreBarreliLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
-            }
-        });
-        //TODO: for SPT
-        coreBarreliDiameterPenetrationEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
@@ -343,6 +308,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
+        coreBarreliDiameterSpinner = (Spinner) findViewById(R.id.spinner_core_barreli_diameter);
+        coreBarreliDiameterPenetrationSpinner = (Spinner) findViewById(R.id.spinner_core_barreli_diameter_penetration);
 
         rigTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, RIG_TYPE_SPINNER_OPTIONS);
         rigTypeSpinner.setAdapter(rigTypeAdapter);
@@ -464,6 +431,33 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
+        coreBarreliDiameterAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, CORE_BARRELI_DIAMATER_OPTIONS);
+        coreBarreliDiameterSpinner.setAdapter(coreBarreliDiameterAdapter);
+        coreBarreliDiameterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rig.setCoreBarreliDiameter(Double.valueOf(CORE_BARRELI_DIAMATER_OPTIONS[position].substring(0, CORE_BARRELI_DIAMATER_OPTIONS[position].indexOf("cm"))));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        coreBarreliDiameterPenetrationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS);
+        coreBarreliDiameterPenetrationSpinner.setAdapter(coreBarreliDiameterAdapter);
+        coreBarreliDiameterPenetrationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         requestCode = getIntent().getStringExtra("requestCode");
 
         switch (requestCode) {

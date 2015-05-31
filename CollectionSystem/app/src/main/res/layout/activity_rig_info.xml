@@ -276,8 +276,8 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_core_barreli_diameter"
+                        <Spinner
+                            android:id="@+id/spinner_core_barreli_diameter"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -330,8 +330,8 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_core_barreli_diameter_penetration"
+                        <Spinner
+                            android:id="@+id/spinner_core_barreli_diameter_penetration"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
