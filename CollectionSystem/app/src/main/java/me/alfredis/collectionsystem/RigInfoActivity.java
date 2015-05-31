@@ -36,6 +36,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private String requestCode;
     private String holeId;
     private int selectedRigType;
+    private int queryRigIndex;
+
+    private boolean firstStart;
 
     private static final int STOP_RIG = 0;
     private static final int DRY_RIG = 1;
@@ -100,6 +103,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final String TAG = "CollectionSystem";
 
     private static final int ADD_RIG = 0;
+    private static final int QUERY_RIG = 1;
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
@@ -556,8 +560,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = STOP_RIG;
-                        rig = new RigEvent();
-                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
                         break;
                     case DRY_RIG:
                     case WATER_MIX_RIG:
@@ -577,14 +587,18 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = DRY_RIG;
-                        rig = new RigEvent();
+                        if (!firstStart) {
+                            rig = new RigEvent();
 
-                        rig.setDrillPipeId(DataManager.getLatestRigPipeId(holeId));
-                        rig.setCumulativeLength(DataManager.calculateCumulativePipeLength(holeId));
+                            rig.setDrillPipeId(DataManager.getLatestRigPipeId(holeId));
+                            rig.setCumulativeLength(DataManager.calculateCumulativePipeLength(holeId));
 
-                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
 
-                        refreshRigInfoTable();
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
                         break;
                     case SPT_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -603,8 +617,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
-                        rig = new SPTRig();
-                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                        if (!firstStart) {
+                            rig = new SPTRig();
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
                         break;
                     case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -623,8 +643,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
                         selectedRigType = DST_RIG;
-                        rig = new DSTRig();
-                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                        if (!firstStart) {
+                            rig = new DSTRig();
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
                         break;
                     case DOWN_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -641,8 +668,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow2.setVisibility(View.VISIBLE);
                         specialRigRow.setVisibility(View.GONE);
                         selectedRigType = DOWN_RIG;
-                        rig = new RigEvent();
-                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
+
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
                         break;
                     default:
                         break;
@@ -706,10 +740,20 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
         requestCode = getIntent().getStringExtra("requestCode");
 
+        firstStart = true;
+
         switch (requestCode) {
             case "ADD_RIG":
                 rig = new RigEvent();
 
+                refreshRigInfoTable();
+                break;
+            case "QUERY_RIG":
+                queryRigIndex = Integer.parseInt(getIntent().getStringExtra("rigIndex"));
+
+                rig = DataManager.getRigEventListByHoleId(holeId).get(queryRigIndex);
+
+                Toast.makeText(getApplicationContext(), String.valueOf(queryRigIndex), Toast.LENGTH_SHORT).show();
                 refreshRigInfoTable();
                 break;
             default:
@@ -766,6 +810,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     this.setResult(RESULT_OK);
                     this.finish();
                 } else if (requestCode.equals("QUERY_RIG")) {
+                    DataManager.getRigEventListByHoleId(holeId).set(queryRigIndex, rig);
+                    this.setResult(RESULT_OK);
+                    this.finish();
                 }
                 break;
             case R.id.button_start_time:
@@ -818,6 +865,33 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         drillPipeIdEditText.setText(String.valueOf(rig.getDrillPipeId()));
         drillPipeLengthEditText.setText(String.valueOf(rig.getDrillPipeLength()));
         cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
+
+        switch (rig.getProjectName()) {
+            case "搬家移孔、下雨停工，其他":
+                rigTypeSpinner.setSelection(0);
+                break;
+            case "干钻":
+                rigTypeSpinner.setSelection(1);
+                break;
+            case "合水钻":
+                rigTypeSpinner.setSelection(2);
+                break;
+            case "金刚石钻":
+                rigTypeSpinner.setSelection(3);
+                break;
+            case "钢粒钻":
+                rigTypeSpinner.setSelection(4);
+                break;
+            case "标准贯入试验":
+                rigTypeSpinner.setSelection(5);
+                break;
+            case "动力触探试验":
+                rigTypeSpinner.setSelection(6);
+                break;
+            case "下套管":
+                rigTypeSpinner.setSelection(7);
+                break;
+        }
 
         for (int i = 0; i < CORE_BARRELI_DIAMATER_OPTIONS.length; i++) {
             if (Double.valueOf(CORE_BARRELI_DIAMATER_OPTIONS[i].substring(0, CORE_BARRELI_DIAMATER_OPTIONS[i].indexOf("cm")))

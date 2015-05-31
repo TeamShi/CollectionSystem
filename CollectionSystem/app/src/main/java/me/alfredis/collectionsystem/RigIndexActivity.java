@@ -38,6 +38,7 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
     private static final String TAG = "ColletionSystem";
 
     private static final int ADD_RIG = 0;
+    private static final int QUERY_RIG = 1;
 
     private static final int CONTEXT_MENU_QUERY = 0;
     private static final int CONTEXT_MENU_DELETE = 1;
@@ -102,7 +103,12 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
         String rigIndex = getIntent().getStringExtra("SelectedRigIndex");
         switch (item.getItemId()) {
             case CONTEXT_MENU_QUERY:
-
+                Log.d(TAG, "Query rig.");
+                Intent intent = new Intent(this, RigInfoActivity.class);
+                intent.putExtra("requestCode", "QUERY_RIG");
+                intent.putExtra("holeId", holeId);
+                intent.putExtra("rigIndex", rigIndex);
+                startActivityForResult(intent, QUERY_RIG);
                 break;
             case CONTEXT_MENU_DELETE:
                 DataManager.deleteRig(holeId, Integer.valueOf(rigIndex));
@@ -279,6 +285,11 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
         if (requestCode == ADD_RIG) {
             if (resultCode == RESULT_OK) {
                 Log.d(TAG, "Get new hole.");
+                refreshTable();
+            }
+        } else if (requestCode == QUERY_RIG) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "Query finished.");
                 refreshTable();
             }
         }
