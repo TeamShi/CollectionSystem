@@ -66,8 +66,6 @@ public class RigEvent implements Serializable {
 
     protected String startEndDiscription;
 
-    private boolean isInitialized;
-
     public RigEvent() {
         this("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "");
 
@@ -90,8 +88,6 @@ public class RigEvent implements Serializable {
         this.drillType = "";
         this.rockCoreId = "";
         this.groundName = "黏土";
-
-        this.isInitialized = false;
     }
 
     public enum DynamicSoundingType {
@@ -340,11 +336,11 @@ public class RigEvent implements Serializable {
         this.groundWeathering = groundWeathering;
     }
 
-    public String getNote() {
+    public String getSpecialNote() {
         return note;
     }
 
-    public void setNote(String note) {
+    public void setSpecialNote(String note) {
         this.note = note;
     }
 

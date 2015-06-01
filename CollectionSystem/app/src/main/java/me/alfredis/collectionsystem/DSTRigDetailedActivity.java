@@ -25,7 +25,7 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
 
     private String holeId;
 
-    private RigEvent rig;
+    private DSTRig rig;
 
     private Button applyButton;
     private Button rigDateButton;

@@ -11,11 +11,13 @@ public class CasedRig extends RigEvent{
     private double casedTotalLength;        //总场
 
     private String casedSituation;          //孔内情况
-    private String note;                    //特殊情况记录
+    private String specialNote;                    //特殊情况记录
 
-    public CasedRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
-        super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
+    public CasedRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String specialNote) {
+        super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, specialNote);
     }
+
+    public CasedRig() {};
 
     public String getDadoType() {
         return dadoType;
@@ -66,12 +68,12 @@ public class CasedRig extends RigEvent{
     }
 
     @Override
-    public String getNote() {
-        return note;
+    public String getSpecialNote() {
+        return specialNote;
     }
 
     @Override
-    public void setNote(String note) {
-        this.note = note;
+    public void setSpecialNote(String specialNote) {
+        this.specialNote = specialNote;
     }
 }

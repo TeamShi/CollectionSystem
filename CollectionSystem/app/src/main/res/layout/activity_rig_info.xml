@@ -963,6 +963,51 @@
                         android:layout_width="0dip"/>
                 </TableRow>
                     <TableRow
+                        android:id="@+id/down_rig_detailed_table_row"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2dip"
+                        android:gravity="right">
+                        <TextView
+                            android:text="钻探工程孔内情况"
+                            android:background="@android:color/holo_green_dark"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="2"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_rig_hole_situration"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                        <TextView
+                            android:text="特殊情况记录"
+                            android:background="@android:color/holo_green_dark"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="2"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_special_things"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_weight="3"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"
+                            android:layout_width="0dip"/>
+                    </TableRow>
+                    <TableRow
                         android:id="@+id/special_rig_table_row"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"

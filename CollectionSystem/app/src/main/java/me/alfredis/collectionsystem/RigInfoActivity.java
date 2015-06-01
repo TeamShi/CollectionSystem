@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
@@ -73,6 +74,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText groundSaturationEditText;
     private EditText groundWeatheringEditText;
     private EditText groundNoteEditText;
+    private EditText rigHoleSaturationEditText;
+    private EditText specialThingsEditText;
 
     private Button addRigButton;
     private Button startTimeButton;
@@ -101,6 +104,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private TableRow wallTableRow;
     private TableRow wallTableRow2;
     private TableRow specialRigRow;
+    private TableRow downSpecialRigRow;
 
     private static final String TAG = "CollectionSystem";
 
@@ -168,6 +172,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         wallTableRow = (TableRow) findViewById(R.id.wall_table_row);
         wallTableRow2 = (TableRow) findViewById(R.id.wall_table_row_2);
         specialRigRow = (TableRow) findViewById(R.id.special_rig_table_row);
+        downSpecialRigRow = (TableRow) findViewById(R.id.down_rig_detailed_table_row);
 
         classPeopleCountEditText = (EditText) findViewById(R.id.class_people_count);
         drillPipeIdEditText = (EditText) findViewById(R.id.edit_text_drill_pipe_id);
@@ -193,6 +198,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundSaturationEditText = (EditText) findViewById(R.id.edit_text_ground_saturation);
         groundWeatheringEditText = (EditText) findViewById(R.id.edit_text_ground_weathering);
         groundNoteEditText = (EditText) findViewById(R.id.edit_text_ground_note);
+
+        rigHoleSaturationEditText = (EditText) findViewById(R.id.edit_text_rig_hole_situration);
+        specialThingsEditText = (EditText) findViewById(R.id.edit_text_special_things);
 
         addRigButton = (Button) findViewById(R.id.button_confirm_add_rig);
         startTimeButton = (Button) findViewById(R.id.button_start_time);
@@ -534,6 +542,39 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
+        rigHoleSaturationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ((CasedRig) rig).setCasedSituation(s.toString());
+            }
+        });
+        specialThingsEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ((CasedRig) rig).setSpecialNote(s.toString());
+            }
+        });
+
         rigTimeDurationTextView = (TextView) findViewById(R.id.textview_rig_time_duration);
 
         rigTypeSpinner = (Spinner) findViewById(R.id.spinner_rig_type);
@@ -561,6 +602,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
                         selectedRigType = STOP_RIG;
                         if (!firstStart) {
                             rig = new RigEvent();
@@ -588,6 +630,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.GONE);
                         wallTableRow2.setVisibility(View.GONE);
                         specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
                         selectedRigType = DRY_RIG;
                         if (!firstStart) {
                             rig = new RigEvent();
@@ -618,6 +661,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
                         if (!firstStart) {
                             rig = new SPTRig(holeId);
@@ -669,9 +713,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         wallTableRow.setVisibility(View.VISIBLE);
                         wallTableRow2.setVisibility(View.VISIBLE);
                         specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.VISIBLE);
                         selectedRigType = DOWN_RIG;
                         if (!firstStart) {
-                            rig = new RigEvent();
+                            rig = new CasedRig();
 
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
@@ -729,7 +774,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setGroundDensity(GROUND_DENSITY_MAP.get(parent.getItemAtPosition(position).toString()));
                 rig.setGroundSaturation(GROUND_SATURATION_MAP.get(parent.getItemAtPosition(position).toString()));
                 rig.setGroundWeathering(GROUND_WEATHERING_MAP.get(parent.getItemAtPosition(position).toString()));
-                rig.setNote(GROUND_NOTE_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setSpecialNote(GROUND_NOTE_MAP.get(parent.getItemAtPosition(position).toString()));
 
                 refreshRigInfoTable();
             }
@@ -943,7 +988,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundDensityEditText.setText(rig.getGroundDensity());
         groundSaturationEditText.setText(rig.getGroundSaturation());
         groundWeatheringEditText.setText(rig.getGroundWeathering());
-        groundNoteEditText.setText(rig.getNote());
+        groundNoteEditText.setText(rig.getSpecialNote());
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

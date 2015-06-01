@@ -283,12 +283,12 @@ public class SPTRig extends RigEvent implements Serializable {
     }
 
     @Override
-    public String getNote() {
+    public String getSpecialNote() {
         return note;
     }
 
     @Override
-    public void setNote(String note) {
+    public void setSpecialNote(String note) {
         this.note = note;
     }
 }

@@ -119,7 +119,7 @@ public class XlsParser {
             for (RigEvent currEvent : rigEvents) {
                 String eventId = currEvent.getEventId();
                 if ("标贯".equals(currEvent.getProjectName())) {
-                    SPTRig rigEvent = new SPTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getNote()) ;
+                    SPTRig rigEvent = new SPTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getSpecialNote()) ;
                     SPTRig sptRig = sptRigMap.get(eventId);
                     rigEvent.setPenetrationFrom(sptRig.getPenetrationFrom());
                     rigEvent.setPenetrationTo(sptRig.getPenetrationTo());
@@ -146,11 +146,11 @@ public class XlsParser {
                     rigEvent.setGroundColor(sptRig.getGroundColor());
                     rigEvent.setGroundSaturation(sptRig.getGroundSaturation());
                     rigEvent.setCumulativeCount(sptRig.getCumulativeCount());
-                    rigEvent.setNote(sptRig.getNote());
+                    rigEvent.setSpecialNote(sptRig.getSpecialNote());
 
                     newRigEvents.add(rigEvent);
                 } else if ("动探".equals(currEvent.getProjectName())) {
-                    DSTRig rigEvent =new DSTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getNote()) ;;
+                    DSTRig rigEvent =new DSTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getSpecialNote()) ;;
                     DSTRig dstRig = dstRigMap.get(eventId);
 
                     rigEvent.setGroundName(dstRig.getGroundName());
@@ -259,7 +259,7 @@ public class XlsParser {
             rigEvent.setGroundDensity(values[31]);
             rigEvent.setGroundSaturation(values[32]);
             rigEvent.setGroundWeathering(values[33]);
-            rigEvent.setNote(values[34]);
+            rigEvent.setSpecialNote(values[34]);
 
             String holeId = rigEvent.getHoleId();
             ArrayList<RigEvent> rigList = map.get(holeId);
@@ -307,7 +307,7 @@ public class XlsParser {
             sptEvent.setGroundColor(values[20]);
             sptEvent.setGroundSaturation(values[21]);
             sptEvent.setCumulativeCount(Integer.parseInt(values[22]));
-            sptEvent.setNote(values[23]);
+            sptEvent.setSpecialNote(values[23]);
 
             String eventId = sptEvent.getEventId();
             map.put(eventId, sptEvent);
@@ -527,7 +527,7 @@ public class XlsParser {
             sb.append(sptRigEvent.getGroundColor()).append(",");
             sb.append(sptRigEvent.getGroundSaturation()).append(",");
             sb.append(sptRigEvent.getCumulativeCount()).append(",");
-            sb.append(sptRigEvent.getNote()).append(",");
+            sb.append(sptRigEvent.getSpecialNote()).append(",");
 
             resultData[i] = convert2Array(sb.toString());
         }
@@ -575,7 +575,7 @@ public class XlsParser {
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");
             sb.append(rigEvent.getGroundWeathering()).append(",");
-            sb.append(rigEvent.getNote()).append(",");
+            sb.append(rigEvent.getSpecialNote()).append(",");
 
             resultData[i] = convert2Array(sb.toString());
         }

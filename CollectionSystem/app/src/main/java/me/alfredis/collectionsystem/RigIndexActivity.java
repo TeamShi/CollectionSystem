@@ -19,16 +19,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.parser.HtmlParser;
-import me.alfredis.collectionsystem.parser.MdbParser;
-import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class RigIndexActivity extends ActionBarActivity implements View.OnClickListener{
@@ -209,7 +203,7 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView("water placeholder 3"));
             row.addView(createRigContentTextView("water placeholder 4"));
 
-            row.addView(createRigContentTextView(rig.getNote()));
+            row.addView(createRigContentTextView(rig.getSpecialNote()));
 
             row.setTag(index);
             index++;

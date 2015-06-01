@@ -8,7 +8,6 @@ import org.jsoup.nodes.Element;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -216,7 +215,7 @@ public class HtmlParser {
             sb.append(sptRigEvent.getGroundColor()).append(",");
             sb.append(sptRigEvent.getGroundSaturation()).append(",");
             sb.append(sptRigEvent.getCumulativeCount()).append(",");
-            sb.append(sptRigEvent.getNote()).append(",");
+            sb.append(sptRigEvent.getSpecialNote()).append(",");
 
             resultData[i] = convert2Array(sb.toString());
         }
@@ -291,7 +290,7 @@ public class HtmlParser {
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");
             sb.append(rigEvent.getGroundWeathering()).append(",");
-            sb.append(rigEvent.getNote()).append(",");
+            sb.append(rigEvent.getSpecialNote()).append(",");
 
             resultData[i] = convert2Array(sb.toString());
         }

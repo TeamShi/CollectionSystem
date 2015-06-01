@@ -107,7 +107,7 @@ public class MdbParser {
                         hashMap.put("项目ID",projectID);
                         hashMap.put("ID",prospectionId);
                         hashMap.put("稠度",rigEvent.getGroundDensity());  //TODO 需要计算？
-                        hashMap.put("岩性描述", rigEvent.getNote());
+                        hashMap.put("岩性描述", rigEvent.getSpecialNote());
                         groundTable.addRowFromMap(hashMap);
 
                     } else if (currRigEvent instanceof DSTRig) {
@@ -121,7 +121,7 @@ public class MdbParser {
                             hashMap.put("项目ID",projectID);
                             hashMap.put("ID",prospectionId);
                             hashMap.put("稠度",dynamicSoundingEvent.getCompactness());
-                            hashMap.put("岩性描述", rigEvent.getNote());
+                            hashMap.put("岩性描述", rigEvent.getSpecialNote());
                             groundTable.addRowFromMap(hashMap);
                         }
                     } else {
@@ -129,7 +129,7 @@ public class MdbParser {
                         hashMap.put("项目ID",projectID);
                         hashMap.put("ID",prospectionId);
                         hashMap.put("稠度",currRigEvent.getGroundDensity());
-                        hashMap.put("岩性描述", currRigEvent.getNote());
+                        hashMap.put("岩性描述", currRigEvent.getSpecialNote());
                         groundTable.addRowFromMap(hashMap);
                     }
 
