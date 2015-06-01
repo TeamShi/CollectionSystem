@@ -612,24 +612,24 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
         rigTimeSpanTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
 
-        sptEventTotalStartEditText.setText(String.valueOf(rig.getPenetrationFrom()));
-        sptEventTotalEndEditText.setText(String.valueOf(rig.getPenetrationTo()));
-        sptEventCountDepth1StartEditText.setText(String.valueOf(rig.getPenetration1DepthFrom()));
-        sptEventCountDepth1EndEditText.setText(String.valueOf(rig.getPenetration1DepthTo()));
+        sptEventTotalStartEditText.setText(String.format("%.2f", rig.getPenetrationFrom()));
+        sptEventTotalEndEditText.setText(String.format("%.2f", rig.getPenetrationTo()));
+        sptEventCountDepth1StartEditText.setText(String.format("%.2f", rig.getPenetration1DepthFrom()));
+        sptEventCountDepth1EndEditText.setText(String.format("%.2f", rig.getPenetration1DepthTo()));
         sptHit1EditText.setText(String.valueOf(rig.getPenetration1Count()));
-        sptEventCountDepth2StartEditText.setText(String.valueOf(rig.getPenetration2DepthFrom()));
-        sptEventCountDepth2EndEditText.setText(String.valueOf(rig.getPenetration2DepthTo()));
+        sptEventCountDepth2StartEditText.setText(String.format("%.2f", rig.getPenetration2DepthFrom()));
+        sptEventCountDepth2EndEditText.setText(String.format("%.2f", rig.getPenetration2DepthTo()));
         sptHit2EditText.setText(String.valueOf(rig.getPenetration2Count()));
-        sptEventCountDepth3StartEditText.setText(String.valueOf(rig.getPenetration3DepthFrom()));
-        sptEventCountDepth3EndEditText.setText(String.valueOf(rig.getPenetration3DepthTo()));
+        sptEventCountDepth3StartEditText.setText(String.format("%.2f", rig.getPenetration3DepthFrom()));
+        sptEventCountDepth3EndEditText.setText(String.format("%.2f", rig.getPenetration3DepthTo()));
         sptHit3EditText.setText(String.valueOf(rig.getPenetration3Count()));
 
-        sptEventDig1StartEditText.setText(String.valueOf(rig.getRig1DepthFrom()));
-        sptEventDig1EndEditText.setText(String.valueOf(rig.getRig1DepthTo()));
-        sptEventDig2StartEditText.setText(String.valueOf(rig.getRig2DepthFrom()));
-        sptEventDig2EndEditText.setText(String.valueOf(rig.getRig2DepthTo()));
-        sptEventDig3StartEditText.setText(String.valueOf(rig.getRig3DepthFrom()));
-        sptEventDig3EndEditText.setText(String.valueOf(rig.getRig3DepthTo()));
+        sptEventDig1StartEditText.setText(String.format("%.2f", rig.getRig1DepthFrom()));
+        sptEventDig1EndEditText.setText(String.format("%.2f", rig.getRig1DepthTo()));
+        sptEventDig2StartEditText.setText(String.format("%.2f", rig.getRig2DepthFrom()));
+        sptEventDig2EndEditText.setText(String.format("%.2f", rig.getRig2DepthTo()));
+        sptEventDig3StartEditText.setText(String.format("%.2f", rig.getRig3DepthFrom()));
+        sptEventDig3EndEditText.setText(String.format("%.2f", rig.getRig3DepthTo()));
 
     }
 }

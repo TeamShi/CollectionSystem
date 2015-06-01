@@ -89,4 +89,18 @@ public class DataManager {
 
         return -1;
     }
+
+    public static double getLatestRoundTripDepth(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                if (hole.getRigList().size() == 0) {
+                    return -1;
+                } else {
+                    return hole.getRigList().get(hole.getRigList().size() - 1).getCumulativeMeterage();
+                }
+            }
+        }
+
+        return -1;
+    }
 }

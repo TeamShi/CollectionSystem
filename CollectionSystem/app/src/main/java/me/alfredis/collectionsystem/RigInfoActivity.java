@@ -620,7 +620,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         dstButton.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
                         if (!firstStart) {
-                            rig = new SPTRig();
+                            rig = new SPTRig(holeId);
 
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                             refreshRigInfoTable();

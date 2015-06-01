@@ -783,7 +783,8 @@
                 android:layout_weight="1"
                 android:layout_margin="2dip"
                 android:singleLine="true"
-                android:layout_width="0dip"/>
+                android:layout_width="0dip"
+                android:editable="false"/>
             <TextView
                 android:text=""
                 android:background="@android:color/holo_green_dark"

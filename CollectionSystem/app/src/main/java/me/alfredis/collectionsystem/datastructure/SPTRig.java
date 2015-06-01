@@ -2,6 +2,8 @@ package me.alfredis.collectionsystem.datastructure;
 
 import java.io.Serializable;
 
+import me.alfredis.collectionsystem.DataManager;
+
 /**
  * Created by Alfred on 15/5/4.
  */
@@ -38,34 +40,71 @@ public class SPTRig extends RigEvent implements Serializable {
     }
 
     public SPTRig() {
+
+    }
+
+    public SPTRig(String holeId) {
         this.projectName = "标贯";
-        this.penetrationFrom = 0;
-        this.penetrationTo = 0;
 
-        this.penetration1DepthFrom = 0;
-        this.penetration1DepthTo = 0;
-        this.penetration1Count =0;
-        this.rig1DepthFrom = 0;
-        this.rig1DepthTo =0;
+        if (DataManager.getLatestRoundTripDepth(holeId) != -1) {
+            this.penetrationFrom = DataManager.getLatestRoundTripDepth(holeId);
+            this.penetrationTo = DataManager.getLatestRoundTripDepth(holeId) + 0.45;
 
-        this.penetration2DepthFrom = 0;
-        this.penetration2DepthTo = 0;
-        this.penetration2Count = 0;
-        this.rig2DepthFrom = 0;
-        this.rig2DepthTo = 0;
+            this.penetration1DepthFrom = this.penetrationFrom + 0.15;
+            this.penetration1DepthTo = this.penetration1DepthFrom + 0.1;
+            this.penetration1Count = 0;
+            this.rig1DepthFrom = this.penetrationFrom;
+            this.rig1DepthTo = this.penetrationFrom + 0.25;
 
-        this.penetration3DepthFrom = 0;
-        this.penetration3DepthTo = 0;
-        this.penetration3Count = 0;
-        this.rig3DepthFrom = 0;
-        this.rig3DepthTo = 0;
+            this.penetration2DepthFrom = this.penetration1DepthTo;
+            this.penetration2DepthTo = this.penetration2DepthFrom + 0.1;
+            this.penetration2Count = 0;
+            this.rig2DepthFrom = this.penetration2DepthFrom;
+            this.rig2DepthTo = this.penetration2DepthTo;
 
-        this.groundName = "groundName";
-        this.groundColor ="groundColor";
-        this.groundSaturability ="groundSaturability";
-        this.cumulativeCount = 0;
+            this.penetration3DepthFrom = this.penetration2DepthTo;
+            this.penetration3DepthTo = this.penetration3DepthFrom + 0.1;
+            this.penetration3Count = 0;
+            this.rig3DepthFrom = this.penetration3DepthFrom;
+            this.rig3DepthTo = this.penetration3DepthTo;
 
-        this.note = "test note";
+            this.groundName = "groundName";
+            this.groundColor ="groundColor";
+            this.groundSaturability ="groundSaturability";
+            this.cumulativeCount = 0;
+
+            this.note = "test note";
+        } else {
+            this.projectName = "标贯";
+            this.penetrationFrom = 0;
+            this.penetrationTo = 0;
+
+            this.penetration1DepthFrom = 0;
+            this.penetration1DepthTo = 0;
+            this.penetration1Count =0;
+            this.rig1DepthFrom = 0;
+            this.rig1DepthTo =0;
+
+            this.penetration2DepthFrom = 0;
+            this.penetration2DepthTo = 0;
+            this.penetration2Count = 0;
+            this.rig2DepthFrom = 0;
+            this.rig2DepthTo = 0;
+
+            this.penetration3DepthFrom = 0;
+            this.penetration3DepthTo = 0;
+            this.penetration3Count = 0;
+            this.rig3DepthFrom = 0;
+            this.rig3DepthTo = 0;
+
+            this.groundName = "groundName";
+            this.groundColor ="groundColor";
+            this.groundSaturability ="groundSaturability";
+            this.cumulativeCount = 0;
+
+            this.note = "test note";
+        }
+
     }
 
 
