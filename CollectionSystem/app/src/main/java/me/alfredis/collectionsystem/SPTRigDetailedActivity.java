@@ -2,8 +2,10 @@ package me.alfredis.collectionsystem;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,15 +47,18 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         rig = (RigEvent) getIntent().getSerializableExtra("rig");
 
         applyButton = (Button) findViewById(R.id.button_confirm_spt_detailed);
-        rigDateButton = (Button) findViewById(R.id.button_rig_date);
+        rigDateButton = (Button) findViewById(R.id.button_rig_date_spt_detail);
         startTimeButton = (Button) findViewById(R.id.button_start_time_spt_detail);
         endTimeButton = (Button) findViewById(R.id.button_end_time_spt_detail);
         classPeopleCountEditText = (EditText) findViewById(R.id.edit_text_class_people_count_spt_detail);
         rigTimeSpanTextView = (TextView) findViewById(R.id.textview_rig_time_duration_spt_detail);
 
         applyButton.setOnClickListener(this);
+        rigDateButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
+
+        refreshRigInfoTable();
     }
 
     @Override
@@ -95,7 +100,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                     }
                 }, rigDate.get(Calendar.YEAR), rigDate.get(Calendar.MONTH), rigDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
-            case R.id.button_start_time:
+            case R.id.button_start_time_spt_detail:
                 new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -113,7 +118,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                     }
                 }, rig.getStartTime().get(Calendar.HOUR), rig.getStartTime().get(Calendar.MINUTE), true).show();
                 break;
-            case R.id.button_end_time:
+            case R.id.button_end_time_spt_detail:
                 new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -132,6 +137,10 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 }, rig.getStartTime().get(Calendar.HOUR), rig.getStartTime().get(Calendar.MINUTE), true).show();
                 break;
             case R.id.button_confirm_spt_detailed:
+                Intent intent = new Intent();
+                intent.putExtra("rig", rig);
+                this.setResult(RESULT_OK, intent);
+                this.finish();
                 break;
         }
     }
@@ -142,6 +151,5 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
         rigTimeSpanTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
-
     }
 }

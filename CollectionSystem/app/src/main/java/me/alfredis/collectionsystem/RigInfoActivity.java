@@ -945,4 +945,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundWeatheringEditText.setText(rig.getGroundWeathering());
         groundNoteEditText.setText(rig.getNote());
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SPT_DETAIL) {
+            if (resultCode == RESULT_OK) {
+                rig = (SPTRig) data.getSerializableExtra("rig");
+                refreshRigInfoTable();
+            }
+        }
+    }
 }
