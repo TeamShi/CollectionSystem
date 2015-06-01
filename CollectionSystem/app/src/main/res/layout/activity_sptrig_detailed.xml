@@ -406,7 +406,7 @@
                 android:layout_weight="1"
                 />
             <EditText
-                android:id="@+id/edit_text_spt_event_3_count_depth_start"
+                android:id="@+id/edit_text_spt_event_count_depth_3_start"
                 android:layout_height="fill_parent"
                 android:inputType="text"
                 android:background="@android:color/white"
@@ -847,6 +847,7 @@
                 android:layout_height="fill_parent"
                 android:layout_width="0dip"
                 android:layout_weight="2"
+                android:editable="false"
                 />
         </TableRow>
     </TableLayout>

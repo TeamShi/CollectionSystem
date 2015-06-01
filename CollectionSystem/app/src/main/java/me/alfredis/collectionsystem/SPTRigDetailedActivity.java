@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,7 +29,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
     private String holeId;
 
-    private RigEvent rig;
+    private SPTRig rig;
 
     private Button applyButton;
     private Button rigDateButton;
@@ -34,9 +37,26 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
     private Button endTimeButton;
 
     private EditText classPeopleCountEditText;
+    private EditText sptEventTotalStartEditText;
+    private EditText sptEventTotalEndEditText;
+    private EditText sptEventCountDepth1StartEditText;
+    private EditText sptEventCountDepth1EndEditText;
+    private EditText sptHit1EditText;
+    private EditText sptEventCountDepth2StartEditText;
+    private EditText sptEventCountDepth2EndEditText;
+    private EditText sptHit2EditText;
+    private EditText sptEventCountDepth3StartEditText;
+    private EditText sptEventCountDepth3EndEditText;
+    private EditText sptHit3EditText;
+    private EditText sptEventDig1StartEditText;
+    private EditText sptEventDig1EndEditText;
+    private EditText sptEventDig2StartEditText;
+    private EditText sptEventDig2EndEditText;
+    private EditText sptEventDig3StartEditText;
+    private EditText sptEventDig3EndEditText;
+    private EditText sptHitTotalCountEditText;
 
     private TextView rigTimeSpanTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +74,450 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         classPeopleCountEditText = (EditText) findViewById(R.id.edit_text_class_people_count_spt_detail);
         rigTimeSpanTextView = (TextView) findViewById(R.id.textview_rig_time_duration_spt_detail);
 
+        sptEventTotalStartEditText = (EditText) findViewById(R.id.edit_text_spt_event_total_start);
+        sptEventTotalEndEditText = (EditText) findViewById(R.id.edit_text_spt_event_total_end);
+        sptEventCountDepth1StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_1_start);
+        sptEventCountDepth1EndEditText  = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_1_end);
+        sptHit1EditText = (EditText) findViewById(R.id.edit_text_spt_hit_1);
+        sptEventCountDepth2StartEditText  = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_2_start);
+        sptEventCountDepth2EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_2_end);
+        sptHit2EditText = (EditText) findViewById(R.id.edit_text_spt_hit_2);
+        sptEventCountDepth3StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_3_start);
+        sptEventCountDepth3EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_count_depth_3_end);
+        sptHit3EditText = (EditText) findViewById(R.id.edit_text_spt_hit_3);
+        sptHitTotalCountEditText = (EditText) findViewById(R.id.edit_text_spt_hit_total_count);
+
+        sptEventDig1StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_1_start);
+        sptEventDig1EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_1_end);
+        sptEventDig2StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_2_start);
+        sptEventDig2EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_2_end);
+        sptEventDig3StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_3_start);
+        sptEventDig3EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_3_end);
+
         applyButton.setOnClickListener(this);
         rigDateButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
 
+        sptEventTotalStartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetrationFrom(Double.valueOf(s.toString()));
+                    sptEventTotalStartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventTotalEndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+
+            }
+        });
+        sptEventTotalEndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetrationTo(Double.valueOf(s.toString()));
+                    sptEventTotalEndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventTotalEndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptEventCountDepth1StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration1DepthFrom(Double.valueOf(s.toString()));
+                    sptEventCountDepth1StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth1StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptEventCountDepth1EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration1DepthTo(Double.valueOf(s.toString()));
+                    sptEventCountDepth1EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth1EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptHit1EditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration1Count(Integer.valueOf(s.toString()));
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+
+                int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
+                sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                if (totalCount > 50) {
+                    Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                } else {
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                }
+
+                rig.setCumulativeCount(totalCount);
+            }
+        });
+        sptEventCountDepth2StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration2DepthFrom(Double.valueOf(s.toString()));
+                    sptEventCountDepth2StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth2StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptEventCountDepth2EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration2DepthTo(Double.valueOf(s.toString()));
+                    sptEventCountDepth2EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth2EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptHit2EditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration2Count(Integer.valueOf(s.toString()));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+
+                int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
+                sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                if (totalCount > 50) {
+                    Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+
+                } else {
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                }
+
+
+                rig.setCumulativeCount(totalCount);
+            }
+        });
+        sptEventCountDepth3StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration3DepthFrom(Double.valueOf(s.toString()));
+                    sptEventCountDepth3StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth3StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptEventCountDepth3EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration3DepthTo(Double.valueOf(s.toString()));
+                    sptEventCountDepth3EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventCountDepth3EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+            }
+        });
+        sptHit3EditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setPenetration3Count(Integer.valueOf(s.toString()));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+
+                int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
+                sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                if (totalCount > 50) {
+                    Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHit3EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                } else {
+                    sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHit2EditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                    sptHitTotalCountEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                }
+
+                rig.setCumulativeCount(totalCount);
+            }
+        });
+
+        sptEventDig1StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig1DepthFrom(Double.valueOf(s.toString()));
+                    sptEventDig1StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig1StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
+        sptEventDig1EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig1DepthTo(Double.valueOf(s.toString()));
+                    sptEventDig1EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig1EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
+        sptEventDig2StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig2DepthFrom(Double.valueOf(s.toString()));
+                    sptEventDig2StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig2StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
+        sptEventDig2EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig2DepthTo(Double.valueOf(s.toString()));
+                    sptEventDig2EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig2EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
+        sptEventDig3StartEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig3DepthFrom(Double.valueOf(s.toString()));
+                    sptEventDig3StartEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig3StartEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
+        sptEventDig3EndEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    rig.setRig3DepthTo(Double.valueOf(s.toString()));
+                    sptEventDig3EndEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+                } catch (Exception e) {
+                    sptEventDig3EndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    return;
+                }
+            }
+        });
         refreshRigInfoTable();
     }
 
@@ -152,5 +611,25 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         endTimeButton.setText(Utility.formatTimeString(rig.getEndTime()));
         rigDateButton.setText(Utility.formatCalendarDateString(rig.getDate()));
         rigTimeSpanTextView.setText(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime()));
+
+        sptEventTotalStartEditText.setText(String.valueOf(rig.getPenetrationFrom()));
+        sptEventTotalEndEditText.setText(String.valueOf(rig.getPenetrationTo()));
+        sptEventCountDepth1StartEditText.setText(String.valueOf(rig.getPenetration1DepthFrom()));
+        sptEventCountDepth1EndEditText.setText(String.valueOf(rig.getPenetration1DepthTo()));
+        sptHit1EditText.setText(String.valueOf(rig.getPenetration1Count()));
+        sptEventCountDepth2StartEditText.setText(String.valueOf(rig.getPenetration2DepthFrom()));
+        sptEventCountDepth2EndEditText.setText(String.valueOf(rig.getPenetration2DepthTo()));
+        sptHit2EditText.setText(String.valueOf(rig.getPenetration2Count()));
+        sptEventCountDepth3StartEditText.setText(String.valueOf(rig.getPenetration3DepthFrom()));
+        sptEventCountDepth3EndEditText.setText(String.valueOf(rig.getPenetration3DepthTo()));
+        sptHit3EditText.setText(String.valueOf(rig.getPenetration3Count()));
+
+        sptEventDig1StartEditText.setText(String.valueOf(rig.getRig1DepthFrom()));
+        sptEventDig1EndEditText.setText(String.valueOf(rig.getRig1DepthTo()));
+        sptEventDig2StartEditText.setText(String.valueOf(rig.getRig2DepthFrom()));
+        sptEventDig2EndEditText.setText(String.valueOf(rig.getRig2DepthTo()));
+        sptEventDig3StartEditText.setText(String.valueOf(rig.getRig3DepthFrom()));
+        sptEventDig3EndEditText.setText(String.valueOf(rig.getRig3DepthTo()));
+
     }
 }

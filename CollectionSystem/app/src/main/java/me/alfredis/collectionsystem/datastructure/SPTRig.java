@@ -39,26 +39,26 @@ public class SPTRig extends RigEvent implements Serializable {
 
     public SPTRig() {
         this.projectName = "标贯";
-        this.penetrationFrom = 123.45;
-        this.penetrationFrom = 123.45;
+        this.penetrationFrom = 0;
+        this.penetrationTo = 0;
 
-        this.penetration1DepthFrom =123.45;
-        this.penetration1DepthTo =123.45;
+        this.penetration1DepthFrom = 0;
+        this.penetration1DepthTo = 0;
         this.penetration1Count =0;
         this.rig1DepthFrom = 0;
         this.rig1DepthTo =0;
 
-        this.penetration2DepthFrom =123.45;
-        this.penetration2DepthTo =123.45;
-        this.penetration2Count =0;
+        this.penetration2DepthFrom = 0;
+        this.penetration2DepthTo = 0;
+        this.penetration2Count = 0;
         this.rig2DepthFrom = 0;
-        this.rig2DepthTo =0;
+        this.rig2DepthTo = 0;
 
-        this.penetration3DepthFrom =123.45;
-        this.penetration3DepthTo =123.45;
-        this.penetration3Count =0;
+        this.penetration3DepthFrom = 0;
+        this.penetration3DepthTo = 0;
+        this.penetration3Count = 0;
         this.rig3DepthFrom = 0;
-        this.rig3DepthTo =0;
+        this.rig3DepthTo = 0;
 
         this.groundName = "groundName";
         this.groundColor ="groundColor";
