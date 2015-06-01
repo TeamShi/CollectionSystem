@@ -45,6 +45,118 @@
                         android:layout_height="fill_parent"
                         android:layout_margin="2dip">
                         <TextView
+                            android:text="班次/人数"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            />
+                        <EditText
+                            android:id="@+id/edit_text_class_people_count_dst_detail"
+                            android:layout_height="fill_parent"
+                            android:inputType="text"
+                            android:background="@android:color/white"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"
+                            android:singleLine="true"/>
+
+                        <TextView
+                            android:text="日期"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            />
+                        <Button
+                            android:id="@+id/button_rig_date_dst_detail"
+                            android:background="@android:color/white"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3"
+                            android:layout_width="fill_parent" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2dip">
+                        <TextView
+                            android:text="时间"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            />
+                        <TextView
+                            android:text="自时、分"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <Button
+                            android:id="@+id/button_start_time_dst_detail"
+                            android:background="@android:color/white"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_width="0dip" />
+                        <TextView
+                            android:text="至时、分"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <Button
+                            android:id="@+id/button_end_time_dst_detail"
+                            android:background="@android:color/white"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_width="0dip" />
+                        <TextView
+                            android:text="计时分"
+                            android:background="@android:color/holo_green_light"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_width="0dip"
+                            android:layout_weight="1"
+                            />
+                        <TextView
+                            android:id="@+id/textview_rig_time_duration_dst_detail"
+                            android:text="0:00"
+                            android:background="@android:color/white"
+                            android:layout_margin="2dip"
+                            android:gravity="center"
+                            android:textColor="@android:color/black"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_width="0dip" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2dip">
+                        <TextView
                             android:text="探杆总长(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"

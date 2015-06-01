@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.datastructure.SPTRig;
 
 
 public class SPTRigDetailedActivity extends ActionBarActivity implements View.OnClickListener {
@@ -44,7 +45,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
         holeId = getIntent().getStringExtra("holeId");
 
-        rig = (RigEvent) getIntent().getSerializableExtra("rig");
+        rig = (SPTRig) getIntent().getSerializableExtra("rig");
 
         applyButton = (Button) findViewById(R.id.button_confirm_spt_detailed);
         rigDateButton = (Button) findViewById(R.id.button_rig_date_spt_detail);

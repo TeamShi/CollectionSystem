@@ -49,7 +49,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int DOWN_RIG = 7;
 
     private static final int DST_DETAIL = 0;
-    private static final int SPT_DETAIL = 0;
+    private static final int SPT_DETAIL = 1;
 
     private EditText classPeopleCountEditText;
     private EditText drillPipeIdEditText;
@@ -857,7 +857,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 Log.d(TAG, "Go to dst detail info.");
                 Intent intent = new Intent(this, DSTRigDetailedActivity.class);
                 intent.putExtra("holeId", holeId);
-                intent.putExtra("rigIndex", queryRigIndex);
+                intent.putExtra("rig", rig);
                 startActivityForResult(intent, DST_DETAIL);
                 break;
             case R.id.button_spt_detail:
@@ -952,6 +952,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         if (requestCode == SPT_DETAIL) {
             if (resultCode == RESULT_OK) {
                 rig = (SPTRig) data.getSerializableExtra("rig");
+                refreshRigInfoTable();
+            }
+        } else if (requestCode == DST_DETAIL) {
+            if (resultCode == RESULT_OK) {
+                rig = (DSTRig) data.getSerializableExtra("rig");
                 refreshRigInfoTable();
             }
         }
