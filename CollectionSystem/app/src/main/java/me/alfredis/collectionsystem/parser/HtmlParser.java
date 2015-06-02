@@ -285,7 +285,7 @@ public class HtmlParser {
             sb.append(rigEvent.getRockCoreLength()).append(",");
             sb.append(rigEvent.getRockCoreRecovery()).append(",");
             sb.append(rigEvent.getGroundName()).append(",");
-            sb.append(rigEvent.getEndDepth() - rigEvent.getStartDepth()).append(",");// 计算深度差
+            sb.append(rigEvent.getStartDepth()).append(",");//起止深度
             sb.append(rigEvent.getGroundColor()).append(",");
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");

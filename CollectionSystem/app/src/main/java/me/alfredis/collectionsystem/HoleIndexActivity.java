@@ -213,7 +213,8 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
                 try {
                     DataManager.holes.clear();
-                    if(DataManager.holes.addAll(XlsParser.parse(xlsPath))){
+                    ArrayList<Hole> holeArrayList = XlsParser.parse(xlsPath);
+                    if(DataManager.holes.addAll(holeArrayList)){
                         Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
