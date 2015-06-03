@@ -2,7 +2,13 @@ package me.alfredis.collectionsystem;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,10 +21,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -39,6 +50,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Button stableLevelButton;
     private Button recordDateButton;
     private Button reviewDateButton;
+    private Button takePhotoButton;
 
     private EditText mileageEditText;
     private EditText offsetEditText;
@@ -69,6 +81,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private Spinner projectStageSpinner;
     private Spinner articleSpinner;
 
+    private ImageView photoView;
+    private TableRow photoTableRow;
+
     private ArrayAdapter<String> projectStageSpinnerAdapter;
     private ArrayAdapter<String> holeIdPart1SpinnerAdapter;
     private ArrayAdapter<String> holeIdPart3SpinnerAdapter;
@@ -80,6 +95,11 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private static final String[] PROJECT_STAGE_SPINNER_OPTIONS = {"I", "II", "III", "IV"};
     private static final String[] PROJECT_ID_PART3_SPINNER_OPTIONS = {"1", "2", "3", "4"};
     private static final String[] ARTICLE_SPINNER_OPTIONS = {"K", "DK", "AK", "ACK", "CDK"};
+
+    private static final int TAKE_PHOTO = 0;
+    private static final int CROP_PHOTO = 1;
+
+    private static Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +114,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton = (Button) findViewById(R.id.button_stable_level_date);
         recordDateButton = (Button) findViewById(R.id.button_record_date);
         reviewDateButton = (Button) findViewById(R.id.button_review_date);
+        takePhotoButton = (Button) findViewById(R.id.button_take_photo);
 
         mileageEditText = (EditText) findViewById(R.id.hole_mileage);
         offsetEditText = (EditText) findViewById(R.id.hole_offset);
@@ -121,6 +142,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         holeIdPart3Spinner = (Spinner) findViewById(R.id.spinner_hole_id_part3);
         holeIdPart4EditText = (EditText) findViewById(R.id.edittext_hole_id_part4);
 
+        photoView = (ImageView) findViewById(R.id.image_view_hole_id);
+        photoTableRow = (TableRow) findViewById(R.id.table_row_photo);
+
         projectStageSpinner = (Spinner) findViewById(R.id.spinner_hole_project_stage);
         articleSpinner = (Spinner) findViewById(R.id.spinner_hole_article);
 
@@ -132,6 +156,21 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setOnClickListener(this);
         recordDateButton.setOnClickListener(this);
         reviewDateButton.setOnClickListener(this);
+        takePhotoButton.setOnClickListener(this);
+
+        //TODO: PHOTO LOAD photo if the picutre is exist.
+        if (false) {
+            try {
+                imageUri = Uri.fromFile(new File("Asdasjkdl"));
+                Bitmap bitmap = BitmapFactory.decodeStream(
+                        getContentResolver().openInputStream(imageUri));
+                photoTableRow.setVisibility(View.VISIBLE);
+                photoView.setImageBitmap(bitmap);
+            } catch(FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         projectStageSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
         projectStageSpinner.setAdapter(projectStageSpinnerAdapter);
@@ -739,6 +778,26 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                     }
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
+            case R.id.button_take_photo:
+                //TODO: PHOTO temp to dcim folder
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), hole.getHoleId() + ".jpg");
+
+                try {
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                imageUri = Uri.fromFile(file);
+                Intent photoIintent = new Intent("android.media.action.IMAGE_CAPTURE"); //照相
+                photoIintent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //指定图片输出地址
+                startActivityForResult(photoIintent,TAKE_PHOTO);
+
+                break;
             default:
                 break;
         }
@@ -782,5 +841,43 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
         recordDateButton.setText(Utility.formatCalendarDateString(hole.getRecordDate()));
         reviewDateButton.setText(Utility.formatCalendarDateString(hole.getReviewDate()));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(imageUri, "image/*");
+                intent.putExtra("scale", true);
+
+                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectY", 1);
+                intent.putExtra("outputX", 800);
+                intent.putExtra("outputY", 600);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+
+                Intent intentBc = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                intentBc.setData(imageUri);
+                this.sendBroadcast(intentBc);
+                startActivityForResult(intent, CROP_PHOTO);
+                break;
+            case CROP_PHOTO:
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeStream(
+                            getContentResolver().openInputStream(imageUri));
+                    Toast.makeText(this, "照片保存成功", Toast.LENGTH_SHORT).show();
+                    photoTableRow.setVisibility(View.VISIBLE);
+                    photoView.setImageBitmap(bitmap);
+                } catch(FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
