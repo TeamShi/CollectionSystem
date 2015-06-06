@@ -24,6 +24,23 @@
                 android:layout_height="wrap_content"
                 android:text="判断参数修改"
                 android:id="@+id/button_modify_configurations" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:id="@+id/button_main_save" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="载入"
+                android:id="@+id/button_main_load" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="导出所有内容"
+                android:id="@+id/button_main_export_tables" />
         </LinearLayout>
 
         <LinearLayout

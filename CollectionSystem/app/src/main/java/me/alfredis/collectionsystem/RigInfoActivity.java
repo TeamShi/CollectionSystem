@@ -304,7 +304,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
-        //TODO: for SPT
+        //TODO: Alfred. for SPT
         coreBarreliLengthPenetrationEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

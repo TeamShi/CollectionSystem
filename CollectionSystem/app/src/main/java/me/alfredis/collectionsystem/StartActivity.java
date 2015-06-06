@@ -12,6 +12,9 @@ import android.widget.Button;
 public class StartActivity extends ActionBarActivity implements View.OnClickListener {
     private Button messageInputButton;
     private Button modifyConfigurationButton;
+    private Button saveButton;
+    private Button loadButton;
+    private Button exportTablesAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,15 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
         messageInputButton = (Button) findViewById(R.id.button_message_input);
         modifyConfigurationButton = (Button) findViewById(R.id.button_modify_configurations);
+        saveButton = (Button) findViewById(R.id.button_main_save);
+        loadButton = (Button) findViewById(R.id.button_main_load);
+        exportTablesAll = (Button) findViewById(R.id.button_main_export_tables);
 
         messageInputButton.setOnClickListener(this);
         modifyConfigurationButton.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
+        loadButton.setOnClickListener(this);
+        exportTablesAll.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +64,16 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.button_modify_configurations:
+                //TODO: Alfred.
+                break;
+            case R.id.button_main_save:
+                //TODO: Johnson. move function here.
+                break;
+            case R.id.button_main_load:
+                //TODO: Johnson. move function here.
+                break;
+            case R.id.button_main_export_tables:
+                //TODO: Johnson. move function here.
                 break;
         }
     }

@@ -158,10 +158,10 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewDateButton.setOnClickListener(this);
         takePhotoButton.setOnClickListener(this);
 
-        //TODO: PHOTO LOAD photo if the picutre is exist.
+        //TODO: Johnson. When the activity is creating, if the picture with the holeid is exist, load the image.
         if (false) {
             try {
-                imageUri = Uri.fromFile(new File("Asdasjkdl"));
+                imageUri = Uri.fromFile(new File("Todo"));
                 Bitmap bitmap = BitmapFactory.decodeStream(
                         getContentResolver().openInputStream(imageUri));
                 photoTableRow.setVisibility(View.VISIBLE);
@@ -779,7 +779,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_take_photo:
-                //TODO: PHOTO temp to dcim folder
+                //TODO: Johnson. Save picture to your specific folder and need to export in the main activity.
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), hole.getHoleId() + ".jpg");
 
                 try {

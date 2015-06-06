@@ -209,6 +209,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 startActivityForResult(intent, ADD_HOLE);
                 break;
             case R.id.button_import_data:
+                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
                 Log.d(TAG, "Import data button clicked.");
 
                 try {
@@ -226,6 +227,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 }
                 break;
             case R.id.button_output_data:
+                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
                 Log.d(TAG, "Output data button clicked.");
                 try {
                     AssetManager assetManageer = getAssets();
@@ -259,6 +261,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 refreshTable();
                 break;
             case R.id.button_export_all:
+                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
                 try {
                     AssetManager assetManageer = getAssets();
                     File mdbFile = new File(mdbPath);
