@@ -5,6 +5,8 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -150,7 +152,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             tableLayoutParam.setMargins(2, 2, 2, 2);
             row.setLayoutParams(tableLayoutParam);
 
-            row.addView(createHoleContentTextView(hole.getHoleId()));
+            row.addView(createHoleContentTextView(Html.fromHtml(formatHoleId(hole.getHoleId()))));
             row.addView(createHoleContentTextView(hole.getProjectName()));
             row.addView(createHoleContentTextView(hole.getProjectStage().toString()));
             row.addView(createHoleContentTextView(hole.getArticle().toString()));
@@ -191,6 +193,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
         TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
         tableRowParam.setMargins(2, 2, 2, 2);
+        temp.setLayoutParams(tableRowParam);
+
+        return temp;
+    }
+
+    private TextView createHoleContentTextView(Spanned text) {
+        TextView temp = new TextView(this);
+        temp.setText(text);
+        temp.setBackgroundColor(getResources().getColor(android.R.color.white));
+
+        TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
+        tableRowParam.setMargins(6, 6, 6, 6);
         temp.setLayoutParams(tableRowParam);
 
         return temp;
@@ -311,5 +325,34 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 refreshTable();
             }
         }
+    }
+
+    private String formatHoleId(String holeId) {
+        StringBuilder sb = new StringBuilder();
+        String[] temp = holeId.split("-");
+        sb.append("J");
+        if (temp[0].equals("JC")) {
+            sb.append("<sub>c</sub>-");
+        } else if (temp[0].equals("JZ")) {
+            sb.append("<sub>z</sub)-");
+        }
+
+        if (temp[1].startsWith("I") && (!temp[1].startsWith("II"))) {
+            sb.append("I");
+            sb.append("<sub><small>" + temp[1].substring(1) + "</small></sub>");
+        } else if (temp[1].startsWith("II")  && (!temp[1].startsWith("III"))) {
+            sb.append("II");
+            sb.append("<sub><small>" + temp[1].substring(2) + "</small></sub>");
+        } else if (temp[1].startsWith("III")) {
+            sb.append("III");
+            sb.append("<sub><small>" + temp[1].substring(3) + "</small></sub>");
+        } else if (temp[1].startsWith("IV")) {
+            sb.append("IV");
+            sb.append("<sub><small>" + temp[1].substring(2) + "</small></sub>");
+        }
+
+        sb.append("<sup><small>" + temp[2] +"</small></sup>-");
+        sb.append(temp[3]);
+        return sb.toString();
     }
 }

@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -178,7 +179,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 hole.setProjectStage(Enum.valueOf(Hole.ProjectStageType.class, parent.getItemAtPosition(position).toString()));
-                holeIdPart2TextView.setText(hole.getHoleIdPart2());
+                holeIdPart2TextView.setText(Html.fromHtml(formatHoleIdPart2(hole.getHoleIdPart2())));
             }
 
             @Override
@@ -807,7 +808,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         projectNameEditText.setText(hole.getProjectName());
 
         holeIdPart1Spinner.setSelection(Utility.getHoleIdPart1Index(hole.getHoleIdPart1()));
-        holeIdPart2TextView.setText(hole.getHoleIdPart2());
+        holeIdPart2TextView.setText(Html.fromHtml(formatHoleIdPart2(hole.getHoleIdPart2())));
         holeIdPart3Spinner.setSelection(Utility.getProjectIdPart3Index(hole.getHoleIdPart3()));
         holeIdPart4EditText.setText(hole.getHoleIdPart4());
 
@@ -879,5 +880,25 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             default:
                 break;
         }
+    }
+
+    private String formatHoleIdPart2(String str) {
+        StringBuilder sb = new StringBuilder();
+
+        if (str.startsWith("I") && !str.startsWith("II")) {
+           sb.append("I");
+        } else if (str.startsWith("II") && !str.startsWith("III")) {
+           sb.append("II");
+        } else if (str.startsWith("III")) {
+           sb.append("III");
+        } else if (str.startsWith("IV")) {
+           sb.append("IV");
+        }
+
+        sb.append("<sub>");
+        sb.append(str.substring(str.length() - 2));
+        sb.append("</sub>");
+
+        return sb.toString();
     }
 }
