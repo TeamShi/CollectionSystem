@@ -159,20 +159,6 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         reviewDateButton.setOnClickListener(this);
         takePhotoButton.setOnClickListener(this);
 
-        //TODO: Johnson. When the activity is creating, if the picture with the holeid is exist, load the image.
-        if (false) {
-            try {
-                imageUri = Uri.fromFile(new File("Todo"));
-                Bitmap bitmap = BitmapFactory.decodeStream(
-                        getContentResolver().openInputStream(imageUri));
-                photoTableRow.setVisibility(View.VISIBLE);
-                photoView.setImageBitmap(bitmap);
-            } catch(FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-
         projectStageSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PROJECT_STAGE_SPINNER_OPTIONS);
         projectStageSpinner.setAdapter(projectStageSpinnerAdapter);
         projectStageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -624,6 +610,18 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case "QUERY_HOLE":
                 hole = DataManager.holes.get(getIntent().getIntExtra("holeIndex", -1));
+                File photo = new File(Environment.getExternalStorageDirectory().getPath() + "/tempPhotoes/" + hole.getHoleId() + ".jpg");
+                if (photo.exists()) {
+                    try {
+                        imageUri = Uri.fromFile(photo);
+                        Bitmap bitmap = BitmapFactory.decodeStream(
+                                getContentResolver().openInputStream(imageUri));
+                        photoTableRow.setVisibility(View.VISIBLE);
+                        photoView.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 addButton.setText("保存");
 
@@ -661,6 +659,11 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         final Intent intent;
 
         Calendar calendar = Calendar.getInstance();
+
+        File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath()+"/tempPhotoes");
+        if(!imageTempDir.exists()) {
+            imageTempDir.mkdirs();
+        }
 
         switch (v.getId()) {
             case R.id.button_confirm_add_hole:
@@ -783,8 +786,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_take_photo:
-                //TODO: Johnson. Save picture to your specific folder and need to export in the main activity.
-                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), hole.getHoleId() + ".jpg");
+                File file = new File(imageTempDir,hole.getHoleId() + ".jpg");
 
                 try {
                     if (file.exists()) {
