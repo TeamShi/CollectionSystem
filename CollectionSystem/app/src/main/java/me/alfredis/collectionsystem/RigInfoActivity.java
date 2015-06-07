@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -113,10 +114,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
-    private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"98cm", "108cm", "130cm"};
+    private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"89cm", "108cm", "127cm"};
     private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"98cm", "108cm", "130cm"};
     private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "粗砂",
-    "砾砂", "细圆砾土", "粗圆砾土", "卵石", "块石", "漂石", "灰岩"};
+            "砾砂", "细圆砾土", "粗圆砾土", "卵石", "块石", "漂石", "灰岩"};
 
     private static final HashMap<String, String> GROUND_COLOR_MAP = new HashMap<String, String>();
     private static final HashMap<String, String> GROUND_DENSITY_MAP = new HashMap<String, String>();
@@ -158,6 +159,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         setContentView(R.layout.activity_rig_info);
 
         holeId = getIntent().getStringExtra("holeId");
+        requestCode = getIntent().getStringExtra("requestCode");
 
         rigDrillTableRow = (TableRow) findViewById(R.id.rig_drill_table_row);
         drillTableRow = (TableRow) findViewById(R.id.drill_table_row);
@@ -190,7 +192,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
         rockCoreIdEditText = (EditText) findViewById(R.id.edit_text_rock_core_id);
         rockCoreLengthEditText = (EditText) findViewById(R.id.edit_text_rock_core_length);
-        rockCoreRecoveryEditText  = (EditText) findViewById(R.id.edit_text_rock_core_recovery);
+        rockCoreRecoveryEditText = (EditText) findViewById(R.id.edit_text_rock_core_recovery);
 
         startEndDepthEditText = (EditText) findViewById(R.id.edit_text_start_depth);
         groundColorEditText = (EditText) findViewById(R.id.edit_text_ground_color);
@@ -252,8 +254,30 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             public void afterTextChanged(Editable s) {
                 try {
                     rig.setDrillPipeLength(Double.parseDouble(s.toString()));
+                    if (requestCode.equals("ADD_RIG") && !firstStart) {
+                        if (DataManager.getHole(holeId).getCurrentRemainToolLength() != 0) {
+                            rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                            rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            rig.setDrillToolRemainLength(Double.parseDouble(s.toString()));
+                            drillToolRemainLengthEditText.setText(String.valueOf(rig.getDrillToolRemainLength()));
+                            drillToolTotalLengthEditText.setText(String.valueOf(rig.getDrillToolTotalLength()));
+                            cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
+                        } else {
+                            rig.setDrillToolTotalLength(Double.parseDouble(s.toString()) + DataManager.getHole(holeId).getCurrentDrillToolLength());
+                            rig.setCumulativeLength(Double.parseDouble(s.toString()) + DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            rig.setDrillToolRemainLength(Double.parseDouble(s.toString()));
+                            drillToolRemainLengthEditText.setText(String.valueOf(rig.getDrillToolRemainLength()));
+                            drillToolTotalLengthEditText.setText(String.valueOf(rig.getDrillToolTotalLength()));
+                            cumulativeLengthEditText.setText(String.valueOf(rig.getCumulativeLength()));
+                        }
+                    }
+
+                    if (DataManager.getHole(holeId).getCurrentRemainToolLength() != 0) {
+                        cumulativeLengthEditText.setText(String.valueOf(Double.parseDouble(s.toString())));
+                    } else {
+                        cumulativeLengthEditText.setText(String.valueOf(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength() + Double.parseDouble(s.toString())));
+                    }
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
-                    cumulativeLengthEditText.setText(String.valueOf(DataManager.calculateCumulativePipeLength(holeId) + Double.parseDouble(s.toString())));
                 } catch (Exception e) {
                     drillPipeLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -437,9 +461,28 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             public void afterTextChanged(Editable s) {
                 try {
                     rig.setRoundTripMeterage(Double.parseDouble(s.toString()));
+
+                    if (requestCode.equals("ADD_RIG") && !firstStart) {
+                        rig.setCumulativeMeterage(Double.parseDouble(s.toString()) + DataManager.getHole(holeId).getCurrentTotalInputLength());
+                        if (rig.getDrillPipeId() > DataManager.getHole(holeId).getCurrentDrillToolCount()) {
+                            rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength() + rig.getDrillPipeLength() - Double.parseDouble(s.toString()));
+                        } else {
+                            rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength() - Double.parseDouble(s.toString()));
+                        }
+                        cumulativeMeteragEditText.setText(String.valueOf(rig.getCumulativeMeterage()));
+                        drillToolRemainLengthEditText.setText(String.valueOf(rig.getDrillToolRemainLength()));
+
+                        rig.setRockCoreLength(Double.parseDouble(rig.toString()));
+                        rockCoreLengthEditText.setText(String.valueOf(rig.getCoreBarreliLength()));
+                        rig.setRockCoreRecovery(1.0);
+                        rockCoreRecoveryEditText.setText("1.0");
+                    }
+
                     roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
-                    roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    if (!(e instanceof NumberFormatException)) {
+                        roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    }
                 }
             }
         });
@@ -497,6 +540,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 try {
                     rig.setRockCoreLength(Double.parseDouble(s.toString()));
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
+
+                    rig.setRockCoreRecovery(rig.getRockCoreLength() / rig.getRoundTripMeterage());
+                    rockCoreRecoveryEditText.setText(String.format("%.4f",rig.getRockCoreRecovery()));
                 } catch (Exception e) {
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -635,8 +681,25 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         if (!firstStart) {
                             rig = new RigEvent();
 
-                            rig.setDrillPipeId(DataManager.getLatestRigPipeId(holeId));
-                            rig.setCumulativeLength(DataManager.calculateCumulativePipeLength(holeId));
+                            if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
+
+                                rig.setDrillPipeLength(0);
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            } else {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount());
+
+                                rig.setDrillPipeLength(DataManager.getHole(holeId).getLastDrillToolLength());
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            }
 
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
 
@@ -738,7 +801,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
         coreBarreliDiameterAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, CORE_BARRELI_DIAMATER_OPTIONS);
         coreBarreliDiameterSpinner.setAdapter(coreBarreliDiameterAdapter);
-        coreBarreliDiameterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        coreBarreliDiameterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rig.setCoreBarreliDiameter(Double.valueOf(CORE_BARRELI_DIAMATER_OPTIONS[position].substring(0, CORE_BARRELI_DIAMATER_OPTIONS[position].indexOf("cm"))));
@@ -785,8 +848,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
-        requestCode = getIntent().getStringExtra("requestCode");
-
         firstStart = true;
 
         switch (requestCode) {
@@ -798,6 +859,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 break;
             case "QUERY_RIG":
                 queryRigIndex = Integer.parseInt(getIntent().getStringExtra("rigIndex"));
+
+                addRigButton.setText("保存");
 
                 rig = DataManager.getRigEventListByHoleId(holeId).get(queryRigIndex);
 
@@ -853,7 +916,23 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setCumulativeLength(Double.valueOf(cumulativeLengthEditText.getText().toString()));
 
                 if (requestCode.equals("ADD_RIG")) {
+                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 4) {
+                        if (rig.getDrillPipeId() > DataManager.getHole(holeId).getCurrentDrillToolCount()) {
+                            DataManager.getHole(holeId).setCurrentDrillToolCount(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
+                            DataManager.getHole(holeId).setLastDrillToolLength(rig.getDrillPipeLength());
+                            DataManager.getHole(holeId).setCurrentDrillToolLength(rig.getDrillToolTotalLength());
+                            DataManager.getHole(holeId).setCurrentTotalInputLength(rig.getCumulativeMeterage());
+                            DataManager.getHole(holeId).setCurrentRemainToolLength(rig.getDrillToolRemainLength());
+                            DataManager.getHole(holeId).setCurrentDrillPipeTotalLength(rig.getCumulativeLength());
+                        } else {
+                            DataManager.getHole(holeId).setCurrentTotalInputLength(rig.getCumulativeMeterage());
+                            DataManager.getHole(holeId).setCurrentRemainToolLength(rig.getDrillToolRemainLength());
+                        }
+                    }
+
+
                     DataManager.AddRigByHoleId(holeId, rig);
+                    DataManager.getHole(holeId).setActuralDepth(rig.getCumulativeMeterage());
                     this.setResult(RESULT_OK);
                     this.finish();
                 } else if (requestCode.equals("QUERY_RIG")) {

@@ -55,6 +55,13 @@ public class Hole implements Serializable {
 
     private ArrayList<RigEvent> rigList;       //钻孔作业列表
 
+    private double currentDrillToolLength = 0;      //当前钻具总长
+    private double currentRemainToolLength = 0;     //当前钻杆余长
+    private double currentTotalInputLength = 0;     //当前累计进尺
+    private int currentDrillToolCount = 0;          //当前钻杆个数
+    private double lastDrillToolLength = 0;         //当前钻杆长度
+    private double currentDrillPipeTotalLength = 0; //当前累计长度
+
     public enum HoleIdPart1Type {
         JC, JZ
     }
@@ -460,5 +467,53 @@ public class Hole implements Serializable {
 
     public String getHoleId() {
         return holeIdPart1.toString() + "-" + getHoleIdPart2() + "-" + getHoleIdPart3() + "-" + getHoleIdPart4();
+    }
+
+    public double getCurrentDrillToolLength() {
+        return currentDrillToolLength;
+    }
+
+    public void setCurrentDrillToolLength(double currentDrillToolLength) {
+        this.currentDrillToolLength = currentDrillToolLength;
+    }
+
+    public double getCurrentRemainToolLength() {
+        return currentRemainToolLength;
+    }
+
+    public void setCurrentRemainToolLength(double currentRemainToolLength) {
+        this.currentRemainToolLength = currentRemainToolLength;
+    }
+
+    public double getCurrentTotalInputLength() {
+        return currentTotalInputLength;
+    }
+
+    public void setCurrentTotalInputLength(double currentTotalInputLength) {
+        this.currentTotalInputLength = currentTotalInputLength;
+    }
+
+    public int getCurrentDrillToolCount() {
+        return currentDrillToolCount;
+    }
+
+    public void setCurrentDrillToolCount(int currentDrillToolCount) {
+        this.currentDrillToolCount = currentDrillToolCount;
+    }
+
+    public double getLastDrillToolLength() {
+        return lastDrillToolLength;
+    }
+
+    public void setLastDrillToolLength(double lastDrillToolLength) {
+        this.lastDrillToolLength = lastDrillToolLength;
+    }
+
+    public double getCurrentDrillPipeTotalLength() {
+        return currentDrillPipeTotalLength;
+    }
+
+    public void setCurrentDrillPipeTotalLength(double currentDrillPipeTotalLength) {
+        this.currentDrillPipeTotalLength = currentDrillPipeTotalLength;
     }
 }

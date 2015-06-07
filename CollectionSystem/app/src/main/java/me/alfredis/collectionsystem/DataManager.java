@@ -15,6 +15,15 @@ public class DataManager {
         holes = new ArrayList<Hole>();
     }
 
+    public static Hole getHole(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                return hole;
+            }
+        }
+        return null;
+    }
+
     public static boolean isHoleIdExist(String holeId) {
         for (Hole hole : holes) {
             if (hole.getHoleId().equals(holeId)) {
@@ -102,5 +111,19 @@ public class DataManager {
         }
 
         return -1;
+    }
+
+    public static boolean needAddPipeId(String holeId) {
+        for (Hole hole : holes) {
+            if (hole.getHoleId().equals(holeId)) {
+                if(hole.getRigList().get(hole.getRigList().size() - 1).getRoundTripMeterage() > 0
+                        && hole.getRigList().get(hole.getRigList().size() - 1).getDrillToolRemainLength() == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }

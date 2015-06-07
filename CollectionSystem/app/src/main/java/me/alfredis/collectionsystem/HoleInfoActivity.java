@@ -619,10 +619,13 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             case "ADD_HOLE":
                 hole = new Hole();
 
+
                 refreshHoleInfoTable();
                 break;
             case "QUERY_HOLE":
                 hole = DataManager.holes.get(getIntent().getIntExtra("holeIndex", -1));
+
+                addButton.setText("保存");
 
                 refreshHoleInfoTable();
                 break;
