@@ -319,6 +319,7 @@
                             android:layout_height="fill_parent"
                             android:layout_width="0dip"
                             android:layout_weight="1"
+                            android:id="@+id/textview_temp"
                             />
                         <TextView
                             android:text="直径"
@@ -373,6 +374,7 @@
                             android:layout_height="fill_parent"
                             android:layout_width="0dip"
                             android:layout_weight="1"
+                            android:id="@+id/drill_name_text_view"
                             />
                         <TextView
                             android:text="类型"
@@ -995,7 +997,7 @@
                             android:textColor="@android:color/black"
                             android:layout_height="fill_parent"
                             android:layout_width="0dip"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             />
                         <EditText
                             android:id="@+id/edit_text_special_things"

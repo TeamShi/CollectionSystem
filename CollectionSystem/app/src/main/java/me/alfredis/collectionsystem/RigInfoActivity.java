@@ -115,7 +115,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
     private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"89cm", "108cm", "127cm"};
-    private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"51mm"};
+    private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"51mm", "74mm"};
     private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "粗砂",
             "砾砂", "细圆砾土", "粗圆砾土", "卵石", "块石", "漂石", "灰岩"};
 
@@ -748,9 +748,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                             drillDiameterEditText.setText(String.valueOf(rig.getDrillDiameter()));
                             rig.setDrillLength(50);
                             drillLengthEditText.setText(String.valueOf(rig.getDrillLength()));
-                            rig.setPenetrationDiameter(51);
                             rig.setPenetrationLength(5);
                             coreBarreliLengthPenetrationEditText.setText(String.valueOf(rig.getPenetrationLength()));
+                            coreBarreliDiameterPenetrationSpinner.setSelection(0);
+                            rig.setPenetrationDiameter(51);
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                             refreshRigInfoTable();
                         }
@@ -760,8 +761,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     case DST_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.VISIBLE);
-                        coreBarreliTableRow.setVisibility(View.VISIBLE);
-                        penetrationTableRow.setVisibility(View.GONE);
+                        coreBarreliTableRow.setVisibility(View.GONE);
+                        penetrationTableRow.setVisibility(View.VISIBLE);
                         drillToolTableRow1.setVisibility(View.VISIBLE);
                         drillToolTableRow2.setVisibility(View.VISIBLE);
                         rockCoreTableRow.setVisibility(View.GONE);
@@ -781,6 +782,29 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
                             refreshRigInfoTable();
                         }
+
+                        if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                            rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                            rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                            rig.setRoundTripMeterage(0);
+                            rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                        } else {
+                            rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                            rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                            rig.setRoundTripMeterage(0);
+                            rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                        }
+
+                        TextView tv = (TextView) findViewById(R.id.drill_name_text_view);
+                        tv.setText("探头组成");
+                        TextView tv2 = (TextView) findViewById(R.id.textview_temp);
+                        tv2.setText("贯入器");
+                        rig.setDrillLength(250);
+                        drillLengthEditText.setText(String.valueOf(rig.getDrillLength()));
+                        coreBarreliDiameterPenetrationSpinner.setSelection(1);
+                        rig.setPenetrationDiameter(74);
+                        coreBarreliLengthPenetrationEditText.setText(String.valueOf(rig.getPenetrationLength()));
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
                         firstStart = false;
                         break;
@@ -938,7 +962,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setCumulativeLength(Double.valueOf(cumulativeLengthEditText.getText().toString()));
 
                 if (requestCode.equals("ADD_RIG")) {
-                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 5) {
+                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 6) {
                         if (rig.getDrillPipeId() > DataManager.getHole(holeId).getCurrentDrillToolCount()) {
                             DataManager.getHole(holeId).setCurrentDrillToolCount(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
                             DataManager.getHole(holeId).setLastDrillToolLength(rig.getDrillPipeLength());
