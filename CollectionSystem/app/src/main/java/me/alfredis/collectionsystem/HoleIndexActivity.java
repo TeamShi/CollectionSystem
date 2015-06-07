@@ -223,87 +223,13 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 startActivityForResult(intent, ADD_HOLE);
                 break;
             case R.id.button_import_data:
-                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
                 Log.d(TAG, "Import data button clicked.");
-
-                try {
-                    DataManager.holes.clear();
-                    ArrayList<Hole> holeArrayList = XlsParser.parse(xlsPath);
-                    if(DataManager.holes.addAll(holeArrayList)){
-                        Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
-                    }
-                    refreshTable();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
                 break;
             case R.id.button_output_data:
-                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
                 Log.d(TAG, "Output data button clicked.");
-                try {
-                    AssetManager assetManageer = getAssets();
-                    File mdbFile = new File(mdbPath);
-                    if(!mdbFile.exists()) {
-                        InputStream is = assetManageer.open("DlcGeoInfo.mdb");
-                        Utility.copyFile(is,mdbFile);
-                    }
-                    ArrayList<Hole> holeList = DataManager.holes;
-                    ArrayList<RigEvent> rigEvents = new ArrayList<>();
-                    for (Hole hole : holeList) {
-                        ArrayList<RigEvent> events = hole.getRigList();
-                        if (events != null) {
-                            rigEvents.addAll(hole.getRigList());
-                        }
-                    }
-
-                    boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
-                    boolean exportRigHtml = HtmlParser.parseRig(baseDir, rigEvents, assetManageer);
-                    boolean exportMdb =  MdbParser.parse(mdbFile,DataManager.holes);
-
-                    if( exportRigHtml && exportMdb &&exportXls){
-                        Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
                 refreshTable();
                 break;
             case R.id.button_export_all:
-                //TODO: johnson. Move to the main activity. I will remove the button when you are finish.
-                try {
-                    AssetManager assetManageer = getAssets();
-                    File mdbFile = new File(mdbPath);
-                    if (!mdbFile.exists()) {
-                        InputStream is = null;
-                        is = assetManageer.open("DlcGeoInfo.mdb");
-                        Utility.copyFile(is, mdbFile);
-                    }
-                    ArrayList<Hole> holeList = DataManager.holes;
-                    for (Hole hole : holeList) {
-                        if (null == hole.getRigList()) {
-                            hole.setRigList(new ArrayList<RigEvent>());
-                        }
-                    }
-
-                    boolean exportXls = XlsParser.parse(xlsPath, DataManager.holes);
-                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes, assetManageer);
-                    boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
-
-                    if (exportHtml && exportMdb && exportXls) {
-                        Toast.makeText(getApplicationContext(), "导出所有表格成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
-                }
                 break;
             default:
                 break;

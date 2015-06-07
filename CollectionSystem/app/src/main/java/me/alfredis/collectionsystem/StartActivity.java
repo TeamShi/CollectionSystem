@@ -1,12 +1,27 @@
 package me.alfredis.collectionsystem;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.MdbParser;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class StartActivity extends ActionBarActivity implements View.OnClickListener {
@@ -58,6 +73,9 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
+        String xlsPath = baseDir + "test.xls";
+        String mdbPath = baseDir+"DlcGeoInfo.mdb";
         switch(view.getId()) {
             case R.id.button_message_input:
                 Intent intent = new Intent(this, HoleIndexActivity.class);
@@ -67,13 +85,61 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 //TODO: Alfred.
                 break;
             case R.id.button_main_save:
-                //TODO: Johnson. move function here.
+                try {
+                    boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
+                    if(exportXls){
+                        Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "保存失败！" , Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "保存失败！" , Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_main_load:
-                //TODO: Johnson. move function here.
+                try {
+                    DataManager.holes.clear();
+                    ArrayList<Hole> holeArrayList = XlsParser.parse(xlsPath);
+                    if(DataManager.holes.addAll(holeArrayList)){
+                        Toast.makeText(getApplicationContext(), "载入成功！", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "载入失败！", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "载入失败！", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_main_export_tables:
-                //TODO: Johnson. move function here.
+                try {
+                    AssetManager assetManageer = getAssets();
+                    File mdbFile = new File(mdbPath);
+                    if (!mdbFile.exists()) {
+                        InputStream is = null;
+                        is = assetManageer.open("DlcGeoInfo.mdb");
+                        Utility.copyFile(is, mdbFile);
+                    }
+                    ArrayList<Hole> holeList = DataManager.holes;
+                    for (Hole hole : holeList) {
+                        if (null == hole.getRigList()) {
+                            hole.setRigList(new ArrayList<RigEvent>());
+                        }
+                    }
+
+                    boolean exportXls = XlsParser.parse(xlsPath, DataManager.holes);
+                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes, assetManageer);
+                    boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
+
+                    if (exportHtml && exportMdb && exportXls) {
+                        Toast.makeText(getApplicationContext(), "导出所有内容成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "导出所有内容失败", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "导出所有内容失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
