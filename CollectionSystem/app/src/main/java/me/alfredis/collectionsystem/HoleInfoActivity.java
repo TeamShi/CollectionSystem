@@ -610,7 +610,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case "QUERY_HOLE":
                 hole = DataManager.holes.get(getIntent().getIntExtra("holeIndex", -1));
-                File photo = new File(Environment.getExternalStorageDirectory().getPath() + "/tempPhotoes/" + hole.getHoleId() + ".jpg");
+                File photo = new File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/tempPhotoes/" + hole.getHoleId() + ".jpg");
                 if (photo.exists()) {
                     try {
                         imageUri = Uri.fromFile(photo);
@@ -660,7 +660,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
         Calendar calendar = Calendar.getInstance();
 
-        File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath()+"/tempPhotoes");
+        File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/tempPhotoes");
         if(!imageTempDir.exists()) {
             imageTempDir.mkdirs();
         }

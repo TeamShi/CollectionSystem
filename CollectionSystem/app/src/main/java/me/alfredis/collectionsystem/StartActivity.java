@@ -73,9 +73,9 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
-        String xlsPath = baseDir + "test.xls";
-        String mdbPath = baseDir+"DlcGeoInfo.mdb";
+        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
+        String xlsPath = baseDir + "zuantan.xls";
+
         switch(view.getId()) {
             case R.id.button_message_input:
                 Intent intent = new Intent(this, HoleIndexActivity.class);
@@ -112,6 +112,17 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 }
                 break;
             case R.id.button_main_export_tables:
+                File exportDir = new File(baseDir+"export/");
+                if(!exportDir.exists()){
+                    exportDir.mkdirs();
+                }
+
+                File tempDir = new File(baseDir + "temp/");
+                tempDir.mkdir();
+
+                String mdbPath = tempDir.getPath() + "/DlcGeoInfo.mdb";
+                String xlsTempPath = tempDir.getPath() + "/zuantan.xls";
+
                 try {
                     AssetManager assetManageer = getAssets();
                     File mdbFile = new File(mdbPath);
@@ -127,8 +138,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                         }
                     }
 
-                    boolean exportXls = XlsParser.parse(xlsPath, DataManager.holes);
-                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes, assetManageer);
+                    boolean exportXls = XlsParser.parse(xlsTempPath, DataManager.holes);
+                    boolean exportHtml = HtmlParser.parse(tempDir.getPath(), DataManager.holes, assetManageer);
                     boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
 
                     if (exportHtml && exportMdb && exportXls) {
