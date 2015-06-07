@@ -115,7 +115,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
             "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
     private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"89cm", "108cm", "127cm"};
-    private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"98cm", "108cm", "130cm"};
+    private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"51mm"};
     private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "粗砂",
             "砾砂", "细圆砾土", "粗圆砾土", "卵石", "块石", "漂石", "灰岩"};
 
@@ -653,9 +653,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         if (!firstStart) {
                             rig = new RigEvent();
 
-                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                             refreshRigInfoTable();
                         }
+
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
                         firstStart = false;
                         break;
@@ -729,6 +730,27 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         if (!firstStart) {
                             rig = new SPTRig(holeId);
 
+                            if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                            } else {
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                            }
+
+                            rig.setDrillType("管靴");
+                            drillTypeEditText.setText(rig.getDrillType());
+                            rig.setDrillDiameter(51);
+                            drillDiameterEditText.setText(String.valueOf(rig.getDrillDiameter()));
+                            rig.setDrillLength(50);
+                            drillLengthEditText.setText(String.valueOf(rig.getDrillLength()));
+                            rig.setPenetrationDiameter(51);
+                            rig.setPenetrationLength(5);
+                            coreBarreliLengthPenetrationEditText.setText(String.valueOf(rig.getPenetrationLength()));
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
                             refreshRigInfoTable();
                         }
@@ -814,7 +836,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         });
 
         coreBarreliDiameterPenetrationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS);
-        coreBarreliDiameterPenetrationSpinner.setAdapter(coreBarreliDiameterAdapter);
+        coreBarreliDiameterPenetrationSpinner.setAdapter(coreBarreliDiameterPenetrationAdapter);
         coreBarreliDiameterPenetrationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -916,7 +938,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setCumulativeLength(Double.valueOf(cumulativeLengthEditText.getText().toString()));
 
                 if (requestCode.equals("ADD_RIG")) {
-                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 4) {
+                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 5) {
                         if (rig.getDrillPipeId() > DataManager.getHole(holeId).getCurrentDrillToolCount()) {
                             DataManager.getHole(holeId).setCurrentDrillToolCount(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
                             DataManager.getHole(holeId).setLastDrillToolLength(rig.getDrillPipeLength());
