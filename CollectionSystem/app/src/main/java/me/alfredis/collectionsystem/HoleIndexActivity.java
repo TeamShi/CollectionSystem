@@ -5,6 +5,8 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -150,7 +152,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             tableLayoutParam.setMargins(2, 2, 2, 2);
             row.setLayoutParams(tableLayoutParam);
 
-            row.addView(createHoleContentTextView(hole.getHoleId()));
+            row.addView(createHoleContentTextView(Html.fromHtml(formatHoleId(hole.getHoleId()))));
             row.addView(createHoleContentTextView(hole.getProjectName()));
             row.addView(createHoleContentTextView(hole.getProjectStage().toString()));
             row.addView(createHoleContentTextView(hole.getArticle().toString()));
@@ -196,6 +198,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         return temp;
     }
 
+    private TextView createHoleContentTextView(Spanned text) {
+        TextView temp = new TextView(this);
+        temp.setText(text);
+        temp.setBackgroundColor(getResources().getColor(android.R.color.white));
+
+        TableRow.LayoutParams tableRowParam = new TableRow.LayoutParams();
+        tableRowParam.setMargins(6, 6, 6, 6);
+        temp.setLayoutParams(tableRowParam);
+
+        return temp;
+    }
+
     @Override
     public void onClick(View v) {
         String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
@@ -210,82 +224,12 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 break;
             case R.id.button_import_data:
                 Log.d(TAG, "Import data button clicked.");
-
-                try {
-                    DataManager.holes.clear();
-                    if(DataManager.holes.addAll(XlsParser.parse(xlsPath))){
-                        Toast.makeText(getApplicationContext(), "导入成功！", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
-                    }
-                    refreshTable();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "导入失败！", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
                 break;
             case R.id.button_output_data:
                 Log.d(TAG, "Output data button clicked.");
-                try {
-                    AssetManager assetManageer = getAssets();
-                    File mdbFile = new File(mdbPath);
-                    if(!mdbFile.exists()) {
-                        InputStream is = assetManageer.open("DlcGeoInfo.mdb");
-                        Utility.copyFile(is,mdbFile);
-                    }
-                    ArrayList<Hole> holeList = DataManager.holes;
-                    ArrayList<RigEvent> rigEvents = new ArrayList<>();
-                    for (Hole hole : holeList) {
-                        ArrayList<RigEvent> events = hole.getRigList();
-                        if (events != null) {
-                            rigEvents.addAll(hole.getRigList());
-                        }
-                    }
-
-                    boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
-                    boolean exportRigHtml = HtmlParser.parseRig(baseDir, rigEvents, assetManageer);
-                    boolean exportMdb =  MdbParser.parse(mdbFile,DataManager.holes);
-
-                    if( exportRigHtml && exportMdb &&exportXls){
-                        Toast.makeText(getApplicationContext(), "导出成功！", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "导出失败！" , Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
                 refreshTable();
                 break;
             case R.id.button_export_all:
-                try {
-                    AssetManager assetManageer = getAssets();
-                    File mdbFile = new File(mdbPath);
-                    if (!mdbFile.exists()) {
-                        InputStream is = null;
-                        is = assetManageer.open("DlcGeoInfo.mdb");
-                        Utility.copyFile(is, mdbFile);
-                    }
-                    ArrayList<Hole> holeList = DataManager.holes;
-                    for (Hole hole : holeList) {
-                        if (null == hole.getRigList()) {
-                            hole.setRigList(new ArrayList<RigEvent>());
-                        }
-                    }
-
-                    boolean exportXls = XlsParser.parse(xlsPath, DataManager.holes);
-                    boolean exportHtml = HtmlParser.parse(baseDir, DataManager.holes, assetManageer);
-                    boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
-
-                    if (exportHtml && exportMdb && exportXls) {
-                        Toast.makeText(getApplicationContext(), "导出所有表格成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "导出所有表格失败", Toast.LENGTH_SHORT).show();
-                }
                 break;
             default:
                 break;
@@ -307,5 +251,34 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 refreshTable();
             }
         }
+    }
+
+    private String formatHoleId(String holeId) {
+        StringBuilder sb = new StringBuilder();
+        String[] temp = holeId.split("-");
+        sb.append("J");
+        if (temp[0].equals("JC")) {
+            sb.append("<sub>c</sub>-");
+        } else if (temp[0].equals("JZ")) {
+            sb.append("<sub>z</sub)-");
+        }
+
+        if (temp[1].startsWith("I") && (!temp[1].startsWith("II"))) {
+            sb.append("I");
+            sb.append("<sub><small>" + temp[1].substring(1) + "</small></sub>");
+        } else if (temp[1].startsWith("II")  && (!temp[1].startsWith("III"))) {
+            sb.append("II");
+            sb.append("<sub><small>" + temp[1].substring(2) + "</small></sub>");
+        } else if (temp[1].startsWith("III")) {
+            sb.append("III");
+            sb.append("<sub><small>" + temp[1].substring(3) + "</small></sub>");
+        } else if (temp[1].startsWith("IV")) {
+            sb.append("IV");
+            sb.append("<sub><small>" + temp[1].substring(2) + "</small></sub>");
+        }
+
+        sb.append("<sup><small>" + temp[2] +"</small></sup>-");
+        sb.append(temp[3]);
+        return sb.toString();
     }
 }

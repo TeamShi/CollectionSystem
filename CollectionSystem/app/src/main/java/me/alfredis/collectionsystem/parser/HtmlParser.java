@@ -94,9 +94,9 @@ public class HtmlParser {
         String[][] dstRigEventArray = convertDst(dstRigEvents);
 
         try {
-            write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
-            write(dirPath + "sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
-            write(dirPath + "dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -285,7 +285,7 @@ public class HtmlParser {
             sb.append(rigEvent.getRockCoreLength()).append(",");
             sb.append(rigEvent.getRockCoreRecovery()).append(",");
             sb.append(rigEvent.getGroundName()).append(",");
-            sb.append(rigEvent.getEndDepth() - rigEvent.getStartDepth()).append(",");// 计算深度差
+            sb.append(rigEvent.getStartDepth()).append(",");//起止深度
             sb.append(rigEvent.getGroundColor()).append(",");
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");

@@ -23,19 +23,19 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="导出"
+                android:text="导出TBD"
                 android:id="@+id/button_output_data" />
-
-            <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="导入"
-            android:id="@+id/button_import_data" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="导出所有功能"
+                android:text="导入TBD"
+                android:id="@+id/button_import_data" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导出所有表格TBD"
                 android:id="@+id/button_export_all" />
         </LinearLayout>
 

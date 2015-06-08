@@ -253,13 +253,14 @@ public class XlsParser {
             rigEvent.setRockCoreLength(Double.parseDouble(values[25]));
             rigEvent.setRockCoreRecovery(Double.parseDouble(values[26]));
             rigEvent.setGroundName(values[27]);
-            rigEvent.setStartDepth(Double.parseDouble(values[28]));
-            rigEvent.setEndDepth(Double.parseDouble(values[29]));
-            rigEvent.setGroundColor(values[30]);
-            rigEvent.setGroundDensity(values[31]);
-            rigEvent.setGroundSaturation(values[32]);
-            rigEvent.setGroundWeathering(values[33]);
-            rigEvent.setSpecialNote(values[34]);
+//            rigEvent.setStartDepth(Double.parseDouble(values[28]));
+//            rigEvent.setEndDepth(Double.parseDouble(values[29]));
+            rigEvent.setStartEndDiscription(values[28]);
+            rigEvent.setGroundColor(values[29]);
+            rigEvent.setGroundDensity(values[30]);
+            rigEvent.setGroundSaturation(values[31]);
+            rigEvent.setGroundWeathering(values[32]);
+            rigEvent.setSpecialNote(values[33]);
 
             String holeId = rigEvent.getHoleId();
             ArrayList<RigEvent> rigList = map.get(holeId);
@@ -380,6 +381,7 @@ public class XlsParser {
             for (Cell cell : row) {
                 sb.append(cell.getStringCellValue() + ",");
             }
+            sb.append("End_Flag").append(","); //Bug - index out of boundary if last fields are null.
             records.add(sb.toString().split(","));
         }
         return records;
@@ -569,8 +571,9 @@ public class XlsParser {
             sb.append(rigEvent.getRockCoreLength()).append(",");
             sb.append(rigEvent.getRockCoreRecovery()).append(",");
             sb.append(rigEvent.getGroundName()).append(",");
-            sb.append(rigEvent.getStartDepth()).append(",");
-            sb.append(rigEvent.getEndDepth()).append(",");
+//            sb.append(rigEvent.getStartDepth()).append(",");
+//            sb.append(rigEvent.getEndDepth()).append(",");
+            sb.append(rigEvent.getStartEndDiscription()).append(",");
             sb.append(rigEvent.getGroundColor()).append(",");
             sb.append(rigEvent.getGroundDensity()).append(",");
             sb.append(rigEvent.getGroundSaturation()).append(",");

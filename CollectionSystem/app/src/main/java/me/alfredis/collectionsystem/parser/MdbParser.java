@@ -114,7 +114,7 @@ public class MdbParser {
                         DSTRig rigEvent = (DSTRig) currRigEvent;
                         for (DSTRig.DynamicSoundingEvent dynamicSoundingEvent : rigEvent.getDynamicSoundingEvents()) {
                             double startDepth = dynamicSoundingEvent.getDigDepth();
-                            double endDepth = dynamicSoundingEvent.getDigDepth() + dynamicSoundingEvent.getPenetration();
+                            double endDepth = dynamicSoundingEvent.getDigDepth() + dynamicSoundingEvent.getPenetration() / 100;
                             sptTable.addRow(projectID, "", prospectionId, 1, startDepth, endDepth, dynamicSoundingEvent.getHammeringCount());
 
                             //导入地层表
