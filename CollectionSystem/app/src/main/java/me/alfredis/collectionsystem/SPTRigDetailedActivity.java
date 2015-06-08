@@ -3,6 +3,9 @@ package me.alfredis.collectionsystem;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,11 +24,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
+import me.alfredis.collectionsystem.parser.HtmlParser;
 
 
 public class SPTRigDetailedActivity extends ActionBarActivity implements View.OnClickListener {
@@ -705,10 +711,21 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 this.finish();
                 break;
             case R.id.button_preview_spt:
-                //TODO: Johnson. Save the spt table to a temp folder and pass the folder to the intent
+                String baseDir = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
+                File tempHtmls = new File(baseDir+"tempHtmls");
+                if(!tempHtmls.exists()){
+                    tempHtmls.mkdirs();
+                }
+
+
+                AssetManager assetManageer = getAssets();
+                ArrayList<RigEvent> rigEvents = new ArrayList<>();
+                rigEvents.add(rig);
+                HtmlParser.parseSptRig(tempHtmls.getPath()+"/", rigEvents, assetManageer);
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
 
-                intent2.putExtra("table_path", "file:///sdcard/Download/a.html");
+                Uri uri = Uri.fromFile(new File(tempHtmls, "sptRigEvent.html"));
+                intent2.putExtra("table_path", uri.toString());
                 startActivity(intent2);
                 break;
             case R.id.button_argument_reference:

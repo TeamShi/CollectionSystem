@@ -2,6 +2,7 @@ package me.alfredis.collectionsystem;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -52,6 +53,12 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         previewButton.setOnClickListener(this);
 
         //TODO: Johnson. load configuration.
+        String configDir = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/";
+        File configFile = new File(configDir + "config.xls");
+        if (!configFile.exists()) {
+            configFile.mkdirs();
+        }
+
     }
 
     @Override
@@ -80,6 +87,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
     public void onClick(View view) {
         String baseDir = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
         String xlsPath = baseDir + "zuantan.xls";
+        AssetManager assetManageer = getAssets();
 
         switch(view.getId()) {
             case R.id.button_message_input:
@@ -114,10 +122,20 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 }
                 break;
             case R.id.button_preview_table:
-                //TODO: Johnson. Save the table to a temp folder and pass the folder to the intent
-                Intent intent2 = new Intent(this, HtmlViewActivity.class);
+                File tempHtmls = new File(baseDir+"tempHtmls");
+                if(!tempHtmls.exists()){
+                    tempHtmls.mkdirs();
+                }
 
-                intent2.putExtra("table_path", "file:///sdcard/Download/a.html");
+                ArrayList<RigEvent> rigEvents = new ArrayList<>();
+                for(Hole hole:DataManager.holes) {
+                    rigEvents.addAll(hole.getRigList());
+                }
+                HtmlParser.parseRig(tempHtmls.getPath() + "/", rigEvents, assetManageer);
+
+                Intent intent2 = new Intent(this, HtmlViewActivity.class);
+                Uri uri = Uri.fromFile(new File(tempHtmls, "rigEvent.html"));
+                intent2.putExtra("table_path", uri.toString());
                 startActivity(intent2);
                 break;
             case R.id.button_main_export_tables:
@@ -158,10 +176,9 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                             Utility.copyFile(inputStream,destFile);
                         }
                     }
-                    AssetManager assetManageer = getAssets();
                     File mdbFile = new File(mdbTempPath);
                     if (!mdbFile.exists()) {
-                        InputStream is = assetManageer.open("DlcGeoInfo.mdb");
+                        InputStream is =  assetManageer.open("DlcGeoInfo.mdb");
                         Utility.copyFile(is, mdbFile);
                     }
 
