@@ -56,16 +56,10 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
         holeSpinner = (Spinner) findViewById(R.id.spinner_hole);
 
         buttonAddRig = (Button) findViewById(R.id.button_add_rig);
-        buttonExportNormalRigTable = (Button) findViewById(R.id.button_export_normal_rig_table);
-        buttonExportDSTRigTable = (Button) findViewById(R.id.button_export_dst_rig_table);
-        buttonExportSPTRigTable = (Button) findViewById(R.id.button_export_spt_rig_table);
 
         holeArray = new ArrayList<>();
 
         buttonAddRig.setOnClickListener(this);
-        buttonExportNormalRigTable.setOnClickListener(this);
-        buttonExportSPTRigTable.setOnClickListener(this);
-        buttonExportDSTRigTable.setOnClickListener(this);
 
         holeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -265,30 +259,7 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
                 intent.putExtra("holeId", holeId);
                 startActivityForResult(intent, ADD_RIG);
                 break;
-            case R.id.button_export_normal_rig_table:
-                //holeId is the one you need to output.
-                boolean exportHtml = HtmlParser.parseRig(baseDir, rigEvents, assetManageer);
-                if (exportHtml) {
-                    Toast.makeText(getApplicationContext(), "导出钻探信息表成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "导出钻探信息表失败", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.button_export_spt_rig_table:
-                boolean exportSPTHtml = HtmlParser.parseSptRig(baseDir, rigEvents, assetManageer);
-                if (exportSPTHtml) {
-                    Toast.makeText(getApplicationContext(), "导出标贯信息表成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "导出标贯信息表失败", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.button_export_dst_rig_table:
-                boolean exportDSTHtml = HtmlParser.parseDstRig(baseDir, rigEvents, assetManageer);
-                if (exportDSTHtml) {
-                    Toast.makeText(getApplicationContext(), "导出动探信息表成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "导出动探信息表失败", Toast.LENGTH_SHORT).show();
-                }
+          default:
                 break;
         }
     }
