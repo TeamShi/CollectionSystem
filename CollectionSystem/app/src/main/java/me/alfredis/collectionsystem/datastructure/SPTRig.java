@@ -33,7 +33,7 @@ public class SPTRig extends RigEvent implements Serializable {
     private String groundSaturability;         //饱和度
     private int cumulativeCount;                //累计击数
 
-    private String note;                        //其他特征
+    private String specialNote;                        //其他特征
 
     public SPTRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
         super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
@@ -73,7 +73,7 @@ public class SPTRig extends RigEvent implements Serializable {
             this.groundSaturability ="groundSaturability";
             this.cumulativeCount = 0;
 
-            this.note = "test note";
+            this.specialNote = "test note";
         } else {
             this.projectName = "标贯";
             this.penetrationFrom = 0;
@@ -102,7 +102,7 @@ public class SPTRig extends RigEvent implements Serializable {
             this.groundSaturability ="groundSaturability";
             this.cumulativeCount = 0;
 
-            this.note = "test note";
+            this.specialNote = "test note";
         }
 
     }

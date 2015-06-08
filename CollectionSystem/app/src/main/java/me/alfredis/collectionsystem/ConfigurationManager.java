@@ -272,4 +272,47 @@ public class ConfigurationManager {
     public static void setDstTable2_63_8_Argument3(double dstTable2_63_8_Argument3) {
         ConfigurationManager.dstTable2_63_8_Argument3 = dstTable2_63_8_Argument3;
     }
+
+    public static String getSPTDestiny(int selectionIndex, int hit) {
+        switch (selectionIndex) {
+            case 0:
+                if (hit < sptTable1Argument1) {
+                    return "流动";
+                } else if (hit < sptTable1Argument2) {
+                    return "软塑";
+                } else if (hit < sptTable1Argument3) {
+                    return "软可塑";
+                } else if (hit < sptTable1Argument4) {
+                    return "硬可塑";
+                } else if (hit < sptTable1Argument5) {
+                    return "硬塑";
+                } else if (hit >= sptTable1Argument5) {
+                    return "坚硬";
+                }
+                break;
+            case 1:
+                if (hit <= sptTable2Argument1) {
+                    return "松散";
+                } else if (hit <= sptTable2Argument2) {
+                    return "稍密";
+                } else if (hit <= sptTable2Argument3) {
+                    return "中密";
+                } else if (hit > sptTable2Argument3) {
+                    return "密实";
+                }
+                break;
+            case 2:
+                if (hit <= sptTable3Argument1) {
+                    return "松散";
+                } else if (hit <= sptTable3Argument2) {
+                    return "稍密";
+                } else if (hit <= sptTable3Argument3) {
+                    return "中密";
+                } else if (hit > sptTable3Argument3) {
+                    return "密实";
+                }
+                break;
+        }
+        return "";
+    }
 }

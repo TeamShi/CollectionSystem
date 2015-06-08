@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -58,6 +61,17 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
     private EditText sptEventDig3EndEditText;
     private EditText sptHitTotalCountEditText;
 
+    private EditText sptGroundColorEditText;
+    private EditText sptDestinyEditText;
+    private EditText sptSaturationEditText;
+    private EditText sptOtherEditText;
+
+    private Spinner rockNameSpinner;
+
+    private ArrayAdapter<String> rockNameAdapter;
+
+    private static final String[] ROCK_NAME_ARRAY = {"黏性土", "砂类土", "粉土"};
+
     private TextView rigTimeSpanTextView;
 
     @Override
@@ -68,6 +82,8 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         holeId = getIntent().getStringExtra("holeId");
 
         rig = (SPTRig) getIntent().getSerializableExtra("rig");
+
+        rockNameSpinner = (Spinner) findViewById(R.id.spinner_spt_rock_name_spt);
 
         applyButton = (Button) findViewById(R.id.button_confirm_spt_detailed);
         rigDateButton = (Button) findViewById(R.id.button_rig_date_spt_detail);
@@ -91,6 +107,11 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         sptHit3EditText = (EditText) findViewById(R.id.edit_text_spt_hit_3);
         sptHitTotalCountEditText = (EditText) findViewById(R.id.edit_text_spt_hit_total_count);
 
+        sptGroundColorEditText = (EditText) findViewById(R.id.edit_text_spt_ground_color);
+        sptDestinyEditText = (EditText) findViewById(R.id.edit_text_spt_destiny);
+        sptSaturationEditText = (EditText) findViewById(R.id.edit_text_spt_saturation);
+        sptOtherEditText = (EditText) findViewById(R.id.edit_text_spt_other);
+
         sptEventDig1StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_1_start);
         sptEventDig1EndEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_1_end);
         sptEventDig2StartEditText = (EditText) findViewById(R.id.edit_text_spt_event_dig_2_start);
@@ -104,6 +125,73 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         endTimeButton.setOnClickListener(this);
         previewSPTButton.setOnClickListener(this);
         argumentReferenceButton.setOnClickListener(this);
+
+        rockNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ROCK_NAME_ARRAY);
+        rockNameSpinner.setAdapter(rockNameAdapter);
+        rockNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), Integer.parseInt(sptHitTotalCountEditText.getText().toString())));
+                rig.setGroundDensity(sptDestinyEditText.getText().toString());
+                rig.setGroundName(adapterView.getItemAtPosition(i).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        sptGroundColorEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                rig.setGroundColor(editable.toString());
+            }
+        });
+
+        sptSaturationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                rig.setGroundSaturation(editable.toString());
+            }
+        });
+
+        sptOtherEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                rig.setSpecialNote(editable.toString());
+            }
+        });
 
         sptEventTotalStartEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -213,6 +301,8 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
+                rig.setGroundDensity(sptDestinyEditText.toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -294,6 +384,8 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
+                rig.setGroundDensity(sptDestinyEditText.toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -377,6 +469,8 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
+                sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
+                rig.setGroundDensity(sptDestinyEditText.toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -527,6 +621,8 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         refreshRigInfoTable();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -649,6 +745,24 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         sptEventDig2EndEditText.setText(String.format("%.2f", rig.getRig2DepthTo()));
         sptEventDig3StartEditText.setText(String.format("%.2f", rig.getRig3DepthFrom()));
         sptEventDig3EndEditText.setText(String.format("%.2f", rig.getRig3DepthTo()));
+
+        sptGroundColorEditText.setText(rig.getGroundColor());
+        sptDestinyEditText.setText(rig.getGroundDensity());
+        sptSaturationEditText.setText(rig.getGroundSaturation());
+        sptOtherEditText.setText(rig.getSpecialNote());
+        sptHitTotalCountEditText.setText(String.valueOf(rig.getCumulativeCount()));
+
+        switch (rig.getGroundName()) {
+            case "黏性土":
+                rockNameSpinner.setSelection(0);
+                break;
+            case "砂类土":
+                rockNameSpinner.setSelection(1);
+                break;
+            case "粉土":
+                rockNameSpinner.setSelection(2);
+                break;
+        }
 
     }
 }
