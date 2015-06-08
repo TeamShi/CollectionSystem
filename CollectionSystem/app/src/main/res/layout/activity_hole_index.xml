@@ -20,23 +20,6 @@
                 android:text="添加新孔"
                 android:id="@+id/button_add_hole" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="导出TBD"
-                android:id="@+id/button_output_data" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="导入TBD"
-                android:id="@+id/button_import_data" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="导出所有表格TBD"
-                android:id="@+id/button_export_all" />
         </LinearLayout>
 
         <HorizontalScrollView

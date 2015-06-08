@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.UUID;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -120,34 +123,57 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 File tempDir = new File(baseDir + "temp/");
                 tempDir.mkdir();
 
-                String mdbPath = tempDir.getPath() + "/DlcGeoInfo.mdb";
+                String mdbTempPath = tempDir.getPath() + "/DlcGeoInfo.mdb";
                 String xlsTempPath = tempDir.getPath() + "/zuantan.xls";
+                File photoTempDir = new File(tempDir.getPath() + "/photo");
+                if(!photoTempDir.exists()) {
+                    photoTempDir.mkdirs();
+                }
+                File htmlTempDir = new File(tempDir.getPath() + "/html");
+                if(!htmlTempDir.exists()) {
+                    htmlTempDir.mkdirs();
+                }
+                File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/tempPhotoes");
+                if(!imageTempDir.exists()) {
+                    imageTempDir.mkdirs();
+                }
+
 
                 try {
-                    AssetManager assetManageer = getAssets();
-                    File mdbFile = new File(mdbPath);
-                    if (!mdbFile.exists()) {
-                        InputStream is = null;
-                        is = assetManageer.open("DlcGeoInfo.mdb");
-                        Utility.copyFile(is, mdbFile);
-                    }
                     ArrayList<Hole> holeList = DataManager.holes;
                     for (Hole hole : holeList) {
                         if (null == hole.getRigList()) {
                             hole.setRigList(new ArrayList<RigEvent>());
                         }
+                        File file = new File(imageTempDir+"/"+hole.getHoleId()+".jpg");
+                        if(file.exists()) {
+                            File destFile = new File(photoTempDir,hole.getHoleId()+".jpg");
+                            InputStream inputStream = new FileInputStream(file);
+                            Utility.copyFile(inputStream,destFile);
+                        }
+                    }
+                    AssetManager assetManageer = getAssets();
+                    File mdbFile = new File(mdbTempPath);
+                    if (!mdbFile.exists()) {
+                        InputStream is = assetManageer.open("DlcGeoInfo.mdb");
+                        Utility.copyFile(is, mdbFile);
                     }
 
-                    boolean exportXls = XlsParser.parse(xlsTempPath, DataManager.holes);
-                    boolean exportHtml = HtmlParser.parse(tempDir.getPath(), DataManager.holes, assetManageer);
-                    boolean exportMdb = MdbParser.parse(mdbFile, DataManager.holes);
+                    boolean exportXls = XlsParser.parse(xlsTempPath, holeList);
+                    boolean exportHtml = HtmlParser.parse(htmlTempDir.getPath(), holeList, assetManageer);
+                    boolean exportMdb = MdbParser.parse(mdbFile, holeList);
+
+                    //zip temp dir to export dir
+                    String timeStamp = Utility.formatCalendarDateString(Calendar.getInstance(), "yyyy-MM-dd-HH-mm-ss");
+                    String zipFileName = timeStamp+".zip";
+                    Utility.zip(tempDir.getPath(),exportDir.getPath(),zipFileName);
 
                     if (exportHtml && exportMdb && exportXls) {
                         Toast.makeText(getApplicationContext(), "导出所有内容成功", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "导出所有内容失败", Toast.LENGTH_SHORT).show();
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "导出所有内容失败", Toast.LENGTH_SHORT).show();
                 }
