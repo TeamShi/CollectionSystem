@@ -39,6 +39,10 @@
             android:name=".DSTRigDetailedActivity"
             android:label="@string/title_activity_dstrig_detailed" >
         </activity>
+        <activity
+            android:name=".ConfigurationActivity"
+            android:label="@string/title_activity_configuration" >
+        </activity>
     </application>
 
 </manifest>
