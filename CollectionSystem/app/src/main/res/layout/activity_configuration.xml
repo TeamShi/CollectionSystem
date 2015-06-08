@@ -78,7 +78,7 @@
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
-                            android:id="@+id/spt_configuration_table4_argument1_text_view"
+                            android:id="@+id/spt_configuration_table1_argument4_text_view"
                             android:text="7~18"
                             android:layout_weight="2"
                             android:layout_margin="2dip"/>
@@ -213,7 +213,7 @@
                                 android:layout_weight="1"
                                 android:layout_margin="2dip"
                                 android:background="@android:color/white"
-                                android:id="@+id/spt_configuration_table1_argument4_highs_edit_text"/>
+                                android:id="@+id/spt_configuration_table1_argument4_high_edit_text"/>
                             <EditText
                                 android:layout_width="0dip"
                                 android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                                 android:layout_weight="2"
                                 android:layout_margin="2dip"
                                 android:background="@android:color/white"
-                                android:id="@+id/spt_configuration_table1_argument6_edit_low_text"/>
+                                android:id="@+id/spt_configuration_table1_argument6_low_edit_text"/>
                         </TableRow>
                     </TableLayout>
                 <TextView
@@ -1203,6 +1203,40 @@
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
+                            android:text="土的分类"
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="密实度"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="重型圆锥动力触探击数N63.7"
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="密实度"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/holo_green_dark"
+                        android:layout_margin="2dip">
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
                             android:text="粗砂"
                             android:layout_weight="4"
                             android:layout_margin="2dip"/>
@@ -1386,6 +1420,40 @@
                             android:layout_weight="1"
                             android:layout_margin="2dip"/>
 
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/holo_green_dark"
+                        android:layout_margin="2dip">
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="土的分类"
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="密实度"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="重型圆锥动力触探击数N63.8"
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:layout_margin="2dip"/>
+                        <TextView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:text="密实度"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_margin="2dip"/>
                     </TableRow>
                     <TableRow
                         android:layout_width="fill_parent"
