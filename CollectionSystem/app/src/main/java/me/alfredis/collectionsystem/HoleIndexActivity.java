@@ -33,9 +33,6 @@ import me.alfredis.collectionsystem.parser.XlsParser;
 public class HoleIndexActivity extends ActionBarActivity implements View.OnClickListener{
     private TableLayout holesTable;
     private Button buttonAddHole;
-    private Button buttonImportData;
-    private Button buttonOutputData;
-    private Button buttonExportAll;
 
     private static final String TAG = "CollectionSystem";
     private static final int ADD_HOLE = 1;
@@ -54,14 +51,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         holesTable = (TableLayout) findViewById(R.id.hole_table);
 
         buttonAddHole = (Button) findViewById(R.id.button_add_hole);
-        buttonOutputData = (Button) findViewById(R.id.button_output_data);
-        buttonImportData = (Button) findViewById(R.id.button_import_data);
-        buttonExportAll = (Button) findViewById(R.id.button_export_all);
-
         buttonAddHole.setOnClickListener(this);
-        buttonImportData.setOnClickListener(this);
-        buttonOutputData.setOnClickListener(this);
-        buttonExportAll.setOnClickListener(this);
 
         refreshTable();
     }
@@ -221,15 +211,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 Intent intent = new Intent(this, HoleInfoActivity.class);
                 intent.putExtra("requestCode", "ADD_HOLE");
                 startActivityForResult(intent, ADD_HOLE);
-                break;
-            case R.id.button_import_data:
-                Log.d(TAG, "Import data button clicked.");
-                break;
-            case R.id.button_output_data:
-                Log.d(TAG, "Output data button clicked.");
-                refreshTable();
-                break;
-            case R.id.button_export_all:
                 break;
             default:
                 break;
