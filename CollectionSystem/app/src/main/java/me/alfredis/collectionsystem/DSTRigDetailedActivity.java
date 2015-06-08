@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -34,6 +37,10 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
     private Button previewDSTButton;
     private Button argumentReferenceDSTButton;
 
+    private Spinner rockNameDstSpinner;
+    private ArrayAdapter<String> rockNameDSTAdapter;
+    private static final String[] ROCK_NAME_DST_OPTIONS = {"碎石土", "砂土 - 砾砂", "砂土 - 粗砂", "砂土 - 中砂"};
+
     private EditText classPeopleCountEditText;
 
     private TextView rigTimeSpanTextView;
@@ -55,6 +62,9 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
         rigTimeSpanTextView = (TextView) findViewById(R.id.textview_rig_time_duration_dst_detail);
         previewDSTButton = (Button) findViewById(R.id.button_preview_dst);
         argumentReferenceDSTButton = (Button) findViewById(R.id.button_argument_reference_dst);
+
+        rockNameDSTAdapter  = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ROCK_NAME_DST_OPTIONS);
+        rockNameDstSpinner.setAdapter(rockNameDSTAdapter);
 
         applyButton.setOnClickListener(this);
         rigDateButton.setOnClickListener(this);

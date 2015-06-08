@@ -527,8 +527,8 @@
                             android:layout_weight="1"
                             android:textIsSelectable="false"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_rock_name_dst_rig"
+                        <Spinner
+                            android:id="@+id/Spinner_rock_name_dst_rig"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
