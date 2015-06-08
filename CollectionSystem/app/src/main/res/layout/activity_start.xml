@@ -48,10 +48,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:text="@string/application_description"
+                android:text="钻探数据采集系统使用说明"
                 android:background="@android:color/holo_green_light"
                 android:layout_margin="2dip"
                 android:gravity="center"
+                android:textSize="30dp"
+                android:textColor="@android:color/black"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+            <TextView
+                android:text="@string/application_description"
+                android:background="@android:color/holo_green_light"
+                android:layout_margin="2dip"
+                android:gravity="left"
                 android:textColor="@android:color/black"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
