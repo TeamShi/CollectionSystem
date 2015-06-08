@@ -227,10 +227,10 @@ public class ConfigurationActivity extends ActionBarActivity {
         dstConfigurationTable2_63_7_Argument1HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument1_high_edit_text);
         dstConfigurationTable2_63_7_Argument2TextView = (TextView) findViewById(R.id.dst_configuration_table2_63_7_argument2_text_view);
         dstConfigurationTable2_63_7_Argument2LowEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument2_low_edit_text);
-        dstConfigurationTable2_63_7_Argument2HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument2_low_edit_text);;
+        dstConfigurationTable2_63_7_Argument2HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument2_low_edit_text);
         dstConfigurationTable2_63_7_Argument3TextView = (TextView) findViewById(R.id.dst_configuration_table2_63_7_argument3_text_view);
         dstConfigurationTable2_63_7_Argument3LowEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument3_low_edit_text);
-        dstConfigurationTable2_63_7_Argument3HighEditText  = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument3_low_edit_text);;
+        dstConfigurationTable2_63_7_Argument3HighEditText  = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument3_low_edit_text);
         dstConfigurationTable2_63_7_Argument4TextView = (TextView) findViewById(R.id.dst_configuration_table2_63_7_argument4_text_view);
         dstConfigurationTable2_63_7_Argument4LowEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument4_low_edit_text);
         dstConfigurationTable2_63_7_Argument4HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_7_argument4_low_edit_text);
@@ -248,6 +248,9 @@ public class ConfigurationActivity extends ActionBarActivity {
         dstConfigurationTable2_63_8_Argument4TextView = (TextView) findViewById(R.id.dst_configuration_table2_63_8_argument4_text_view);
         dstConfigurationTable2_63_8_Argument4LowEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_8_argument4_low_edit_text);
         dstConfigurationTable2_63_8_Argument4HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_8_argument4_high_edit_text);
+
+        sptConfigurationTable1Argument1HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument1()));
+        sptConfigurationTable1Argument2HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument2()));
     }
 
     @Override

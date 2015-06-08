@@ -1,4 +1,4 @@
-package me.alfredis.collectionsystem.parser;
+package me.alfredis.collectionsystem;
 
 /**
  * Created by liashi on 2015/6/8.
