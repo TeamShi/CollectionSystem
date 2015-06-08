@@ -536,9 +536,9 @@
                             android:layout_margin="2dip"
                             android:singleLine="true"
                             android:layout_width="0dip" />
-                        <TextView
+                        <Button
                             android:text="表格查看"
-                            android:background="@android:color/holo_green_light"
+                            android:background="@android:color/white"
                             android:layout_margin="2dip"
                             android:gravity="center"
                             android:textColor="@android:color/black"
@@ -546,9 +546,11 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             android:textIsSelectable="false"
+                            android:id="@+id/button_preview_dst"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_table_dst_rig"
+                        <Button
+                            android:text="判断参数表"
+                            android:id="@+id/button_argument_reference_dst"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"

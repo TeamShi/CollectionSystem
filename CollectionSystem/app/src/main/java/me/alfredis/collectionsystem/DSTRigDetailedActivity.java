@@ -31,6 +31,8 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
     private Button rigDateButton;
     private Button startTimeButton;
     private Button endTimeButton;
+    private Button previewDSTButton;
+    private Button argumentReferenceDSTButton;
 
     private EditText classPeopleCountEditText;
 
@@ -51,11 +53,15 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
         endTimeButton = (Button) findViewById(R.id.button_end_time_dst_detail);
         classPeopleCountEditText = (EditText) findViewById(R.id.edit_text_class_people_count_dst_detail);
         rigTimeSpanTextView = (TextView) findViewById(R.id.textview_rig_time_duration_dst_detail);
+        previewDSTButton = (Button) findViewById(R.id.button_preview_dst);
+        argumentReferenceDSTButton = (Button) findViewById(R.id.button_argument_reference_dst);
 
         applyButton.setOnClickListener(this);
         rigDateButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
+        previewDSTButton.setOnClickListener(this);
+        argumentReferenceDSTButton.setOnClickListener(this);
 
         refreshRigInfoTable();
     }
@@ -140,6 +146,19 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
                 intent.putExtra("rig", rig);
                 this.setResult(RESULT_OK, intent);
                 this.finish();
+                break;
+            case R.id.button_preview_dst:
+                //TODO: Johnson. Save the dst table to a temp folder and pass the folder to the intent
+                Intent intent2 = new Intent(this, HtmlViewActivity.class);
+
+                intent2.putExtra("table_path", "file:///sdcard/Download/a.html");
+                startActivity(intent2);
+                break;
+            case R.id.button_argument_reference_dst:
+                Intent intent3 = new Intent(this, ConfigurationActivity.class);
+
+                intent3.putExtra("request_type", "QUERY_DST");
+                startActivity(intent3);
                 break;
         }
     }

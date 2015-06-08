@@ -36,6 +36,10 @@
             android:label="@string/title_activity_dstrig_detailed" >
         </activity>
         <activity
+            android:name=".ConfigurationActivity"
+            android:label="判断参数表" >
+        </activity>
+        <activity
             android:name=".StartActivity"
             android:label="@string/title_activity_start" >
 

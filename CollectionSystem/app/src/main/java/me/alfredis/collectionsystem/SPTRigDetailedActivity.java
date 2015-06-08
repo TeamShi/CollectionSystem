@@ -36,6 +36,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
     private Button startTimeButton;
     private Button endTimeButton;
     private Button previewSPTButton;
+    private Button argumentReferenceButton;
 
     private EditText classPeopleCountEditText;
     private EditText sptEventTotalStartEditText;
@@ -75,6 +76,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         previewSPTButton = (Button) findViewById(R.id.button_preview_spt);
         classPeopleCountEditText = (EditText) findViewById(R.id.edit_text_class_people_count_spt_detail);
         rigTimeSpanTextView = (TextView) findViewById(R.id.textview_rig_time_duration_spt_detail);
+        argumentReferenceButton = (Button) findViewById(R.id.button_argument_reference);
 
         sptEventTotalStartEditText = (EditText) findViewById(R.id.edit_text_spt_event_total_start);
         sptEventTotalEndEditText = (EditText) findViewById(R.id.edit_text_spt_event_total_end);
@@ -101,6 +103,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
         previewSPTButton.setOnClickListener(this);
+        argumentReferenceButton.setOnClickListener(this);
 
         sptEventTotalStartEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -611,6 +614,12 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
                 intent2.putExtra("table_path", "file:///sdcard/Download/a.html");
                 startActivity(intent2);
+                break;
+            case R.id.button_argument_reference:
+                Intent intent3 = new Intent(this, ConfigurationActivity.class);
+
+                intent3.putExtra("request_type", "QUERY_SPT");
+                startActivity(intent3);
                 break;
         }
     }

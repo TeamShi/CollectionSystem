@@ -86,9 +86,6 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 Intent intent = new Intent(this, HoleIndexActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.button_modify_configurations:
-                //TODO: Alfred.
-                break;
             case R.id.button_main_save:
                 try {
                     boolean exportXls =  XlsParser.parse(xlsPath,DataManager.holes);
