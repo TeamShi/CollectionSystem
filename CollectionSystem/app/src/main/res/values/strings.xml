@@ -29,4 +29,5 @@
                 导出所有内容 -> 将所有数据导出为所需文件并压缩打包；\n
 
     </string>
+    <string name="title_activity_html_view">预览</string>
 </resources>
