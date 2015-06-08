@@ -94,9 +94,9 @@ public class HtmlParser {
         String[][] dstRigEventArray = convertDst(dstRigEvents);
 
         try {
-            write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
-            write(dirPath + "sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
-            write(dirPath + "dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/sptRigEvent.html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+            write(dirPath + "/dstRigEvent.html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
