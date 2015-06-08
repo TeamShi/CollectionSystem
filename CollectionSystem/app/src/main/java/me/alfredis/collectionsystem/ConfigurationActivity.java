@@ -250,7 +250,22 @@ public class ConfigurationActivity extends ActionBarActivity {
         dstConfigurationTable2_63_8_Argument4HighEditText = (EditText) findViewById(R.id.dst_configuration_table2_63_8_argument4_high_edit_text);
 
         sptConfigurationTable1Argument1HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument1()));
+        sptConfigurationTable1Argument2LowEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument1()));
         sptConfigurationTable1Argument2HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument2()));
+        sptConfigurationTable1Argument3LowEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument2()));
+        sptConfigurationTable1Argument3HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument3()));
+        sptConfigurationTable1Argument4LowEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument3()));
+        sptConfigurationTable1Argument4HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument4()));
+        sptConfigurationTable1Argument5LowEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument4()));
+        sptConfigurationTable1Argument5HighEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument5()));
+        sptConfigurationTable1Argument6LowEditText.setText(String.valueOf(ConfigurationManager.getSptTable1Argument5()));
+
+        sptConfigurationTable1Argument1TextView.setText("<" + String.valueOf(ConfigurationManager.getSptTable1Argument1()));
+        sptConfigurationTable1Argument2TextView.setText(String.valueOf(ConfigurationManager.getSptTable1Argument1() + "~" + String.valueOf(ConfigurationManager.getSptTable1Argument2())));
+        sptConfigurationTable1Argument3TextView.setText(String.valueOf(ConfigurationManager.getSptTable1Argument2() + "~" + String.valueOf(ConfigurationManager.getSptTable1Argument3())));
+        sptConfigurationTable1Argument4TextView.setText(String.valueOf(ConfigurationManager.getSptTable1Argument3() + "~" + String.valueOf(ConfigurationManager.getSptTable1Argument4())));
+        sptConfigurationTable1Argument5TextView.setText(String.valueOf(ConfigurationManager.getSptTable1Argument4() + "~" + String.valueOf(ConfigurationManager.getSptTable1Argument5())));
+        sptConfigurationTable1Argument6TextView.setText(String.valueOf(">" + ConfigurationManager.getSptTable1Argument5()));
     }
 
     @Override

@@ -18,10 +18,10 @@ public class ConfigurationManager {
     private static double sptTable3Argument2 = 15;
     private static double sptTable3Argument3 = 30;
 
-    private static double dstTable1_63_5Argument1= 0;
-    private static double dstTable1_63_5Argument2= 5;
-    private static double dstTable1_63_5Argument3 = 10;
-    private static double dstTable1_63_5Argument4 = 20;
+    private static double dstTable1_63_5_Argument1 = 0;
+    private static double dstTable1_63_5_Argument2 = 5;
+    private static double dstTable1_63_5_Argument3 = 10;
+    private static double dstTable1_63_5_Argument4 = 20;
 
     private static double dstTable1_120_Argument1 = 0;
     private static double dstTable1_120_Argument2 = 3;
@@ -29,17 +29,17 @@ public class ConfigurationManager {
     private static double dstTable1_120_Argument4 = 11;
     private static double dstTable1_120_Argument5 = 14;
 
-    private static double dstTable2_63_5Argument2 = 5;
-    private static double dstTable2_63_5Argument3 = 8;
-    private static double dstTable2_63_5Argument4 = 10;
+    private static double dstTable2_63_6_Argument1 = 5;
+    private static double dstTable2_63_6_Argument2 = 8;
+    private static double dstTable2_63_6_Argument3 = 10;
 
-    private static double dstTable2_63_6Argument1 = 5;
-    private static double dstTable2_63_6Argument2 = 6.5;
-    private static double dstTable2_63_6Argument3 = 9.5;
+    private static double dstTable2_63_7_Argument1 = 5;
+    private static double dstTable2_63_7_Argument2 = 6.5;
+    private static double dstTable2_63_7_Argument3 = 9.5;
 
-    private static double dstTable2_63_7Argument1 = 5;
-    private static double dstTable2_63_7Argument2 = 6;
-    private static double dstTable2_63_7Argument3 = 9;
+    private static double dstTable2_63_8_Argument1 = 5;
+    private static double dstTable2_63_8_Argument2 = 6;
+    private static double dstTable2_63_8_Argument3 = 9;
 
     public static double getSptTable1Argument1() {
         return sptTable1Argument1;
@@ -129,36 +129,36 @@ public class ConfigurationManager {
         ConfigurationManager.sptTable3Argument3 = sptTable3Argument3;
     }
 
-    public static double getDstTable1_63_5Argument1() {
-        return dstTable1_63_5Argument1;
+    public static double getDstTable1_63_5_Argument1() {
+        return dstTable1_63_5_Argument1;
     }
 
-    public static void setDstTable1_63_5Argument1(double dstTable1_63_5Argument1) {
-        ConfigurationManager.dstTable1_63_5Argument1 = dstTable1_63_5Argument1;
+    public static void setDstTable1_63_5_Argument1(double dstTable1_63_5_Argument1) {
+        ConfigurationManager.dstTable1_63_5_Argument1 = dstTable1_63_5_Argument1;
     }
 
-    public static double getDstTable1_63_5Argument2() {
-        return dstTable1_63_5Argument2;
+    public static double getDstTable1_63_5_Argument2() {
+        return dstTable1_63_5_Argument2;
     }
 
-    public static void setDstTable1_63_5Argument2(double dstTable1_63_5Argument2) {
-        ConfigurationManager.dstTable1_63_5Argument2 = dstTable1_63_5Argument2;
+    public static void setDstTable1_63_5_Argument2(double dstTable1_63_5_Argument2) {
+        ConfigurationManager.dstTable1_63_5_Argument2 = dstTable1_63_5_Argument2;
     }
 
-    public static double getDstTable1_63_5Argument3() {
-        return dstTable1_63_5Argument3;
+    public static double getDstTable1_63_5_Argument3() {
+        return dstTable1_63_5_Argument3;
     }
 
-    public static void setDstTable1_63_5Argument3(double dstTable1_63_5Argument3) {
-        ConfigurationManager.dstTable1_63_5Argument3 = dstTable1_63_5Argument3;
+    public static void setDstTable1_63_5_Argument3(double dstTable1_63_5_Argument3) {
+        ConfigurationManager.dstTable1_63_5_Argument3 = dstTable1_63_5_Argument3;
     }
 
-    public static double getDstTable1_63_5Argument4() {
-        return dstTable1_63_5Argument4;
+    public static double getDstTable1_63_5_Argument4() {
+        return dstTable1_63_5_Argument4;
     }
 
-    public static void setDstTable1_63_5Argument4(double dstTable1_63_5Argument4) {
-        ConfigurationManager.dstTable1_63_5Argument4 = dstTable1_63_5Argument4;
+    public static void setDstTable1_63_5_Argument4(double dstTable1_63_5_Argument4) {
+        ConfigurationManager.dstTable1_63_5_Argument4 = dstTable1_63_5_Argument4;
     }
 
     public static double getDstTable1_120_Argument1() {
@@ -201,75 +201,75 @@ public class ConfigurationManager {
         ConfigurationManager.dstTable1_120_Argument5 = dstTable1_120_Argument5;
     }
 
-    public static double getDstTable2_63_5Argument2() {
-        return dstTable2_63_5Argument2;
+    public static double getDstTable2_63_6_Argument1() {
+        return dstTable2_63_6_Argument1;
     }
 
-    public static void setDstTable2_63_5Argument2(double dstTable2_63_5Argument2) {
-        ConfigurationManager.dstTable2_63_5Argument2 = dstTable2_63_5Argument2;
+    public static void setDstTable2_63_6_Argument1(double dstTable2_63_6_Argument1) {
+        ConfigurationManager.dstTable2_63_6_Argument1 = dstTable2_63_6_Argument1;
     }
 
-    public static double getDstTable2_63_5Argument3() {
-        return dstTable2_63_5Argument3;
+    public static double getDstTable2_63_6_Argument2() {
+        return dstTable2_63_6_Argument2;
     }
 
-    public static void setDstTable2_63_5Argument3(double dstTable2_63_5Argument3) {
-        ConfigurationManager.dstTable2_63_5Argument3 = dstTable2_63_5Argument3;
+    public static void setDstTable2_63_6_Argument2(double dstTable2_63_6_Argument2) {
+        ConfigurationManager.dstTable2_63_6_Argument2 = dstTable2_63_6_Argument2;
     }
 
-    public static double getDstTable2_63_5Argument4() {
-        return dstTable2_63_5Argument4;
+    public static double getDstTable2_63_6_Argument3() {
+        return dstTable2_63_6_Argument3;
     }
 
-    public static void setDstTable2_63_5Argument4(double dstTable2_63_5Argument4) {
-        ConfigurationManager.dstTable2_63_5Argument4 = dstTable2_63_5Argument4;
+    public static void setDstTable2_63_6_Argument3(double dstTable2_63_6_Argument3) {
+        ConfigurationManager.dstTable2_63_6_Argument3 = dstTable2_63_6_Argument3;
     }
 
-    public static double getDstTable2_63_6Argument1() {
-        return dstTable2_63_6Argument1;
+    public static double getDstTable2_63_7_Argument1() {
+        return dstTable2_63_7_Argument1;
     }
 
-    public static void setDstTable2_63_6Argument1(double dstTable2_63_6Argument1) {
-        ConfigurationManager.dstTable2_63_6Argument1 = dstTable2_63_6Argument1;
+    public static void setDstTable2_63_7_Argument1(double dstTable2_63_7_Argument1) {
+        ConfigurationManager.dstTable2_63_7_Argument1 = dstTable2_63_7_Argument1;
     }
 
-    public static double getDstTable2_63_6Argument2() {
-        return dstTable2_63_6Argument2;
+    public static double getDstTable2_63_7_Argument2() {
+        return dstTable2_63_7_Argument2;
     }
 
-    public static void setDstTable2_63_6Argument2(double dstTable2_63_6Argument2) {
-        ConfigurationManager.dstTable2_63_6Argument2 = dstTable2_63_6Argument2;
+    public static void setDstTable2_63_7_Argument2(double dstTable2_63_7_Argument2) {
+        ConfigurationManager.dstTable2_63_7_Argument2 = dstTable2_63_7_Argument2;
     }
 
-    public static double getDstTable2_63_6Argument3() {
-        return dstTable2_63_6Argument3;
+    public static double getDstTable2_63_7_Argument3() {
+        return dstTable2_63_7_Argument3;
     }
 
-    public static void setDstTable2_63_6Argument3(double dstTable2_63_6Argument3) {
-        ConfigurationManager.dstTable2_63_6Argument3 = dstTable2_63_6Argument3;
+    public static void setDstTable2_63_7_Argument3(double dstTable2_63_7_Argument3) {
+        ConfigurationManager.dstTable2_63_7_Argument3 = dstTable2_63_7_Argument3;
     }
 
-    public static double getDstTable2_63_7Argument1() {
-        return dstTable2_63_7Argument1;
+    public static double getDstTable2_63_8_Argument1() {
+        return dstTable2_63_8_Argument1;
     }
 
-    public static void setDstTable2_63_7Argument1(double dstTable2_63_7Argument1) {
-        ConfigurationManager.dstTable2_63_7Argument1 = dstTable2_63_7Argument1;
+    public static void setDstTable2_63_8_Argument1(double dstTable2_63_8_Argument1) {
+        ConfigurationManager.dstTable2_63_8_Argument1 = dstTable2_63_8_Argument1;
     }
 
-    public static double getDstTable2_63_7Argument2() {
-        return dstTable2_63_7Argument2;
+    public static double getDstTable2_63_8_Argument2() {
+        return dstTable2_63_8_Argument2;
     }
 
-    public static void setDstTable2_63_7Argument2(double dstTable2_63_7Argument2) {
-        ConfigurationManager.dstTable2_63_7Argument2 = dstTable2_63_7Argument2;
+    public static void setDstTable2_63_8_Argument2(double dstTable2_63_8_Argument2) {
+        ConfigurationManager.dstTable2_63_8_Argument2 = dstTable2_63_8_Argument2;
     }
 
-    public static double getDstTable2_63_7Argument3() {
-        return dstTable2_63_7Argument3;
+    public static double getDstTable2_63_8_Argument3() {
+        return dstTable2_63_8_Argument3;
     }
 
-    public static void setDstTable2_63_7Argument3(double dstTable2_63_7Argument3) {
-        ConfigurationManager.dstTable2_63_7Argument3 = dstTable2_63_7Argument3;
+    public static void setDstTable2_63_8_Argument3(double dstTable2_63_8_Argument3) {
+        ConfigurationManager.dstTable2_63_8_Argument3 = dstTable2_63_8_Argument3;
     }
 }
