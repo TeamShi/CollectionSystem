@@ -22,8 +22,8 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="判断参数修改"
-                android:id="@+id/button_modify_configurations" />
+                android:text="预览钻孔基本信息表"
+                android:id="@+id/button_preview_table"/>
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

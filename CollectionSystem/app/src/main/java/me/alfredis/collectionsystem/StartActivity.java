@@ -29,10 +29,10 @@ import me.alfredis.collectionsystem.parser.XlsParser;
 
 public class StartActivity extends ActionBarActivity implements View.OnClickListener {
     private Button messageInputButton;
-    private Button modifyConfigurationButton;
     private Button saveButton;
     private Button loadButton;
     private Button exportTablesAll;
+    private Button previewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +40,18 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         setContentView(R.layout.activity_start);
 
         messageInputButton = (Button) findViewById(R.id.button_message_input);
-        modifyConfigurationButton = (Button) findViewById(R.id.button_modify_configurations);
         saveButton = (Button) findViewById(R.id.button_main_save);
         loadButton = (Button) findViewById(R.id.button_main_load);
         exportTablesAll = (Button) findViewById(R.id.button_main_export_tables);
+        previewButton = (Button) findViewById(R.id.button_preview_table);
 
         messageInputButton.setOnClickListener(this);
-        modifyConfigurationButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         loadButton.setOnClickListener(this);
         exportTablesAll.setOnClickListener(this);
+        previewButton.setOnClickListener(this);
+
+        //TODO: Johnson. load configuration.
     }
 
     @Override
@@ -113,6 +115,13 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(), "载入失败！", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+                break;
+            case R.id.button_preview_table:
+                //TODO: Johnson. Save the table to a temp folder and pass the folder to the intent
+                Intent intent2 = new Intent(this, HtmlViewActivity.class);
+
+                intent2.putExtra("table_path", "file:///sdcard/Download/a.html");
+                startActivity(intent2);
                 break;
             case R.id.button_main_export_tables:
                 File exportDir = new File(baseDir+"export/");
