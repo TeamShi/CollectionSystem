@@ -152,7 +152,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             tableLayoutParam.setMargins(2, 2, 2, 2);
             row.setLayoutParams(tableLayoutParam);
 
-            row.addView(createHoleContentTextView(Html.fromHtml(formatHoleId(hole.getHoleId()))));
+            row.addView(createHoleContentTextView(Html.fromHtml(formatHoleId(hole.getHoleId()))),20,28);
             row.addView(createHoleContentTextView(hole.getProjectName()));
             row.addView(createHoleContentTextView(hole.getProjectStage().toString()));
             row.addView(createHoleContentTextView(hole.getArticle().toString()));
