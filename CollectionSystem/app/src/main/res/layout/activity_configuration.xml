@@ -610,7 +610,8 @@
                             android:text="重型圆锥动力触探击数N63.5"
                             android:gravity="center"
                             android:layout_weight="4"
-                            android:layout_margin="2dip"/>
+                            android:layout_margin="2dip"
+                            android:id="@+id/dst_configuration_table1_63_5_header_argument1_text_view"/>
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
@@ -624,7 +625,8 @@
                             android:text="重型圆锥动力触探击数N120"
                             android:gravity="center"
                             android:layout_weight="4"
-                            android:layout_margin="2dip"/>
+                            android:layout_margin="2dip"
+                            android:id="@+id/dst_configuration_table1_120_header_argument1_text_view"/>
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
@@ -994,7 +996,9 @@
                             android:text="重型圆锥动力触探击数N63.6"
                             android:gravity="center"
                             android:layout_weight="4"
-                            android:layout_margin="2dip"/>
+                            android:layout_margin="2dip"
+                            android:id="@+id/dst_configuration_table2_63_6_header_text_view"/>
+                            android:id="@+id/dst_configuration_table2_63_6_header_text_view"/>
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
@@ -1220,7 +1224,8 @@
                             android:text="重型圆锥动力触探击数N63.7"
                             android:gravity="center"
                             android:layout_weight="4"
-                            android:layout_margin="2dip"/>
+                            android:layout_margin="2dip"
+                            android:id="@+id/dst_configuration_table2_63_7_header_text_view"/>
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
@@ -1446,7 +1451,8 @@
                             android:text="重型圆锥动力触探击数N63.8"
                             android:gravity="center"
                             android:layout_weight="4"
-                            android:layout_margin="2dip"/>
+                            android:layout_margin="2dip"
+                            android:id="@+id/dst_configuration_table2_63_8_header_text_view"/>
                         <TextView
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
