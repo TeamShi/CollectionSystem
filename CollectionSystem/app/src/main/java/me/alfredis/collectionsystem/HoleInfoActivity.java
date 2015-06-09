@@ -875,11 +875,16 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 try {
                     Bitmap bitmap = BitmapFactory.decodeStream(
                             getContentResolver().openInputStream(imageUri));
-                    Toast.makeText(this, "照片保存成功", Toast.LENGTH_SHORT).show();
-                    photoTableRow.setVisibility(View.VISIBLE);
-                    photoView.setImageBitmap(bitmap);
-                } catch(FileNotFoundException e) {
+                    if (null != bitmap) {
+                        Toast.makeText(this, "照片保存成功", Toast.LENGTH_SHORT).show();
+                        photoTableRow.setVisibility(View.VISIBLE);
+                        photoView.setImageBitmap(bitmap);
+                    } else {
+                        Toast.makeText(this, "照片保存失败", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    Toast.makeText(this, "照片保存失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

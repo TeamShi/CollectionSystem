@@ -631,7 +631,7 @@ public class XlsParser {
 
             ConfigurationManager.setDstTable2_63_8_Argument1(Utility.getLastNumber(DSTArgs.get(19)[2]));
             ConfigurationManager.setDstTable2_63_8_Argument2(Utility.getLastNumber(DSTArgs.get(20)[2]));
-            ConfigurationManager.setDstTable2_63_8_Argument3(Utility.getLastNumber(DSTArgs.get(211)[2]));
+            ConfigurationManager.setDstTable2_63_8_Argument3(Utility.getLastNumber(DSTArgs.get(21)[2]));
 
         } catch (IOException e) {
         e.printStackTrace();
