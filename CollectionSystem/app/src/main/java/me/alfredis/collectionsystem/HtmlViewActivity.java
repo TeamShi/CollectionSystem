@@ -18,7 +18,8 @@ public class HtmlViewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_html_view);
         webView = (WebView) findViewById(R.id.table_preview_web_view);
-        webView.clearView();
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
         webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         webView.loadUrl(getIntent().getStringExtra("table_path"));
 //        webView.loadData("<html><body>You scored <b>192</b> points.</body></html>","text/html", null);
