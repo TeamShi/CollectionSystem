@@ -52,6 +52,7 @@
         </activity>
         <activity
             android:name=".HtmlViewActivity"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_html_view" >
         </activity>
     </application>

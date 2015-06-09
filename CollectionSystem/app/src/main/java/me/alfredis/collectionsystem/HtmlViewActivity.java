@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import me.alfredis.collectionsystem.R;
@@ -17,6 +18,7 @@ public class HtmlViewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_html_view);
         webView = (WebView) findViewById(R.id.table_preview_web_view);
+        webView.clearView();
         webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         webView.loadUrl(getIntent().getStringExtra("table_path"));
 //        webView.loadData("<html><body>You scored <b>192</b> points.</body></html>","text/html", null);
