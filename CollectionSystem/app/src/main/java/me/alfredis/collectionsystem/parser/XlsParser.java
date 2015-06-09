@@ -640,8 +640,4 @@ public class XlsParser {
         return true;
     }
 
-    public static void main (String[] args) {
-
-    }
-
 }

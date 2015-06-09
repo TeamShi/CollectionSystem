@@ -106,7 +106,7 @@ public class MdbParser {
                         //导入地层表
                         hashMap.put("项目ID",projectID);
                         hashMap.put("ID",prospectionId);
-                        hashMap.put("稠度",rigEvent.getGroundDensity());  //TODO 需要计算？
+                        hashMap.put("稠度",rigEvent.getGroundDensity());
                         hashMap.put("岩性描述", rigEvent.getSpecialNote());
                         groundTable.addRowFromMap(hashMap);
 

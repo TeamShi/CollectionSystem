@@ -54,10 +54,10 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         if (!configDir.exists()) {
             configDir.mkdirs();
         }
-        File configFile = new File(configDir + "config.xlsx");
+        File configFile = new File(configDir + "/config.xls");
         if (!configFile.exists()) {
             try {
-                InputStream configFileStream = getAssets().open("config.xlsx");
+                InputStream configFileStream = getAssets().open("config.xls");
                 Utility.copyFile(configFileStream, configFile);
             } catch (IOException e) {
                 e.printStackTrace();
