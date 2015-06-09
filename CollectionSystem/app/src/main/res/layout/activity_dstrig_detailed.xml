@@ -528,7 +528,7 @@
                             android:textIsSelectable="false"
                             />
                         <Spinner
-                            android:id="@+id/Spinner_rock_name_dst_rig"
+                            android:id="@+id/spinner_rock_name_dst_rig"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"

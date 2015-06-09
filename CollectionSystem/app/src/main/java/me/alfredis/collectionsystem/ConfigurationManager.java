@@ -315,4 +315,67 @@ public class ConfigurationManager {
         }
         return "";
     }
+
+    public static String getDSTDestiny(int selectionIndex, int hit) {
+        switch (selectionIndex) {
+            case 0:
+                if (hit <= dstTable1_63_5_Argument2) {
+                    return "松散";
+                } else if (hit <= dstTable1_63_5_Argument3) {
+                    return "稍密";
+                } else if (hit <= dstTable1_63_5_Argument4) {
+                    return "中密";
+                } else if (hit > dstTable1_63_5_Argument4) {
+                    return "密实";
+                }
+                break;
+            case 1:
+                if (hit <= dstTable1_120_Argument2) {
+                    return "松散";
+                } else if (hit <= dstTable1_120_Argument3) {
+                    return "稍密";
+                } else if (hit <= dstTable1_120_Argument4) {
+                    return "中密";
+                } else if (hit <= dstTable1_120_Argument5) {
+                    return "密实";
+                } else if (hit > dstTable1_120_Argument5) {
+                    return "很密";
+                }
+                break;
+            case 2:
+                if (hit <= dstTable2_63_6_Argument1) {
+                    return "松散";
+                } else if (hit <= dstTable2_63_6_Argument2) {
+                    return "稍密";
+                } else if (hit <= dstTable2_63_6_Argument3) {
+                    return "中密";
+                } else if (hit > dstTable2_63_6_Argument3) {
+                    return "密实";
+                }
+                break;
+            case 3:
+                if (hit <= dstTable2_63_7_Argument1) {
+                    return "松散";
+                } else if (hit <= dstTable2_63_7_Argument2) {
+                    return "稍密";
+                } else if (hit <= dstTable2_63_7_Argument3) {
+                    return "中密";
+                } else if (hit > dstTable2_63_7_Argument3) {
+                    return "密实";
+                }
+                break;
+            case 4:
+                if (hit <= dstTable2_63_8_Argument1) {
+                    return "松散";
+                } else if (hit <= dstTable2_63_8_Argument2) {
+                    return "稍密";
+                } else if (hit <= dstTable2_63_8_Argument3) {
+                    return "中密";
+                } else if (hit > dstTable2_63_8_Argument3) {
+                    return "密实";
+                }
+                break;
+        }
+        return "";
+    }
 }

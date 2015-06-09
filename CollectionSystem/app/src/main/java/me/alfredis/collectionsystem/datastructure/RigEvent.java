@@ -95,10 +95,6 @@ public class RigEvent implements Serializable {
         LIGHT, HEAVY, SUPERHEAVY
     }
 
-    public enum ProjectNameType {
-        //作业类型： 合钻，标贯，动探
-        NormalRig, StandardPenetration, DynamicSounding
-    }
     public RigEvent(String classPeopleCount, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
         Calendar c = Calendar.getInstance();
         this.classPeopleCount = classPeopleCount;

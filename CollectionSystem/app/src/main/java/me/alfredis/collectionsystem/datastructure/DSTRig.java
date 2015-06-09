@@ -1,16 +1,17 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Alfred on 15/5/5.
  */
-public class DSTRig extends RigEvent{
+public class DSTRig extends RigEvent implements Serializable {
     public DSTRig(String id, String projectName, int drillPipeId, double drillPipeLength, double cumulativeLength, double drillToolTotalLength, double drillToolRemainLength, double roundTripMeterage, double cumulativeMeterage, String note) {
         super(id, projectName, drillPipeId, drillPipeLength, cumulativeLength, drillToolTotalLength, drillToolRemainLength, roundTripMeterage, cumulativeMeterage, note);
     }
 
-    public static class DynamicSoundingEvent {
+    public static class DynamicSoundingEvent implements Serializable {
         public double totalLength;      //探杆总长
         public double digDepth;         //入土深度
         public double penetration;      //贯入度
@@ -19,6 +20,14 @@ public class DSTRig extends RigEvent{
 
         public DynamicSoundingEvent() {
             this.compactness = "密实";
+        }
+
+        public DynamicSoundingEvent(double totalLength, double digDepth, double penetration, int hammeringCount, String compactness) {
+            this.totalLength = totalLength;
+            this.digDepth = digDepth;
+            this.penetration = penetration;
+            this.hammeringCount = hammeringCount;
+            this.compactness = compactness;
         }
 
         public double getTotalLength() {

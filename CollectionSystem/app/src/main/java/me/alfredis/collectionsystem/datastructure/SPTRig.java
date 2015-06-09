@@ -68,12 +68,12 @@ public class SPTRig extends RigEvent implements Serializable {
             this.rig3DepthFrom = this.penetration3DepthFrom;
             this.rig3DepthTo = this.penetration3DepthTo;
 
-            this.groundName = "groundName";
-            this.groundColor ="groundColor";
-            this.groundSaturability ="groundSaturability";
+            this.groundName = "";
+            this.groundColor ="";
+            this.groundSaturability ="";
             this.cumulativeCount = 0;
 
-            this.specialNote = "test note";
+            this.specialNote = "";
         } else {
             this.projectName = "标贯";
             this.penetrationFrom = 0;
@@ -97,12 +97,12 @@ public class SPTRig extends RigEvent implements Serializable {
             this.rig3DepthFrom = 0;
             this.rig3DepthTo = 0;
 
-            this.groundName = "groundName";
-            this.groundColor ="groundColor";
-            this.groundSaturability ="groundSaturability";
+            this.groundName = "";
+            this.groundColor ="";
+            this.groundSaturability ="";
             this.cumulativeCount = 0;
 
-            this.specialNote = "test note";
+            this.specialNote = "";
         }
 
     }
