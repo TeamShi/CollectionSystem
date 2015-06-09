@@ -218,6 +218,23 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         sptButton.setOnClickListener(this);
         dstButton.setOnClickListener(this);
 
+        classPeopleCountEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                rig.setClassPeopleCount(s.toString());
+            }
+        });
+
         drillPipeIdEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
