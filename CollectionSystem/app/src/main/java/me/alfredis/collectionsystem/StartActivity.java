@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.UUID;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -52,12 +50,22 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         exportTablesAll.setOnClickListener(this);
         previewButton.setOnClickListener(this);
 
-        //TODO: Johnson. load configuration.
-        String configDir = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/";
-        File configFile = new File(configDir + "config.xls");
-        if (!configFile.exists()) {
-            configFile.mkdirs();
+        File configDir = new  File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/");
+        if (!configDir.exists()) {
+            configDir.mkdirs();
         }
+        File configFile = new File(configDir + "config.xlsx");
+        if (!configFile.exists()) {
+            try {
+                InputStream configFileStream = getAssets().open("config.xlsx");
+                Utility.copyFile(configFileStream, configFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // load configuration.
+        XlsParser.loadConfig(configFile);
 
     }
 

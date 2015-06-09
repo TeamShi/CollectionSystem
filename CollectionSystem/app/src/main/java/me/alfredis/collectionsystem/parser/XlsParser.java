@@ -21,7 +21,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import me.alfredis.collectionsystem.ConfigurationManager;
 import me.alfredis.collectionsystem.Utility;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -584,6 +587,61 @@ public class XlsParser {
         }
 
         return resultData;
+    }
+
+    public static boolean loadConfig(File file) {
+        try {
+            ArrayList<String[]> SPTArgs = read(file.getPath(), "SPT");
+            String[] sptRow1 = SPTArgs.get(2);
+            ConfigurationManager.setSptTable1Argument1(Utility.getLastNumber(sptRow1[1]));
+            ConfigurationManager.setSptTable1Argument2(Utility.getLastNumber(sptRow1[2]));
+            ConfigurationManager.setSptTable1Argument3(Utility.getLastNumber(sptRow1[3]));
+            ConfigurationManager.setSptTable1Argument4(Utility.getLastNumber(sptRow1[4]));
+            ConfigurationManager.setSptTable1Argument5(Utility.getLastNumber(sptRow1[5]));
+
+            String[] sptRow2 = SPTArgs.get(7);
+            ConfigurationManager.setSptTable2Argument1(Utility.getLastNumber(sptRow2[1]));
+            ConfigurationManager.setSptTable2Argument2(Utility.getLastNumber(sptRow2[2]));
+            ConfigurationManager.setSptTable2Argument3(Utility.getLastNumber(sptRow2[3]));
+
+            String[] sptRow3 = SPTArgs.get(12);
+            ConfigurationManager.setSptTable3Argument1(Utility.getLastNumber(sptRow3[1]));
+            ConfigurationManager.setSptTable3Argument2(Utility.getLastNumber(sptRow3[2]));
+            ConfigurationManager.setSptTable3Argument3(Utility.getLastNumber(sptRow3[3]));
+
+            ArrayList<String[]> DSTArgs = read(file.getPath(), "DST");
+            ConfigurationManager.setDstTable1_63_5_Argument1(Utility.getLastNumber(DSTArgs.get(2)[1]));
+            ConfigurationManager.setDstTable1_63_5_Argument2(Utility.getLastNumber(DSTArgs.get(3)[1]));
+            ConfigurationManager.setDstTable1_63_5_Argument3(Utility.getLastNumber(DSTArgs.get(4)[1]));
+            ConfigurationManager.setDstTable1_63_5_Argument4(Utility.getLastNumber(DSTArgs.get(5)[1]));
+
+            ConfigurationManager.setDstTable1_120_Argument1(Utility.getLastNumber(DSTArgs.get(2)[4]));
+            ConfigurationManager.setDstTable1_120_Argument2(Utility.getLastNumber(DSTArgs.get(3)[4]));
+            ConfigurationManager.setDstTable1_120_Argument3(Utility.getLastNumber(DSTArgs.get(4)[4]));
+            ConfigurationManager.setDstTable1_120_Argument4(Utility.getLastNumber(DSTArgs.get(5)[4]));
+            ConfigurationManager.setDstTable1_120_Argument5(Utility.getLastNumber(DSTArgs.get(6)[4]));
+
+            ConfigurationManager.setDstTable2_63_6_Argument1(Utility.getLastNumber(DSTArgs.get(9)[2]));
+            ConfigurationManager.setDstTable2_63_6_Argument2(Utility.getLastNumber(DSTArgs.get(10)[2]));
+            ConfigurationManager.setDstTable2_63_6_Argument3(Utility.getLastNumber(DSTArgs.get(11)[2]));
+
+            ConfigurationManager.setDstTable2_63_7_Argument1(Utility.getLastNumber(DSTArgs.get(14)[2]));
+            ConfigurationManager.setDstTable2_63_7_Argument2(Utility.getLastNumber(DSTArgs.get(15)[2]));
+            ConfigurationManager.setDstTable2_63_7_Argument3(Utility.getLastNumber(DSTArgs.get(16)[2]));
+
+            ConfigurationManager.setDstTable2_63_8_Argument1(Utility.getLastNumber(DSTArgs.get(19)[2]));
+            ConfigurationManager.setDstTable2_63_8_Argument2(Utility.getLastNumber(DSTArgs.get(20)[2]));
+            ConfigurationManager.setDstTable2_63_8_Argument3(Utility.getLastNumber(DSTArgs.get(211)[2]));
+
+        } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+        return true;
+    }
+
+    public static void main (String[] args) {
+
     }
 
 }

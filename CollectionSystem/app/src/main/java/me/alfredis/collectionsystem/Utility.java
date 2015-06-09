@@ -258,4 +258,10 @@ public class Utility {
         }
     }
 
+    public  static  Double getLastNumber(String input){
+        String[] parts = input.split("(?=\\d+(\\.\\d{1,2})?$)", 2);
+        double num = Double.valueOf(parts[1]);
+        return num;
+    }
+
 }
