@@ -76,10 +76,10 @@ public class HtmlParser {
         for (int i = 0, len = holes.size(); i < len; i++) {
             ArrayList<RigEvent> currRigEvents = holes.get(i).getRigList();
             for (int j = 0, size = currRigEvents.size(); j < size; j++) {
-                RigEvent currRigEvent = rigEvents.get(j);
+                RigEvent currRigEvent = currRigEvents.get(j);
                 if (currRigEvent instanceof SPTRig) {
                     sptRigEvents.add((SPTRig) currRigEvent);
-                } else if (rigEvents.get(j) instanceof DSTRig) {
+                } else if (currRigEvent instanceof DSTRig) {
                     dstRigEvents.add((DSTRig) currRigEvent);
                 } else {
                     rigEvents.add(currRigEvent);
@@ -113,7 +113,7 @@ public class HtmlParser {
         ArrayList<RigEvent> list = new ArrayList<RigEvent>();
         for (int j = 0, size = rigEvents.size(); j < size; j++) {
             RigEvent currRigEvent = rigEvents.get(j);
-            if (currRigEvent != null && !(currRigEvent instanceof SPTRig) && !(rigEvents.get(j) instanceof DSTRig)) {
+            if (currRigEvent != null && !(currRigEvent instanceof SPTRig) && !(currRigEvent instanceof DSTRig)) {
                 list.add(currRigEvent);
             }
         }
@@ -307,10 +307,10 @@ public class HtmlParser {
             ArrayList<RigEvent> currRigEvents = holes.get(i).getRigList();
             rigEvents.addAll(currRigEvents);
             for (int j = 0, size = currRigEvents.size(); j < size; j++) {
-                RigEvent currRigEvent = rigEvents.get(j);
+                RigEvent currRigEvent = currRigEvents.get(j);
                 if (currRigEvent instanceof SPTRig) {
                     sptRigEvents.add((SPTRig) currRigEvent);
-                } else if (rigEvents.get(j) instanceof DSTRig) {
+                } else if (currRigEvent instanceof DSTRig) {
                     dstRigEvents.add((DSTRig) currRigEvent);
                 } else {
                     // do nothing
