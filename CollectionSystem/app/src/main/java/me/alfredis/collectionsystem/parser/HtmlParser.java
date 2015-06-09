@@ -82,8 +82,8 @@ public class HtmlParser {
                 } else if (currRigEvent instanceof DSTRig) {
                     dstRigEvents.add((DSTRig) currRigEvent);
                 } else {
-                    rigEvents.add(currRigEvent);
                 }
+                rigEvents.add(currRigEvent);
             }
         }
 
@@ -113,9 +113,10 @@ public class HtmlParser {
         ArrayList<RigEvent> list = new ArrayList<RigEvent>();
         for (int j = 0, size = rigEvents.size(); j < size; j++) {
             RigEvent currRigEvent = rigEvents.get(j);
-            if (currRigEvent != null && !(currRigEvent instanceof SPTRig) && !(currRigEvent instanceof DSTRig)) {
-                list.add(currRigEvent);
-            }
+//            if (currRigEvent != null && !(currRigEvent instanceof SPTRig) && !(currRigEvent instanceof DSTRig)) {
+//                list.add(currRigEvent);
+//            }
+            list.add(currRigEvent);
         }
 
         String[][] rigEventArray = convert(list);
