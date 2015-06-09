@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.parser.HtmlParser;
 
@@ -175,29 +176,46 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView(String.valueOf(rig.getRoundTripMeterage())));
             row.addView(createRigContentTextView(String.valueOf(rig.getCumulativeMeterage())));
 
+            //护壁措施
             row.addView(createRigContentTextView("rug placeholder 1"));
             row.addView(createRigContentTextView("rug placeholder 2"));
             row.addView(createRigContentTextView("rug placeholder 3"));
             row.addView(createRigContentTextView("rug placeholder 4"));
-
             row.addView(createRigContentTextView("water placeholder 1"));
+            //孔内情况
             row.addView(createRigContentTextView("water placeholder 2"));
 
             row.addView(createRigContentTextView(rig.getRockCoreId()));
             row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreLength())));
             row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreRecovery())));
 
+            //土样
             row.addView(createRigContentTextView("ground placeholder 1"));
             row.addView(createRigContentTextView("ground placeholder 2"));
             row.addView(createRigContentTextView("ground placeholder 3"));
             row.addView(createRigContentTextView("ground placeholder 4"));
-            row.addView(createRigContentTextView("ground placeholder 5"));
+
+            //水样
             row.addView(createRigContentTextView("water placeholder 1"));
             row.addView(createRigContentTextView("water placeholder 2"));
             row.addView(createRigContentTextView("water placeholder 3"));
-            row.addView(createRigContentTextView("water placeholder 4"));
 
-            row.addView(createRigContentTextView(rig.getSpecialNote()));
+            //地层
+            row.addView(createRigContentTextView("ground placeholder 5")); //编号
+            row.addView(createRigContentTextView(String.valueOf(rig.getEndDepth())));
+            row.addView(createRigContentTextView(String.valueOf(rig.getEndDepth() - rig.getStartDepth())));//层厚
+            row.addView(createRigContentTextView(rig.getSpecialNote())); // 名称及岩性
+            row.addView(createRigContentTextView("ground placeholder 6")); //岩层等级
+
+            Hole hole = DataManager.getHole(holeId);
+
+            //地下水
+            row.addView(createRigContentTextView(Utility.formatTimeString(hole.getInitialLevelMeasuringDate()))); //观测时间
+            row.addView(createRigContentTextView(String.valueOf(hole.getInitialLevel())));
+            row.addView(createRigContentTextView(String.valueOf(hole.getStableLevel())));
+            row.addView(createRigContentTextView(String.valueOf(hole.getStableLevel()-hole.getInitialLevel())));
+
+            row.addView(createRigContentTextView(hole.getNote())); //特殊情况
 
             row.setTag(index);
             index++;
