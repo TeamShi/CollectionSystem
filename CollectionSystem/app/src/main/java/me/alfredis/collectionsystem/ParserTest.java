@@ -7,6 +7,7 @@ import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
+import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
@@ -58,10 +59,10 @@ public class ParserTest {
 //        XlsParser.parse(OutPath+"test.xls",holes);
 
         //excel input
-        ArrayList<Hole> list = XlsParser.parse(OutPath + "test.xls");
+//        ArrayList<Hole> list = XlsParser.parse(OutPath + "test.xls");
 
         //mdb output
-//        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
+        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
     }
 
 }
