@@ -211,4 +211,22 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 break;
         }
     }
+
+    private boolean validateDate() {
+        String licensePath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/license.dat";
+
+        File licenseFile = new File(licensePath);
+        if(!licenseFile.exists()){
+            //
+        } else {
+
+        }
+
+        //Remove
+        String licenseString = "FGXLZAFXDX";
+
+        Toast.makeText(getApplicationContext(), Utility.get)
+
+        return true;
+    }
 }

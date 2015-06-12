@@ -264,4 +264,56 @@ public class Utility {
         return num;
     }
 
+    public static String decodeChar(char c) {
+        switch (c) {
+            case 'X':
+                return "0";
+            case 'A':
+                return "1";
+            case 'Z':
+                return "2";
+            case 'F':
+                return "3";
+            case 'D':
+                return "4";
+            case 'G':
+                return "5";
+            case 'H':
+                return "6";
+            case 'T':
+                return "7";
+            case 'R':
+                return "8";
+            case 'L':
+                return "9";
+            default:
+                return "";
+        }
+    }
+
+    public long getExpiredDate(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            sb.append(decodeChar(s.charAt(i)));
+        }
+
+        String temp = sb.toString();
+
+        StringBuilder sb2 = new StringBuilder();
+
+        for (int i = 0; i < sb.length(); i++) {
+            sb2.append(temp.charAt(5));
+            sb2.append(temp.charAt(8));
+            sb2.append(temp.charAt(0));
+            sb2.append(temp.charAt(6));
+            sb2.append(temp.charAt(3));
+            sb2.append(temp.charAt(1));
+            sb2.append(temp.charAt(4));
+            sb2.append(temp.charAt(7));
+            sb2.append(temp.charAt(2));
+            sb2.append(temp.charAt(9));
+        }
+        return Long.parseLong(sb.toString());
+    }
+
 }
