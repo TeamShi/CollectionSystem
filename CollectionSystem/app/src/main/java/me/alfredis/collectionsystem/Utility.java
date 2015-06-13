@@ -1,7 +1,6 @@
 package me.alfredis.collectionsystem;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,11 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -194,6 +191,7 @@ public class Utility {
             //压缩目录中的文件或子目录
             File[] childFileList = file.listFiles();
             for (int n = 0; n < childFileList.length; n++) {
+
                 childFileList[n].getAbsolutePath().indexOf(file.getAbsolutePath());
                 zip(srcRootDir, childFileList[n], zos);
             }
@@ -291,7 +289,7 @@ public class Utility {
         }
     }
 
-    public long getExpiredDate(String s) {
+    public static long getExpiredDate(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             sb.append(decodeChar(s.charAt(i)));

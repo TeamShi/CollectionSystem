@@ -225,7 +225,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         //Remove
         String licenseString = "FGXLZAFXDX";
 
-        Toast.makeText(getApplicationContext(), Utility.get)
+        Toast.makeText(getApplicationContext(), String.valueOf(Utility.getExpiredDate(licenseString)), Toast.LENGTH_SHORT);
 
         return true;
     }
