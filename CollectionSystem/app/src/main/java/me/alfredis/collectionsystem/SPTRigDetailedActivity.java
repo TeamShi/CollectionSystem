@@ -32,6 +32,7 @@ import java.util.GregorianCalendar;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
 import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class SPTRigDetailedActivity extends ActionBarActivity implements View.OnClickListener {
@@ -735,6 +736,10 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 startActivity(intent3);
                 break;
         }
+        //backup
+        String xlsPath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/" + "zuantan.xls";
+        XlsParser.parse(xlsPath, DataManager.holes);
+
     }
 
     private void refreshRigInfoTable() {

@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class HoleInfoActivity extends ActionBarActivity implements View.OnClickListener {
@@ -660,8 +661,8 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
 
         Calendar calendar = Calendar.getInstance();
 
-        File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/tempPhotoes");
-        if(!imageTempDir.exists()) {
+        File imageTempDir = new File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/tempPhotoes");
+        if (!imageTempDir.exists()) {
             imageTempDir.mkdirs();
         }
 
@@ -786,7 +787,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 }, reviewDate.get(Calendar.YEAR), reviewDate.get(Calendar.MONTH), reviewDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_take_photo:
-                File file = new File(imageTempDir,hole.getHoleId() + ".jpg");
+                File file = new File(imageTempDir, hole.getHoleId() + ".jpg");
 
                 try {
                     if (file.exists()) {
@@ -801,12 +802,15 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                 imageUri = Uri.fromFile(file);
                 Intent photoIintent = new Intent("android.media.action.IMAGE_CAPTURE"); //照相
                 photoIintent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //指定图片输出地址
-                startActivityForResult(photoIintent,TAKE_PHOTO);
+                startActivityForResult(photoIintent, TAKE_PHOTO);
 
                 break;
             default:
                 break;
         }
+        //backup
+        String xlsPath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/" + "zuantan.xls";
+        XlsParser.parse(xlsPath, DataManager.holes);
     }
 
     private void refreshHoleInfoTable() {

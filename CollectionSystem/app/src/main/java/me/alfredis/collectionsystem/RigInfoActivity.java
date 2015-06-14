@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 public class RigInfoActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -1057,6 +1059,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             default:
                 break;
         }
+        //backup
+        String xlsPath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/" + "zuantan.xls";
+        XlsParser.parse(xlsPath, DataManager.holes);
     }
 
     private void refreshRigInfoTable() {

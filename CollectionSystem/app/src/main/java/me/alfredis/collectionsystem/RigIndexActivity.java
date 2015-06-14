@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.parser.HtmlParser;
+import me.alfredis.collectionsystem.parser.XlsParser;
 
 
 public class RigIndexActivity extends ActionBarActivity implements View.OnClickListener{
@@ -280,6 +281,9 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
           default:
                 break;
         }
+        //backup
+        String xlsPath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/" + "zuantan.xls";
+        XlsParser.parse(xlsPath, DataManager.holes);
     }
 
     @Override

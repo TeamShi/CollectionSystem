@@ -202,9 +202,6 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/";
-        String xlsPath = baseDir + "test.xls";
-        String mdbPath = baseDir+"DlcGeoInfo.mdb";
         switch (v.getId()) {
             case R.id.button_add_hole:
                 Log.d(TAG, "Add new hole button clicked.");
@@ -215,6 +212,9 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             default:
                 break;
         }
+        //backup
+        String xlsPath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/" + "zuantan.xls";
+        XlsParser.parse(xlsPath, DataManager.holes);
     }
 
     @Override
