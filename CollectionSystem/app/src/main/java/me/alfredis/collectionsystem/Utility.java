@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -312,6 +313,73 @@ public class Utility {
             sb2.append(temp.charAt(9));
         }
         return Long.parseLong(sb.toString());
+    }
+
+
+    /**
+     * 取得两个时间段的时间间隔
+     * return t2 与t1的间隔天数
+     * throws ParseException 如果输入的日期格式不是0000-00-00 格式抛出异常
+     */
+    public static int getIntervalDays(Calendar start,Calendar end) throws ParseException{
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        int betweenDays = 0;
+//        Date d1 = format.parse(t1);
+//        Date d2 = format.parse(t2);
+//        Calendar c1 = Calendar.getInstance();
+//        Calendar c2 = Calendar.getInstance();
+//        c1.setTime(d1);
+//        c2.setTime(d2);
+//        // 保证第二个时间一定大于第一个时间
+//        if(c1.after(c2)){
+//            c1 = c2;
+//            c2.setTime(d1);
+//        }
+        int betweenYears = end.get(Calendar.YEAR)-start.get(Calendar.YEAR);
+        betweenDays = end.get(Calendar.DAY_OF_YEAR)-start.get(Calendar.DAY_OF_YEAR);
+        for(int i=0;i<betweenYears;i++){
+            int tmp=countDays(start.get(Calendar.YEAR));
+            betweenDays+=countDays(start.get(Calendar.YEAR));
+            start.set(Calendar.YEAR, (start.get(Calendar.YEAR) + 1));
+        }
+        return betweenDays;
+    }
+    public static int countDays(int year){
+        int n=0;
+        for (int i = 1; i <= 12; i++) {
+            n += countDays(i,year);
+        }
+        return n;
+    }
+
+
+    public static int countDays(int month, int year){
+        int count = -1;
+        switch(month){
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                count = 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                count = 30;
+                break;
+            case 2:
+                if(year % 4 == 0)
+                    count = 29;
+                else
+                    count = 28;
+                if((year % 100 ==0) & (year % 400 != 0))
+                    count = 28;
+        }
+        return count;
     }
 
 }
