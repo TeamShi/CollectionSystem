@@ -179,7 +179,7 @@ public class MdbParser {
                         hashMap.put("项目ID", projectID);
                         hashMap.put("ID", prospectionId);
                         hashMap.put("稠度", rigEvent.getGroundDensity());
-                        hashMap.put("层深", 0.0);//Todo
+                        hashMap.put("层深", rigEvent.getCumulativeMeterage());// 累计进尺
                         hashMap.put("岩性描述", rigEvent.getSpecialNote());
                         groundTable.addRowFromMap(hashMap);
 
@@ -195,7 +195,7 @@ public class MdbParser {
                             hashMap.put("ID", prospectionId);
                             hashMap.put("稠度", dynamicSoundingEvent.getCompactness());
                             hashMap.put("岩性描述", rigEvent.getSpecialNote());
-                            hashMap.put("层深", 0.0);//Todo
+                            hashMap.put("层深", rigEvent.getCumulativeMeterage());
                             groundTable.addRowFromMap(hashMap);
                         }
                     } else {
@@ -204,7 +204,7 @@ public class MdbParser {
                         hashMap.put("ID", prospectionId);
                         hashMap.put("稠度", currRigEvent.getGroundDensity());
                         hashMap.put("岩性描述", currRigEvent.getSpecialNote());
-                        hashMap.put("层深", 0.0);//Todo
+                        hashMap.put("层深", currRigEvent.getCumulativeMeterage());//Todo
                         groundTable.addRowFromMap(hashMap);
                     }
                 }
