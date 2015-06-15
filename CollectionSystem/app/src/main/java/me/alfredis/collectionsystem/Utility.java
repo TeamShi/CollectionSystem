@@ -299,19 +299,18 @@ public class Utility {
 
         StringBuilder sb2 = new StringBuilder();
 
-        for (int i = 0; i < sb.length(); i++) {
-            sb2.append(temp.charAt(5));
-            sb2.append(temp.charAt(8));
-            sb2.append(temp.charAt(0));
-            sb2.append(temp.charAt(6));
-            sb2.append(temp.charAt(3));
-            sb2.append(temp.charAt(1));
-            sb2.append(temp.charAt(4));
-            sb2.append(temp.charAt(7));
-            sb2.append(temp.charAt(2));
-            sb2.append(temp.charAt(9));
-        }
-        return Long.parseLong(sb.toString());
+        sb2.append(temp.charAt(5));
+        sb2.append(temp.charAt(8));
+        sb2.append(temp.charAt(0));
+        sb2.append(temp.charAt(6));
+        sb2.append(temp.charAt(3));
+        sb2.append(temp.charAt(1));
+        sb2.append(temp.charAt(4));
+        sb2.append(temp.charAt(7));
+        sb2.append(temp.charAt(2));
+        sb2.append(temp.charAt(9));
+
+        return Long.parseLong(sb2.toString());
     }
 
 }
