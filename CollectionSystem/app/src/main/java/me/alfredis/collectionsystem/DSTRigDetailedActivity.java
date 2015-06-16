@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.DSTRig;
+import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.parser.HtmlParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
@@ -556,9 +557,9 @@ public class DSTRigDetailedActivity extends ActionBarActivity implements View.On
                 }
 
                 AssetManager assetManageer = getAssets();
-                ArrayList<RigEvent> rigEvents = new ArrayList<>();
-                rigEvents.add(rig);
-                HtmlParser.parseDstRig(tempHtmls.getPath() + "/", rigEvents, assetManageer);
+                Hole tempHole = new Hole();
+                tempHole.getRigList().add(rig);
+                HtmlParser.parseDstRig(tempHtmls.getPath() + "/", tempHole, assetManageer);
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
 
                 Uri uri = Uri.fromFile(new File(tempHtmls, "dstRigEvent.html"));

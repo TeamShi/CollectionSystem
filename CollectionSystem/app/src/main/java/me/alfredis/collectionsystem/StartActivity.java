@@ -189,11 +189,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                     tempHtmls.mkdirs();
                 }
 
-                ArrayList<RigEvent> rigEvents = new ArrayList<>();
-                for(Hole hole:DataManager.holes) {
-                    rigEvents.addAll(hole.getRigList());
-                }
-                HtmlParser.parseRig(tempHtmls.getPath() + "/", rigEvents, assetManageer);
+                HtmlParser.parseRig(tempHtmls.getPath() + "/", DataManager.holes, assetManageer);
 
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
                 Uri uri = Uri.fromFile(new File(tempHtmls, "rigEvent.html"));
