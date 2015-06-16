@@ -80,6 +80,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText rigHoleSaturationEditText;
     private EditText specialThingsEditText;
 
+    private EditText wallTypeEditText;
+    private EditText wallNumberEditText;
+    private EditText wallDiameterEditText;
+    private EditText wallTotalLengthEditText;
+
     private Button addRigButton;
     private Button startTimeButton;
     private Button endTimeButton;
@@ -202,6 +207,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundSaturationEditText = (EditText) findViewById(R.id.edit_text_ground_saturation);
         groundWeatheringEditText = (EditText) findViewById(R.id.edit_text_ground_weathering);
         groundNoteEditText = (EditText) findViewById(R.id.edit_text_ground_note);
+
+        wallTypeEditText = (EditText) findViewById(R.id.edit_text_wall_type);
+        wallNumberEditText = (EditText) findViewById(R.id.edit_text_wall_number);
+        wallDiameterEditText = (EditText) findViewById(R.id.edit_text_wall_diameter);
+        wallTotalLengthEditText = (EditText) findViewById(R.id.edit_text_wall_total_length);
 
         rigHoleSaturationEditText = (EditText) findViewById(R.id.edit_text_rig_hole_situration);
         specialThingsEditText = (EditText) findViewById(R.id.edit_text_special_things);
@@ -561,7 +571,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
 
                     rig.setRockCoreRecovery(rig.getRockCoreLength() / rig.getRoundTripMeterage());
-                    rockCoreRecoveryEditText.setText(String.format("%.2f",rig.getRockCoreRecovery() * 100) + "%");
+                    rockCoreRecoveryEditText.setText(String.format("%.2f", rig.getRockCoreRecovery() * 100) + "%");
                 } catch (Exception e) {
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -637,6 +647,86 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void afterTextChanged(Editable s) {
                 ((CasedRig) rig).setSpecialNote(s.toString());
+            }
+        });
+
+        wallTypeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ((CasedRig) rig).setDadoType(s.toString());
+            }
+        });
+
+        wallNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    ((CasedRig) rig).setCasedId(Integer.parseInt(s.toString()));
+                } catch (Exception e) {
+
+                }
+            }
+        });
+
+        wallDiameterEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    ((CasedRig) rig).setCasedDiameter(Double.parseDouble(s.toString()));
+                } catch (Exception e) {
+
+                }
+            }
+        });
+
+        wallTotalLengthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    ((CasedRig) rig).setCasedTotalLength(Double.parseDouble(s.toString()));
+                } catch (Exception e) {
+
+                }
             }
         });
 
