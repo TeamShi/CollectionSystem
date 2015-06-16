@@ -1,19 +1,28 @@
 package me.alfredis.collectionsystem;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -26,12 +35,22 @@ import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
-public class StartActivity extends ActionBarActivity implements View.OnClickListener {
+public class StartActivity extends ActionBarActivity implements View.OnClickListener, DialogInterface.OnClickListener {
     private Button messageInputButton;
     private Button saveButton;
     private Button loadButton;
     private Button exportTablesAll;
     private Button previewButton;
+
+    private String licenseString;
+
+    public String getLicenseString() {
+        return licenseString;
+    }
+
+    public void setLicenseString(String licenseString) {
+        this.licenseString = licenseString;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +73,38 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         if (!configDir.exists()) {
             configDir.mkdirs();
         }
+
+        boolean isVerifyPass = false;
+
+        String licenseString = "";
+        String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
+        File licenseFile = new File(licenseFilePath);
+        if (licenseFile.exists()) {
+            FileReader fr = null;
+            try {
+                fr = new FileReader(licenseFilePath);
+                BufferedReader br = new BufferedReader(fr);
+                licenseString = br.readLine();
+                br.close();
+                fr.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            LayoutInflater layoutInflater = LayoutInflater.from(this);
+            View licenseInputView = layoutInflater.inflate(R.layout.layout_license, null);
+            AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("输入激活码").setView(licenseInputView).setPositiveButton("确认", this).create();
+            alertDialog.show();
+        }
+
+        /*
+        if (!licenseFile.exists()) {
+
+        }*/
+
+
         File configFile = new File(configDir + "/config.xls");
         if (!configFile.exists()) {
             try {
@@ -66,6 +117,9 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
         // load configuration.
         XlsParser.loadConfig(configFile);
+
+        if (validateDate())
+        ;
 
     }
 
@@ -223,10 +277,15 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         }
 
         //Remove
-        String licenseString = "FGXLZAFXDX";
+        String licenseString = "FLXZTADHDX";
 
-        Toast.makeText(getApplicationContext(), String.valueOf(Utility.getExpiredDate(licenseString)), Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(), String.valueOf(Utility.getExpiredDate(licenseString)), Toast.LENGTH_SHORT).show();
 
         return true;
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        //this.licenseString = ((EditText) (findViewById(R.id.license_edit_text))).getText().toString();
     }
 }
