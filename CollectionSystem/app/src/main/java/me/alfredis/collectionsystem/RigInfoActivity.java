@@ -561,7 +561,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
 
                     rig.setRockCoreRecovery(rig.getRockCoreLength() / rig.getRoundTripMeterage());
-                    rockCoreRecoveryEditText.setText(String.format("%.4f",rig.getRockCoreRecovery()));
+                    rockCoreRecoveryEditText.setText(String.format("%.2f",rig.getRockCoreRecovery() * 100) + "%");
                 } catch (Exception e) {
                     rockCoreLengthEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
@@ -585,7 +585,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                     rig.setRockCoreRecovery(Double.parseDouble(s.toString()));
                     rockCoreRecoveryEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
                 } catch (Exception e) {
-                    rockCoreRecoveryEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                    //rockCoreRecoveryEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
             }
         });
