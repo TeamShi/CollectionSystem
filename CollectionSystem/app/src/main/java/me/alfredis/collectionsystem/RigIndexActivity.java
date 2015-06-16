@@ -21,8 +21,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.CasedRig;
+import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
+import me.alfredis.collectionsystem.datastructure.RigView;
+import me.alfredis.collectionsystem.datastructure.SPTRig;
 import me.alfredis.collectionsystem.parser.HtmlParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
@@ -143,6 +147,9 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
 
         int index = 0;
         for (RigEvent rig : DataManager.getRigEventListByHoleId(holeId)) {
+            Hole hole = DataManager.getHole(holeId);
+            RigView rigView = new RigView(hole,rig);
+
             TableRow row = new TableRow(this);
 
             row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -151,72 +158,70 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             tableLayoutParam.setMargins(2, 2, 2, 2);
             row.setLayoutParams(tableLayoutParam);
 
-            row.addView(createRigContentTextView(rig.getClassPeopleCount()));
+            row.addView(createRigContentTextView(rigView.getClassPeopleCount()));
 
-            row.addView(createRigContentTextView(Utility.formatCalendarDateString(rig.getDate())));
-            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getStartTime())));
-            row.addView(createRigContentTextView(Utility.formatTimeString(rig.getEndTime())));
-            row.addView(createRigContentTextView(Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime())));
+            row.addView(createRigContentTextView((rigView.getDate())));
+            row.addView(createRigContentTextView(rigView.getStartTime()));
+            row.addView(createRigContentTextView(rigView.getEndTime()));
+            row.addView(createRigContentTextView(rigView.getTimeInterval()));
 
-            row.addView(createRigContentTextView(rig.getProjectName()));
+            row.addView(createRigContentTextView(rigView.getProjectName()));
 
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillPipeId())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillPipeLength())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getCumulativeLength())));
+            row.addView(createRigContentTextView((rigView.getDrillPipeId())));
+            row.addView(createRigContentTextView((rigView.getDrillPipeLength())));
+            row.addView(createRigContentTextView((rigView.getCumulativeLength())));
 
-            row.addView(createRigContentTextView(String.valueOf(rig.getCoreBarreliDiameter())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getCoreBarreliLength())));
+            row.addView(createRigContentTextView((rigView.getCoreBarreliDiameter())));
+            row.addView(createRigContentTextView((rigView.getCoreBarreliLength())));
 
-            row.addView(createRigContentTextView(rig.getDrillType()));
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillDiameter())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillLength())));
+            row.addView(createRigContentTextView(rigView.getDrillType()));
+            row.addView(createRigContentTextView((rigView.getDrillDiameter())));
+            row.addView(createRigContentTextView((rigView.getDrillLength())));
 
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillToolTotalLength())));
+            row.addView(createRigContentTextView((rigView.getDrillToolTotalLength())));
 
-            row.addView(createRigContentTextView(String.valueOf(rig.getDrillToolRemainLength())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getRoundTripMeterage())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getCumulativeMeterage())));
+            row.addView(createRigContentTextView((rigView.getDrillToolRemainLength())));
+            row.addView(createRigContentTextView((rigView.getRoundTripMeterage())));
+            row.addView(createRigContentTextView((rigView.getCumulativeMeterage())));
 
-            //护壁措施
-            row.addView(createRigContentTextView("rug placeholder 1"));
-            row.addView(createRigContentTextView("rug placeholder 2"));
-            row.addView(createRigContentTextView("rug placeholder 3"));
-            row.addView(createRigContentTextView("rug placeholder 4"));
-            row.addView(createRigContentTextView("water placeholder 1"));
+            row.addView(createRigContentTextView(rigView.getDadoType()));
+            row.addView(createRigContentTextView((rigView.getCasedId())));
+            row.addView(createRigContentTextView((rigView.getCasedDiameter())));
+            row.addView(createRigContentTextView((rigView.getCasedLength())));
+            row.addView(createRigContentTextView((rigView.getCasedTotalLength())));
             //孔内情况
-            row.addView(createRigContentTextView("water placeholder 2"));
+            row.addView(createRigContentTextView(rigView.getCasedSituation()));
 
-            row.addView(createRigContentTextView(rig.getRockCoreId()));
-            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreLength())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getRockCoreRecovery())));
+            row.addView(createRigContentTextView(rigView.getRockCoreId()));
+            row.addView(createRigContentTextView((rigView.getRockCoreLength())));
+            row.addView(createRigContentTextView((rigView.getRockCoreRecovery())));
 
             //土样
-            row.addView(createRigContentTextView("ground placeholder 1"));
-            row.addView(createRigContentTextView("ground placeholder 2"));
-            row.addView(createRigContentTextView("ground placeholder 3"));
-            row.addView(createRigContentTextView("ground placeholder 4"));
+            row.addView(createRigContentTextView(rigView.getEarthNo()));
+            row.addView(createRigContentTextView(rigView.getEarthDiameter()));
+            row.addView(createRigContentTextView(rigView.getEarthDepth()));
+            row.addView(createRigContentTextView(rigView.getEarthCount()));
 
             //水样
-            row.addView(createRigContentTextView("water placeholder 1"));
-            row.addView(createRigContentTextView("water placeholder 2"));
-            row.addView(createRigContentTextView("water placeholder 3"));
+            row.addView(createRigContentTextView(rigView.getWaterNo()));
+            row.addView(createRigContentTextView(rigView.getWaterDepth()));
+            row.addView(createRigContentTextView(rigView.getWaterCount()));
 
             //地层
-            row.addView(createRigContentTextView("ground placeholder 5")); //编号
-            row.addView(createRigContentTextView(String.valueOf(rig.getEndDepth())));
-            row.addView(createRigContentTextView(String.valueOf(rig.getEndDepth() - rig.getStartDepth())));//层厚
-            row.addView(createRigContentTextView(rig.getSpecialNote())); // 名称及岩性
-            row.addView(createRigContentTextView("ground placeholder 6")); //岩层等级
-
-            Hole hole = DataManager.getHole(holeId);
+            row.addView(createRigContentTextView(rigView.getGroudNo())); //编号
+            row.addView(createRigContentTextView((rigView.getGroundDepth())));//层深
+            row.addView(createRigContentTextView((rigView.getGroundDepthDiff())));//层厚
+            row.addView(createRigContentTextView(rigView.getGroundNote())); // 名称及岩性
+            row.addView(createRigContentTextView(rigView.getGroundClass())); //岩层等级
 
             //地下水
-            row.addView(createRigContentTextView(Utility.formatTimeString(hole.getInitialLevelMeasuringDate()))); //观测时间
-            row.addView(createRigContentTextView(String.valueOf(hole.getInitialLevel())));
-            row.addView(createRigContentTextView(String.valueOf(hole.getStableLevel())));
-            row.addView(createRigContentTextView(String.valueOf(hole.getStableLevel()-hole.getInitialLevel())));
+            row.addView(createRigContentTextView(rigView.getMeasureDatesInterval())); //观测时间
+            row.addView(createRigContentTextView((rigView.getInitialLevel())));
+            row.addView(createRigContentTextView((rigView.getStableLevel())));
+            row.addView(createRigContentTextView((rigView.getLevelChange())));
 
-            row.addView(createRigContentTextView(hole.getNote())); //特殊情况
+            //特殊情况
+            row.addView(createRigContentTextView(rigView.getHoleNote()));
 
             row.setTag(index);
             index++;
