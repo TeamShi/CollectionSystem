@@ -141,7 +141,6 @@ public class MdbParser {
                     prospectionRowMap.put("附注", hole.getNote());
                     prospectionRowMap.put("锁定", 0);
                     prospectionTable.asUpdateRow(prospectionRowMap);
-                    //Todo id not refer prospectionId
                     for (Row row : holeTable) {
                         if (row.get("ID").equals(prospectionId)) {
                             holeTable.deleteRow(row);

@@ -130,9 +130,11 @@ public class RigView {
             this.casedId = String.valueOf(casedRig.getCasedId());
             this.casedDiameter = String.valueOf(casedRig.getCasedDiameter());
             this.casedLength = String.valueOf(casedRig.getCasedLength());
-            this.casedLength = String.valueOf(casedRig.getCasedTotalLength());
+            this.casedTotalLength = String.valueOf(casedRig.getCasedTotalLength());
             //孔内情况
             this.casedSituation = casedRig.getCasedSituation();
+            this.groundNote = "";
+            this.holeNote = casedRig.getSpecialNote();
         } else {
             this.dadoType = "";
             this.casedId = "";
@@ -141,6 +143,8 @@ public class RigView {
             this.casedLength = "";
             //孔内情况
             this.casedSituation = "";
+            this.groundNote = rig.getSpecialNote();
+            this.holeNote = hole.getNote();
         }
 
         //岩心采取
@@ -169,7 +173,7 @@ public class RigView {
         this.groudNo = "";//TODO 编号, 四类普通钻,编号加1
         this.groundDepth = String.valueOf(rig.getCumulativeMeterage());//底层深度 本次累计进尺
         this.groundDepthDiff = String.valueOf(rig.getRoundTripMeterage()); //TODO 回次进尺
-        this.groundNote = rig.getSpecialNote();
+//        this.groundNote = rig.getSpecialNote();
         this.groundClass = "";
 
         try {
@@ -190,8 +194,6 @@ public class RigView {
             levelChange = "未变";
         }
         this.levelChange = levelChange;
-
-        this.holeNote = hole.getNote();
 
     }
 
