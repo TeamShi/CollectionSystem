@@ -1,5 +1,8 @@
 package me.alfredis.collectionsystem;
 
+import android.os.Environment;
+import android.widget.Toast;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -300,18 +303,38 @@ public class Utility {
 
         StringBuilder sb2 = new StringBuilder();
 
-        sb2.append(temp.charAt(5));
-        sb2.append(temp.charAt(8));
-        sb2.append(temp.charAt(0));
-        sb2.append(temp.charAt(6));
-        sb2.append(temp.charAt(3));
-        sb2.append(temp.charAt(1));
-        sb2.append(temp.charAt(4));
-        sb2.append(temp.charAt(7));
-        sb2.append(temp.charAt(2));
-        sb2.append(temp.charAt(9));
+        try {
+            sb2.append(temp.charAt(5));
+            sb2.append(temp.charAt(8));
+            sb2.append(temp.charAt(0));
+            sb2.append(temp.charAt(6));
+            sb2.append(temp.charAt(3));
+            sb2.append(temp.charAt(1));
+            sb2.append(temp.charAt(4));
+            sb2.append(temp.charAt(7));
+            sb2.append(temp.charAt(2));
+            sb2.append(temp.charAt(9));
+        } catch (Exception e) {
+            return Long.MIN_VALUE;
+        }
 
-        return Long.parseLong(sb2.toString());
+        long result;
+        try {
+            result = Long.parseLong(sb2.toString());
+        } catch (Exception e){
+            return Long.MIN_VALUE;
+        }
+        return result;
+    }
+
+    public static boolean validateDate(String dateString) {
+        long expiredDate = getExpiredDate(dateString.toUpperCase());
+
+        if (Calendar.getInstance().getTimeInMillis() / 1000 < expiredDate) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

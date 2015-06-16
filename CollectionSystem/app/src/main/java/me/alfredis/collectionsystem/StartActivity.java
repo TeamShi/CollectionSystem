@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.poi.hpsf.Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -35,12 +40,16 @@ import me.alfredis.collectionsystem.parser.MdbParser;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 
-public class StartActivity extends ActionBarActivity implements View.OnClickListener, DialogInterface.OnClickListener {
+public class StartActivity extends ActionBarActivity implements View.OnClickListener {
     private Button messageInputButton;
     private Button saveButton;
     private Button loadButton;
     private Button exportTablesAll;
     private Button previewButton;
+
+    private EditText licenseEditText;
+    private TextView licenseTextView;
+    private Button licenseButton;
 
     private String licenseString;
 
@@ -63,20 +72,23 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         exportTablesAll = (Button) findViewById(R.id.button_main_export_tables);
         previewButton = (Button) findViewById(R.id.button_preview_table);
 
+        licenseButton = (Button) findViewById(R.id.button_license);
+        licenseTextView = (TextView) findViewById(R.id.text_view_lincense_hint);
+        licenseEditText = (EditText) findViewById(R.id.edit_text_license);
+
+        messageInputButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        loadButton.setEnabled(false);
+        exportTablesAll.setEnabled(false);
+        previewButton.setEnabled(false);
+
         messageInputButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         loadButton.setOnClickListener(this);
         exportTablesAll.setOnClickListener(this);
         previewButton.setOnClickListener(this);
+        licenseButton.setOnClickListener(this);
 
-        File configDir = new  File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/");
-        if (!configDir.exists()) {
-            configDir.mkdirs();
-        }
-
-        boolean isVerifyPass = false;
-
-        String licenseString = "";
         String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
         File licenseFile = new File(licenseFilePath);
         if (licenseFile.exists()) {
@@ -92,12 +104,30 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            LayoutInflater layoutInflater = LayoutInflater.from(this);
-            View licenseInputView = layoutInflater.inflate(R.layout.layout_license, null);
-            AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("输入激活码").setView(licenseInputView).setPositiveButton("确认", this).create();
-            alertDialog.show();
+
+            if (Utility.validateDate(licenseString)) {
+                messageInputButton.setEnabled(true);
+                saveButton.setEnabled(true);
+                loadButton.setEnabled(true);
+                exportTablesAll.setEnabled(true);
+                previewButton.setEnabled(true);
+                licenseEditText.setVisibility(View.GONE);
+                licenseButton.setVisibility(View.GONE);
+
+                Calendar c = new GregorianCalendar();
+                c.setTimeInMillis(Utility.getExpiredDate(licenseString) * 1000);
+                licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH) + 1));
+            } else {
+                licenseTextView.setText("有效期过期，请重新输入授权码。");
+            }
         }
+
+        File configDir = new  File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/");
+        if (!configDir.exists()) {
+            configDir.mkdirs();
+        }
+
+
 
         /*
         if (!licenseFile.exists()) {
@@ -117,10 +147,6 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
         // load configuration.
         XlsParser.loadConfig(configFile);
-
-        if (validateDate())
-        ;
-
     }
 
     @Override
@@ -152,6 +178,38 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         AssetManager assetManageer = getAssets();
 
         switch(view.getId()) {
+            case R.id.button_license:
+                if (licenseEditText.getText().length() > 10) {
+                    licenseTextView.setText("有效期过期，请重新输入授权码。");
+                    return;
+                }
+                if (Utility.validateDate(licenseEditText.getText().toString())) {
+                    messageInputButton.setEnabled(true);
+                    saveButton.setEnabled(true);
+                    loadButton.setEnabled(true);
+                    exportTablesAll.setEnabled(true);
+                    previewButton.setEnabled(true);
+                    licenseEditText.setVisibility(View.GONE);
+                    licenseButton.setVisibility(View.GONE);
+
+                    Calendar c = new GregorianCalendar();
+                    c.setTimeInMillis(Utility.getExpiredDate(licenseEditText.getText().toString()) * 1000);
+                    licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH) + 1));
+
+                    String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
+                    try {
+                        FileWriter fw = new FileWriter(licenseFilePath);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        bw.write(licenseEditText.getText().toString().toUpperCase());
+                        bw.close();
+                        fw.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    licenseTextView.setText("有效期过期，请重新输入授权码。");
+                }
+                break;
             case R.id.button_message_input:
                 Intent intent = new Intent(this, HoleIndexActivity.class);
                 startActivity(intent);
@@ -266,26 +324,5 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         }
     }
 
-    private boolean validateDate() {
-        String licensePath = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/license.dat";
 
-        File licenseFile = new File(licensePath);
-        if(!licenseFile.exists()){
-            //
-        } else {
-
-        }
-
-        //Remove
-        String licenseString = "FLXZTADHDX";
-
-        Toast.makeText(getApplicationContext(), String.valueOf(Utility.getExpiredDate(licenseString)), Toast.LENGTH_SHORT).show();
-
-        return true;
-    }
-
-    @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
-        //this.licenseString = ((EditText) (findViewById(R.id.license_edit_text))).getText().toString();
-    }
 }
