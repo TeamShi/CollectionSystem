@@ -504,7 +504,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rig.setRockCoreLength(Double.parseDouble(rig.toString()));
                         rockCoreLengthEditText.setText(String.valueOf(rig.getCoreBarreliLength()));
                         rig.setRockCoreRecovery(1.0);
-                        rockCoreRecoveryEditText.setText("1.0");
+                        rockCoreRecoveryEditText.setText("100%");
                     }
 
                     roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
