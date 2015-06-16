@@ -1,5 +1,6 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -151,7 +152,15 @@ public class RigView {
         if (rigType.equals("Normal")) {
             this.rockCoreId = rig.getRockCoreId();
             this.rockCoreLength = String.valueOf(rig.getRockCoreLength());
-            this.rockCoreRecovery = String.valueOf(rig.getRockCoreRecovery());
+            double recoveryRate =rig.getRockCoreRecovery();
+            if(!Double.isNaN(recoveryRate)){
+                //百分数格式化
+//                NumberFormat fmt = NumberFormat.getPercentInstance();
+//                fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
+                this.rockCoreRecovery = recoveryRate+"%";
+            }else{
+                this.rockCoreRecovery ="";
+            }
         } else {
             this.rockCoreId = "";
             this.rockCoreLength = "";
