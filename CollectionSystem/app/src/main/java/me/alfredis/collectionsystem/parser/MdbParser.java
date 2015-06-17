@@ -82,6 +82,9 @@ public class MdbParser {
 
 
             for (Hole hole : holes) {
+                if(hole.getHoleIdPart1().equals(Hole.HoleIdPart1Type.JC)){
+                    continue;
+                }
                 //导入项目表
                 int projectID = 0;
                 boolean isProjectExist = false;
@@ -173,7 +176,10 @@ public class MdbParser {
                     //导入标贯表 0; -> 标贯,1 -> 动探
                     if (currRigEvent instanceof SPTRig) {
                         SPTRig rigEvent = (SPTRig) currRigEvent;
-                        sptTable.addRow(projectID, "", prospectionId, 0, rigEvent.getPenetrationFrom(), rigEvent.getPenetrationTo(), rigEvent.getPenetration1Count(), rigEvent.getPenetrationLength());
+                        //TODO
+                        sptTable.addRow(projectID, "", prospectionId, 0, rigEvent.getPenetration1DepthFrom(), rigEvent.getPenetration1DepthTo(), rigEvent.getPenetration1Count(), rigEvent.getPenetrationLength());
+                        sptTable.addRow(projectID, "", prospectionId, 0, rigEvent.getPenetration2DepthFrom(), rigEvent.getPenetration2DepthTo(), rigEvent.getPenetration2Count(), rigEvent.getPenetrationLength());
+                        sptTable.addRow(projectID, "", prospectionId, 0, rigEvent.getPenetration3DepthFrom(), rigEvent.getPenetration3DepthTo(), rigEvent.getPenetration3Count(), rigEvent.getPenetrationLength());
                         //导入地层表
                         hashMap.put("项目ID", projectID);
                         hashMap.put("ID", prospectionId);
@@ -187,7 +193,8 @@ public class MdbParser {
                         for (DSTRig.DynamicSoundingEvent dynamicSoundingEvent : rigEvent.getDynamicSoundingEvents()) {
                             double startDepth = dynamicSoundingEvent.getDigDepth();
                             double endDepth = dynamicSoundingEvent.getDigDepth() + dynamicSoundingEvent.getPenetration() / 100;
-                            sptTable.addRow(projectID, "", prospectionId, 1, startDepth, endDepth, dynamicSoundingEvent.getHammeringCount());
+                            //TODO
+                            sptTable.addRow(projectID, "", prospectionId, 1, startDepth, endDepth, dynamicSoundingEvent.getHammeringCount(),dynamicSoundingEvent.getTotalLength());
 
                             //导入地层表
                             hashMap.put("项目ID", projectID);

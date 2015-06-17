@@ -64,14 +64,14 @@ public class ParserTest {
 //        ArrayList<Hole> list = XlsParser.parse(OutPath + "test.xls");
 
         //mdb output
-//        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
+        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
 
         //export config
-        ConfigurationManager.exportConfig(new Configuration(),OutPath+"config.ser");
+//        ConfigurationManager.exportConfig(new Configuration(),OutPath+"config.ser");
 
         //import config
-        File file = new File(OutPath+"config.ser");
-        ConfigurationManager.loadConfig(file);
+//        File file = new File(OutPath+"config.ser");
+//        ConfigurationManager.loadConfig(file);
     }
 
 }
