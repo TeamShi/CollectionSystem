@@ -3,6 +3,7 @@ package me.alfredis.collectionsystem;
 import java.io.File;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.Configuration;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -64,6 +65,13 @@ public class ParserTest {
 
         //mdb output
 //        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
+
+        //export config
+        ConfigurationManager.exportConfig(new Configuration(),OutPath+"config.ser");
+
+        //import config
+        File file = new File(OutPath+"config.ser");
+        ConfigurationManager.loadConfig(file);
     }
 
 }

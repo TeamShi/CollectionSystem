@@ -1,5 +1,16 @@
 package me.alfredis.collectionsystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import me.alfredis.collectionsystem.datastructure.Configuration;
+
 /**
  * Created by liashi on 2015/6/8.
  */
@@ -378,4 +389,76 @@ public class ConfigurationManager {
         }
         return "";
     }
+
+
+    public static boolean exportConfig(Configuration configuration,String path) {
+        try {
+            File file = new File(path);
+            ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(file));
+            oo.writeObject(configuration);
+            oo.flush();
+            oo.close();
+            System.out.println("对象序列化成功！");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean loadConfig(File file) {
+        try {
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+            Configuration configuration = (Configuration) ois.readObject();
+            System.out.println("对象反序列化成功！");
+
+            ConfigurationManager.setSptTable1Argument1(configuration.getSptTable1Argument1());
+            ConfigurationManager.setSptTable1Argument2((configuration.getSptTable1Argument2()));
+            ConfigurationManager.setSptTable1Argument3((configuration.getSptTable1Argument3()));
+            ConfigurationManager.setSptTable1Argument4((configuration.getSptTable1Argument4()));
+            ConfigurationManager.setSptTable1Argument5((configuration.getSptTable1Argument5()));
+
+            ConfigurationManager.setSptTable2Argument1((configuration.getSptTable2Argument1()));
+            ConfigurationManager.setSptTable2Argument2((configuration.getSptTable2Argument2()));
+            ConfigurationManager.setSptTable2Argument3((configuration.getSptTable2Argument3()));
+
+            ConfigurationManager.setSptTable3Argument1((configuration.getSptTable3Argument1()));
+            ConfigurationManager.setSptTable3Argument2((configuration.getSptTable3Argument2()));
+            ConfigurationManager.setSptTable3Argument3((configuration.getSptTable3Argument3()));
+
+            ConfigurationManager.setDstTable1_63_5_Argument1((configuration.getDstTable1_63_5_Argument1()));
+            ConfigurationManager.setDstTable1_63_5_Argument2((configuration.getDstTable1_63_5_Argument2()));
+            ConfigurationManager.setDstTable1_63_5_Argument3((configuration.getDstTable1_63_5_Argument3()));
+            ConfigurationManager.setDstTable1_63_5_Argument4((configuration.getDstTable1_63_5_Argument4()));
+
+            ConfigurationManager.setDstTable1_120_Argument1((configuration.getDstTable1_120_Argument1()));
+            ConfigurationManager.setDstTable1_120_Argument2((configuration.getDstTable1_120_Argument2()));
+            ConfigurationManager.setDstTable1_120_Argument3((configuration.getDstTable1_120_Argument3()));
+            ConfigurationManager.setDstTable1_120_Argument4((configuration.getDstTable1_120_Argument4()));
+            ConfigurationManager.setDstTable1_120_Argument5((configuration.getDstTable1_120_Argument5()));
+
+            ConfigurationManager.setDstTable2_63_6_Argument1((configuration.getDstTable2_63_6_Argument1()));
+            ConfigurationManager.setDstTable2_63_6_Argument2((configuration.getDstTable2_63_6_Argument2()));
+            ConfigurationManager.setDstTable2_63_6_Argument3((configuration.getDstTable2_63_6_Argument3()));
+
+            ConfigurationManager.setDstTable2_63_7_Argument1((configuration.getDstTable2_63_7_Argument1()));
+            ConfigurationManager.setDstTable2_63_7_Argument2((configuration.getDstTable2_63_7_Argument2()));
+            ConfigurationManager.setDstTable2_63_7_Argument3((configuration.getDstTable2_63_7_Argument3()));
+
+            ConfigurationManager.setDstTable2_63_8_Argument1((configuration.getDstTable2_63_8_Argument1()));
+            ConfigurationManager.setDstTable2_63_8_Argument2((configuration.getDstTable2_63_8_Argument2()));
+            ConfigurationManager.setDstTable2_63_8_Argument3((configuration.getDstTable2_63_8_Argument3()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return  false;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return  false;
+        }
+
+        return true;
+    }
+
 }

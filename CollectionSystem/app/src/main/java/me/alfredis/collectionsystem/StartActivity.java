@@ -135,18 +135,17 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         }*/
 
 
-        File configFile = new File(configDir + "/config.xls");
+        File configFile = new File(configDir + "/config.ser");
         if (!configFile.exists()) {
             try {
-                InputStream configFileStream = getAssets().open("config.xls");
+                InputStream configFileStream = getAssets().open("config.ser");
                 Utility.copyFile(configFileStream, configFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        // load configuration.
-        XlsParser.loadConfig(configFile);
+        ConfigurationManager.loadConfig(configFile);
     }
 
     @Override
