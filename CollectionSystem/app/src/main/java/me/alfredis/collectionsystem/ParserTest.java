@@ -3,6 +3,7 @@ package me.alfredis.collectionsystem;
 import java.io.File;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.Configuration;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -51,6 +52,20 @@ public class ParserTest {
         dstRig1.getDynamicSoundingEvents().add(dynamicSoundingEvent1);
         rigEvents.add(dstRig1);//add twice
 
+        RigEvent restEvent = new RigEvent();
+        restEvent.setProjectName("搬家移孔、下雨停工，其他");
+        rigEvents.add(restEvent);
+
+        CasedRig casedRig = new CasedRig();
+        casedRig.setDadoType("type");
+        casedRig.setCasedDiameter(0.2);
+        casedRig.setCasedId(1);
+        casedRig.setCasedLength(12);
+        casedRig.setCasedTotalLength(23);
+        casedRig.setCasedSituation("cased sit");
+        casedRig.setSpecialNote("cased specital note");
+        rigEvents.add(casedRig);
+
         ArrayList<Hole> holes = new ArrayList<Hole>();
         holes.add(hole);
 
@@ -64,7 +79,7 @@ public class ParserTest {
 //        ArrayList<Hole> list = XlsParser.parse(OutPath + "test.xls");
 
         //mdb output
-        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
+//        MdbParser.parse(new File("C:\\Users\\jishshi\\Desktop\\数据包\\Data\\DlcGeoInfo.mdb"), holes);
 
         //export config
 //        ConfigurationManager.exportConfig(new Configuration(),OutPath+"config.ser");

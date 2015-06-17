@@ -11,12 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 
-import me.alfredis.collectionsystem.DataManager;
-import me.alfredis.collectionsystem.Utility;
-import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -25,7 +21,6 @@ import me.alfredis.collectionsystem.datastructure.SPTRig;
 
 import static me.alfredis.collectionsystem.Utility.convert2Array;
 import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
-import static me.alfredis.collectionsystem.Utility.getIntervalDays;
 
 /**
  * Created by jishshi on 2015/5/10.
@@ -238,6 +233,7 @@ public class HtmlParser {
         ArrayList<RigEvent> rigEvents = hole.getRigList();
         int rows = rigEvents.size();
         String[][] resultData = new String[rows][];
+        int groundNo = 1;
         for (int i = 0; i < rows; i++) {
             RigEvent rigEvent =  rigEvents.get(i);
             RigView rigView = new RigView(hole,rigEvent);
@@ -295,12 +291,16 @@ public class HtmlParser {
             sb.append(rigView.getWaterCount()).append(",");
 
             //地层
-             sb.append(rigView.getGroudNo()).append(",");//TODO 编号, 四类普通钻,编号加1
+            if(rigView.getRigType().equals("Normal")){
+                sb.append(groundNo++).append(",");//编号, 四类普通钻,编号加1
+            }else{
+                sb.append("").append(",");
+            }
             sb.append(rigView.getGroundDepth()).append(","); //底层深度 本次累计进尺
 //            double prevGroundDepth = i > 0 ? rigEvents.get(i-1).getCumulativeMeterage(): 0;
 //            double currGroundDepth = rigEvent.getCumulativeMeterage();
             sb.append(rigView.getGroundDepthDiff()).append(",");//层厚 本次累计进尺 -上次累计进尺
-            sb.append(rigView.getGroudNo()).append(","); // 名称及岩性
+            sb.append(rigView.getGroundNote()).append(","); // 名称及岩性
             sb.append(rigView.getGroundClass()).append(","); //岩层等级
 
             //地下水 只填第一行

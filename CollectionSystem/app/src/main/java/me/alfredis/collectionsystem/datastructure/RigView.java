@@ -1,6 +1,5 @@
 package me.alfredis.collectionsystem.datastructure;
 
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -74,7 +73,7 @@ public class RigView {
     private String waterCount;
 
     //地层
-    private String groudNo;
+    private String groundNo;
     private String groundDepth;//底层深度
     private String groundDepthDiff;//层厚 本次累计进尺 -上次累计进尺
     private String groundNote;//名称及岩性
@@ -85,6 +84,59 @@ public class RigView {
     private String stableLevel;                 //稳定水位
     private String levelChange;
     private String measureDatesInterval;
+
+    public RigView() {
+        this.drillPipeId = "";
+        this.drillPipeLength = "";
+        this.cumulativeLength = "";
+
+        this.coreBarreliDiameter = "";
+        this.coreBarreliLength = "";
+
+        this.drillPipeId = "";
+        this.drillDiameter ="";
+        this.drillPipeLength = "";
+
+        //进尺
+        this.drillToolTotalLength = "";
+        this.drillToolRemainLength = "";
+        this.roundTripMeterage = "";
+        this.cumulativeMeterage ="";
+
+        //护壁措施
+        this.dadoType = "";
+        this.casedId = "";
+        this.casedDiameter = "";
+        this.casedLength = "";
+        this.casedLength = "";
+
+        //孔内情况
+        this.casedSituation = "";
+
+        //岩心采取
+        this.rockCoreId = "";
+        this.rockCoreLength = "";
+        this.rockCoreRecovery = "";
+
+        //土样
+        this.earthNo = "";
+        this.earthDepth = "";
+        this.earthDiameter = "";
+        this.earthCount = "";
+
+        //水样
+        this.waterNo = "";
+        this.waterDepth = "";
+        this.waterCount = "";
+
+        //地层
+        this.groundNo = "";
+        this.groundDepth = "";//底层深度 本次累计进尺
+        this.groundDepthDiff = "";
+        this.groundNote = "";
+        this.groundClass = "";
+
+    }
 
     public RigView(Hole hole, RigEvent rig) {
         if (rig instanceof SPTRig) {
@@ -107,107 +159,82 @@ public class RigView {
         this.date = rig.getDate();
         this.startTime = rig.getStartTime();
         this.endTime = rig.getEndTime();
-        this.timeInterval = Utility.calculateTimeSpan(rig.getStartTime(),rig.getEndTime());
+        this.timeInterval = Utility.calculateTimeSpan(rig.getStartTime(), rig.getEndTime());
 
         this.projectName = rig.getProjectName();
 
-        this.drillPipeId = String.valueOf(rig.getDrillPipeId());
-        this.drillPipeLength = String.valueOf(rig.getDrillPipeLength());
-        this.cumulativeLength = String.valueOf(rig.getCumulativeLength());
+        if (!rigType.equals("REST")) {
+            if (rigType.equals("CASED")) {
+                CasedRig casedRig = (CasedRig) rig;
+                this.dadoType = casedRig.getDadoType();
+                this.casedId = String.valueOf(casedRig.getCasedId());
+                this.casedDiameter = String.valueOf(casedRig.getCasedDiameter());
+                this.casedLength = String.valueOf(casedRig.getCasedLength());
+                this.casedTotalLength = String.valueOf(casedRig.getCasedTotalLength());
+                //孔内情况
+                this.casedSituation = casedRig.getCasedSituation();
+                this.holeNote = casedRig.getSpecialNote();
+            } else {
+                this.drillPipeId = String.valueOf(rig.getDrillPipeId());
+                this.drillPipeLength = String.valueOf(rig.getDrillPipeLength());
+                this.cumulativeLength = String.valueOf(rig.getCumulativeLength());
 
-        this.coreBarreliDiameter = String.valueOf(rig.getCoreBarreliDiameter());
-        this.coreBarreliLength = String.valueOf(rig.getCoreBarreliLength());
+                this.coreBarreliDiameter = String.valueOf(rig.getCoreBarreliDiameter());
+                this.coreBarreliLength = String.valueOf(rig.getCoreBarreliLength());
 
-        this.drillPipeId = String.valueOf(rig.getDrillPipeId());
-        this.drillDiameter = String.valueOf(rig.getDrillDiameter());
-        this.drillPipeLength = String.valueOf(rig.getDrillPipeLength());
+                this.drillPipeId = String.valueOf(rig.getDrillPipeId());
+                this.drillDiameter = String.valueOf(rig.getDrillDiameter());
+                this.drillPipeLength = String.valueOf(rig.getDrillPipeLength());
 
-        //进尺
-        this.drillToolTotalLength = String.valueOf(rig.getDrillToolTotalLength());
-        this.drillToolRemainLength = String.valueOf(rig.getDrillToolRemainLength());
-        this.roundTripMeterage = String.valueOf(rig.getRoundTripMeterage());
-        this.cumulativeMeterage = String.valueOf(rig.getCumulativeMeterage());
+                //进尺
+                this.drillToolTotalLength = String.valueOf(rig.getDrillToolTotalLength());
+                this.drillToolRemainLength = String.valueOf(rig.getDrillToolRemainLength());
+                this.roundTripMeterage = String.valueOf(rig.getRoundTripMeterage());
+                this.cumulativeMeterage = String.valueOf(rig.getCumulativeMeterage());
 
-        //护壁措施
-        if (rigType.equals("CASED")) {
-            CasedRig casedRig = (CasedRig) rig;
-            this.dadoType = casedRig.getDadoType();
-            this.casedId = String.valueOf(casedRig.getCasedId());
-            this.casedDiameter = String.valueOf(casedRig.getCasedDiameter());
-            this.casedLength = String.valueOf(casedRig.getCasedLength());
-            this.casedTotalLength = String.valueOf(casedRig.getCasedTotalLength());
-            //孔内情况
-            this.casedSituation = casedRig.getCasedSituation();
-            this.groundNote = "";
-            this.holeNote = casedRig.getSpecialNote();
-        } else {
-            this.dadoType = "";
-            this.casedId = "";
-            this.casedDiameter = "";
-            this.casedLength = "";
-            this.casedLength = "";
-            //孔内情况
-            this.casedSituation = "";
-            this.groundNote = rig.getSpecialNote();
-            this.holeNote = hole.getNote();
-        }
+                this.holeNote = hole.getNote();
 
-        //岩心采取
-        if (rigType.equals("Normal")) {
-            this.rockCoreId = rig.getRockCoreId();
-            this.rockCoreLength = String.valueOf(rig.getRockCoreLength());
-            double recoveryRate =rig.getRockCoreRecovery();
-            if(!Double.isNaN(recoveryRate)){
-                //百分数格式化
+                //岩心采取
+                if (rigType.equals("Normal")) {
+                    this.rockCoreId = rig.getRockCoreId();
+                    this.rockCoreLength = String.valueOf(rig.getRockCoreLength());
+                    double recoveryRate = rig.getRockCoreRecovery();
+                    if (!Double.isNaN(recoveryRate)) {
+                        //百分数格式化
 //                NumberFormat fmt = NumberFormat.getPercentInstance();
 //                fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
-                this.rockCoreRecovery = recoveryRate+"%";
-            }else{
-                this.rockCoreRecovery ="";
+                        this.rockCoreRecovery = recoveryRate + "%";
+                    }
+                }
+
+                //地层
+                this.groundDepth = String.valueOf(rig.getCumulativeMeterage());//底层深度 本次累计进尺
+                this.groundDepthDiff = String.valueOf(rig.getRoundTripMeterage()); //TODO 回次进尺
+                this.groundNote = rig.getSpecialNote();
+
             }
-        } else {
-            this.rockCoreId = "";
-            this.rockCoreLength = "";
-            this.rockCoreRecovery = "";
+
+            //地下水
+            try {
+                int intervalDays = Utility.getIntervalDays(hole.getInitialLevelMeasuringDate(), hole.getStableLevelMeasuringDate());
+                this.measureDatesInterval = String.valueOf(intervalDays * 24);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            this.initialLevel = String.valueOf(hole.getInitialLevel());
+            this.stableLevel = String.valueOf(hole.getStableLevel());
+            double levelDiff = hole.getStableLevel() - hole.getInitialLevel();
+            String levelChange = null;
+            if (levelDiff > 0) {
+                levelChange = "上升";
+            } else if (levelDiff < 0) {
+                levelChange = "下降";
+            } else {
+                levelChange = "未变";
+            }
+            this.levelChange = levelChange;
+
         }
-
-        //土样 TODO
-        this.earthNo = "";
-        this.earthDepth = "";
-        this.earthDiameter = "";
-        this.earthCount = "";
-
-        //水样
-        this.waterNo = "";
-        this.waterDepth = "";
-        this.waterCount = "";
-
-        //地层
-        this.groudNo = "";//TODO 编号, 四类普通钻,编号加1
-        this.groundDepth = String.valueOf(rig.getCumulativeMeterage());//底层深度 本次累计进尺
-        this.groundDepthDiff = String.valueOf(rig.getRoundTripMeterage()); //TODO 回次进尺
-//        this.groundNote = rig.getSpecialNote();
-        this.groundClass = "";
-
-        try {
-            int intervalDays = Utility.getIntervalDays(hole.getInitialLevelMeasuringDate(), hole.getStableLevelMeasuringDate());
-            this.measureDatesInterval = String.valueOf(intervalDays * 24);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.initialLevel = String.valueOf(hole.getInitialLevel());
-        this.stableLevel = String.valueOf(hole.getStableLevel());
-        double levelDiff = hole.getStableLevel() - hole.getInitialLevel();
-        String levelChange = null;
-        if (levelDiff > 0) {
-            levelChange = "上升";
-        } else if (levelDiff < 0) {
-            levelChange = "下降";
-        } else {
-            levelChange = "未变";
-        }
-        this.levelChange = levelChange;
-
     }
 
 
@@ -494,12 +521,12 @@ public class RigView {
         this.waterCount = waterCount;
     }
 
-    public String getGroudNo() {
-        return groudNo;
+    public String getGroundNo() {
+        return groundNo;
     }
 
-    public void setGroudNo(String groudNo) {
-        this.groudNo = groudNo;
+    public void setGroundNo(String groundNo) {
+        this.groundNo = groundNo;
     }
 
     public String getGroundDepth() {

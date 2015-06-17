@@ -220,11 +220,13 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView(rigView.getGroundNote())); // 名称及岩性
             row.addView(createRigContentTextView(rigView.getGroundClass())); //岩层等级
 
-            //地下水
-            row.addView(createRigContentTextView(rigView.getMeasureDatesInterval())); //观测时间
-            row.addView(createRigContentTextView((rigView.getInitialLevel())));
-            row.addView(createRigContentTextView((rigView.getStableLevel())));
-            row.addView(createRigContentTextView((rigView.getLevelChange())));
+            //地下水 只在第一行显示
+            if(index == 0) {
+                row.addView(createRigContentTextView(rigView.getMeasureDatesInterval())); //观测时间
+                row.addView(createRigContentTextView((rigView.getInitialLevel())));
+                row.addView(createRigContentTextView((rigView.getStableLevel())));
+                row.addView(createRigContentTextView((rigView.getLevelChange())));
+            }
 
             //特殊情况
             row.addView(createRigContentTextView(rigView.getHoleNote()));
