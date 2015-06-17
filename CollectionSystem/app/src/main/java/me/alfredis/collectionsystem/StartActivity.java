@@ -116,7 +116,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
                 Calendar c = new GregorianCalendar();
                 c.setTimeInMillis(Utility.getExpiredDate(licenseString) * 1000);
-                licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH) + 1));
+                licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH)));
             } else {
                 licenseTextView.setText("有效期过期，请重新输入授权码。");
             }
@@ -193,7 +193,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
                     Calendar c = new GregorianCalendar();
                     c.setTimeInMillis(Utility.getExpiredDate(licenseEditText.getText().toString()) * 1000);
-                    licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH) + 1));
+                    licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH)));
 
                     String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
                     try {
