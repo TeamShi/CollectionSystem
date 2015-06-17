@@ -146,10 +146,11 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
         Log.d(TAG, "Draw hole rigs");
 
         int index = 0;
+        int groundNo = 0;
         for (RigEvent rig : DataManager.getRigEventListByHoleId(holeId)) {
             Hole hole = DataManager.getHole(holeId);
             RigView rigView = new RigView(hole,rig);
-
+            String rigType = rigView.getRigType();
             TableRow row = new TableRow(this);
 
             row.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -208,7 +209,12 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
             row.addView(createRigContentTextView(rigView.getWaterCount()));
 
             //地层
-            row.addView(createRigContentTextView(rigView.getGroudNo())); //编号
+            String groundNumber ="";
+            if(rigType.equals("Normal")){
+                groundNo++;
+                groundNumber = String.valueOf(groundNo);
+            }
+            row.addView(createRigContentTextView(groundNumber)); //编号
             row.addView(createRigContentTextView((rigView.getGroundDepth())));//层深
             row.addView(createRigContentTextView((rigView.getGroundDepthDiff())));//层厚
             row.addView(createRigContentTextView(rigView.getGroundNote())); // 名称及岩性

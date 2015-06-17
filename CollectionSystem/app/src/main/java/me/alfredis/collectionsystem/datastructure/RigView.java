@@ -94,7 +94,11 @@ public class RigView {
         } else if (rig instanceof CasedRig) {
             this.rigType = "CASED";
         } else {
-            this.rigType = "Normal";
+            if(rig.getProjectName().equals("搬家移孔、下雨停工，其他")){
+                this.rigType = "REST";
+            }else{
+                this.rigType = "Normal";
+            }
         }
         this.holeId = hole.getHoleId();
 
