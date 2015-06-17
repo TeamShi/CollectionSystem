@@ -734,8 +734,8 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_ground_density"
+                        <Spinner
+                            android:id="@+id/spinner_ground_density"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -753,8 +753,8 @@
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_ground_saturation"
+                        <Spinner
+                            android:id="@+id/spinner_ground_saturation"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
