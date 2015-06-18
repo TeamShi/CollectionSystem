@@ -43,20 +43,21 @@ public class HtmlParser {
         //读模版文件
         Document doc = Jsoup.parse(inputStream, "UTF-8","./");
         Element tbody = doc.getElementById(TBODY_ID);
-
-        // 循环写入行数据
-        for (int i = 0, rows = data.length; i < rows; i++) {
-            StringBuffer row = new StringBuffer();
-            row.append("<tr>");
-            // 循环写入列数据
-            for (int j = 0, cols = data[i].length; j < cols; j++) {
-                row.append("<td>");
-                String text = data[i][j].equals("null") ? "" : data[i][j];
-                row.append(text);
-                row.append("</td>");
+        if(data != null){
+            // 循环写入行数据
+            for (int i = 0, rows = data.length; i < rows; i++) {
+                StringBuffer row = new StringBuffer();
+                row.append("<tr>");
+                // 循环写入列数据
+                for (int j = 0, cols = data[i].length; j < cols; j++) {
+                    row.append("<td>");
+                    String text = data[i][j].equals("null") ? "" : data[i][j];
+                    row.append(text);
+                    row.append("</td>");
+                }
+                row.append("</tr>");
+                tbody.append(row.toString());
             }
-            row.append("</tr>");
-            tbody.append(row.toString());
         }
 
         FileWriter fileWriter = new FileWriter(outPath);

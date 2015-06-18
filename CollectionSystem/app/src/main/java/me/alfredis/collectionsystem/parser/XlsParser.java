@@ -169,7 +169,11 @@ public class XlsParser {
 
         for (Hole hole : holeList) {
             String holeId = hole.getHoleId();
-            hole.setRigList(rigMap.get(holeId));
+            ArrayList<RigEvent> list = rigMap.get(holeId);
+            if (list == null) {
+                list= new ArrayList<RigEvent>();
+            }
+            hole.setRigList(list);
         }
 
         return holeList;
