@@ -71,8 +71,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private EditText rockCoreLengthEditText;
     private EditText rockCoreRecoveryEditText;
     private EditText startEndDepthEditText;
-    private EditText groundColorEditText;
-    private EditText groundWeatheringEditText;
     private EditText groundNoteEditText;
     private EditText rigHoleSaturationEditText;
     private EditText specialThingsEditText;
@@ -97,6 +95,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private Spinner groundNameSpinner;
     private Spinner groundDestinySpinner;
     private Spinner groundSaturationSpinner;
+    private Spinner groundWeatheringSpinner;
+    private Spinner groundColorSpinner;
 
     private TableRow rigDrillTableRow;
     private TableRow coreBarreliTableRow;
@@ -126,6 +126,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             "块石", "卵石", "碎石", "粗圆砾", "粗角砾", "细圆砾", "细角砾"};
     private static final String[] GROUND_DENSITY_OPTION = {"坚硬", "硬塑", "软塑", "流塑", "稍密", "中密", "密实", "松散"};
     private static final String[] GROUND_SATURATION_OPTION = {"稍湿", "潮湿", "饱和"};
+    private static final String[] GROUND_COLOR_OPTION = {"浅蓝色", "蓝色", "浅蓝色", "灰色", "青灰色", "深灰色", "紫色", "棕黄色", "浅黄色", "褐黄色", "红褐色", "棕红色", "棕色", "褐色", "黄褐色",
+            "青色","灰绿色","浅紫色", "暗红色", "黑色"};
+    private static final String[] GROUND_WEATHERING_OPTION = {"全风化", "强风化", "中风化", "弱风化", "微风化", "未风化"};
 
     private static final HashMap<String, String> GROUND_COLOR_MAP = new HashMap<String, String>();
     private static final HashMap<String, String> GROUND_DENSITY_MAP = new HashMap<String, String>();
@@ -162,6 +165,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private ArrayAdapter<String> groundNameAdapter;
     private ArrayAdapter<String> groundDestinyAdapter;
     private ArrayAdapter<String> groundSaturationAdapter;
+    private ArrayAdapter<String> groundColorAdapter;
+    private ArrayAdapter<String> groundWeatheringAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,8 +210,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rockCoreRecoveryEditText = (EditText) findViewById(R.id.edit_text_rock_core_recovery);
 
         startEndDepthEditText = (EditText) findViewById(R.id.edit_text_start_depth);
-        groundColorEditText = (EditText) findViewById(R.id.edit_text_ground_color);
-        groundWeatheringEditText = (EditText) findViewById(R.id.edit_text_ground_weathering);
         groundNoteEditText = (EditText) findViewById(R.id.edit_text_ground_note);
 
         wallTypeEditText = (EditText) findViewById(R.id.edit_text_wall_type);
@@ -517,51 +520,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             }
         });
 
-        groundColorEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                rig.setGroundColor(s.toString());
-
-                rig.setSpecialNote(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
-
-                groundNoteEditText.setText(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
-            }
-        });
-
-        groundWeatheringEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                rig.setGroundWeathering(s.toString());
-
-                rig.setSpecialNote(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
-
-                groundNoteEditText.setText(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
-            }
-        });
         cumulativeMeteragEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -785,6 +743,46 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundNameSpinner = (Spinner) findViewById(R.id.spinner_ground_name);
         groundDestinySpinner = (Spinner) findViewById(R.id.spinner_ground_density);
         groundSaturationSpinner = (Spinner) findViewById(R.id.spinner_ground_saturation);
+        groundColorSpinner = (Spinner) findViewById(R.id.spinner_ground_color);
+        groundWeatheringSpinner = (Spinner) findViewById(R.id.spinner_ground_weathering);
+
+        groundColorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GROUND_COLOR_OPTION);
+        groundColorSpinner.setAdapter(groundColorAdapter);
+        groundColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rig.setGroundColor(parent.getItemAtPosition(position).toString());
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+
+                groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        groundWeatheringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GROUND_WEATHERING_OPTION);
+        groundWeatheringSpinner.setAdapter(groundWeatheringAdapter);
+        groundWeatheringSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rig.setGroundWeathering(parent.getItemAtPosition(position).toString());
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+
+                groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         groundDestinyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GROUND_DENSITY_OPTION);
         groundDestinySpinner.setAdapter(groundDestinyAdapter);
@@ -792,11 +790,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rig.setGroundDensity(parent.getItemAtPosition(position).toString());
-                rig.setSpecialNote(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
-                groundNoteEditText.setText(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
+                groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
             }
 
             @Override
@@ -811,11 +809,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rig.setGroundSaturation(parent.getItemAtPosition(position).toString());
-                rig.setSpecialNote(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
-                groundNoteEditText.setText(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
+                groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
             }
 
             @Override
@@ -1075,12 +1073,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rig.setGroundName(parent.getItemAtPosition(position).toString());
-                rig.setGroundColor(GROUND_COLOR_MAP.get(parent.getItemAtPosition(position).toString()));
+                rig.setGroundColor(GROUND_COLOR_OPTION[groundColorSpinner.getSelectedItemPosition()]);
                 rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
                 rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
-                rig.setGroundWeathering(GROUND_WEATHERING_MAP.get(parent.getItemAtPosition(position).toString()));
-                rig.setSpecialNote(rig.getGroundName() + "\n" + rig.getGroundColor() + "\n" + rig.getGroundDensity() + "\n"
-                        + rig.getGroundSaturation() + "\n" + rig.getGroundWeathering());
+                rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
                 refreshRigInfoTable();
             }
@@ -1312,9 +1310,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 break;
             }
         }
-
-        groundColorEditText.setText(rig.getGroundColor());
-        groundWeatheringEditText.setText(rig.getGroundWeathering());
         groundNoteEditText.setText(rig.getSpecialNote());
     }
 

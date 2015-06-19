@@ -699,8 +699,8 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_ground_color"
+                        <Spinner
+                            android:id="@+id/spinner_ground_color"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
@@ -772,8 +772,8 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
-                        <EditText
-                            android:id="@+id/edit_text_ground_weathering"
+                        <Spinner
+                            android:id="@+id/spinner_ground_weathering"
                             android:layout_height="fill_parent"
                             android:inputType="text"
                             android:background="@android:color/white"
