@@ -509,6 +509,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         rockCoreLengthEditText.setText(String.valueOf(rig.getCoreBarreliLength()));
                         rig.setRockCoreRecovery(1.0);
                         rockCoreRecoveryEditText.setText("100%");
+
+                        rig.setStartEndDiscription(String.valueOf(rig.getCumulativeMeterage() - rig.getRoundTripMeterage()) + "~" + String.valueOf(rig.getCumulativeMeterage()));
+                        startEndDepthEditText.setText(String.valueOf(rig.getCumulativeMeterage() - rig.getRoundTripMeterage()) + "~" + String.valueOf(rig.getCumulativeMeterage()));
                     }
 
                     roundTripMeterageEditText.setBackgroundColor(getResources().getColor(android.R.color.white));
@@ -539,6 +542,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 } catch (Exception e) {
                     cumulativeMeteragEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
+
+                rig.setStartEndDiscription(String.valueOf(rig.getCumulativeMeterage() - rig.getRoundTripMeterage()) + "~" + String.valueOf(rig.getCumulativeMeterage()));
+                startEndDepthEditText.setText(String.valueOf(rig.getCumulativeMeterage() - rig.getRoundTripMeterage()) + "~" + String.valueOf(rig.getCumulativeMeterage()));
             }
         });
 
