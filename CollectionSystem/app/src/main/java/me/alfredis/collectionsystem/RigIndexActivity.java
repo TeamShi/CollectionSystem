@@ -226,6 +226,11 @@ public class RigIndexActivity extends ActionBarActivity implements View.OnClickL
                 row.addView(createRigContentTextView((rigView.getInitialLevel())));
                 row.addView(createRigContentTextView((rigView.getStableLevel())));
                 row.addView(createRigContentTextView((rigView.getLevelChange())));
+            } else {
+                row.addView(createRigContentTextView("")); //观测时间
+                row.addView(createRigContentTextView(""));
+                row.addView(createRigContentTextView(""));
+                row.addView(createRigContentTextView(""));
             }
 
             //特殊情况

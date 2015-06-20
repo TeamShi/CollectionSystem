@@ -757,7 +757,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rig.setGroundColor(parent.getItemAtPosition(position).toString());
+                rig.setGroundName(parent.getItemAtPosition(position).toString());
+                rig.setGroundColor(GROUND_COLOR_OPTION[groundColorSpinner.getSelectedItemPosition()]);
+                rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
+                rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
+                rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
                 rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
@@ -776,7 +780,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundWeatheringSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rig.setGroundWeathering(parent.getItemAtPosition(position).toString());
+                rig.setGroundName(parent.getItemAtPosition(position).toString());
+                rig.setGroundColor(GROUND_COLOR_OPTION[groundColorSpinner.getSelectedItemPosition()]);
+                rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
+                rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
+                rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
                 rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
@@ -795,7 +803,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundDestinySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rig.setGroundDensity(parent.getItemAtPosition(position).toString());
+                rig.setGroundName(parent.getItemAtPosition(position).toString());
+                rig.setGroundColor(GROUND_COLOR_OPTION[groundColorSpinner.getSelectedItemPosition()]);
+                rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
+                rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
+                rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
                 rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
@@ -814,7 +826,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         groundSaturationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rig.setGroundSaturation(parent.getItemAtPosition(position).toString());
+                rig.setGroundName(parent.getItemAtPosition(position).toString());
+                rig.setGroundColor(GROUND_COLOR_OPTION[groundColorSpinner.getSelectedItemPosition()]);
+                rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
+                rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
+                rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
                 rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
