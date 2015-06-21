@@ -94,14 +94,20 @@ public class HtmlParser {
         if(holes == null) {
             return false;
         }
-        String[][] rigEventArray = null;
+        ArrayList<String[]> rigList = new ArrayList<>();
         for(Hole hole:holes){
             String[][] tempArray = convertRig(hole);
-            System.arraycopy(tempArray,0,rigEventArray,rigEventArray.length,tempArray.length);
+            for(String[] record:tempArray){
+                rigList.add(record);
+            }
         }
 
         try {
-            write(dirPath + "rigEvent.html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            String [][] rigArray = new String[rigList.size()][];
+            for(int i=0;i<rigList.size();i++){
+                rigArray[i] = rigList.get(i);
+            }
+            write(dirPath + "rigEvent.html",rigArray , assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
