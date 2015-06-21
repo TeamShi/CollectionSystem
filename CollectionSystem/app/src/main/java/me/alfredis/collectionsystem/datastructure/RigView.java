@@ -213,28 +213,27 @@ public class RigView {
                 this.groundNote = rig.getSpecialNote();
 
             }
-
-            //地下水
-            try {
-                int intervalDays = Utility.getIntervalDays(hole.getInitialLevelMeasuringDate(), hole.getStableLevelMeasuringDate());
-                this.measureDatesInterval = String.valueOf(intervalDays * 24);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            this.initialLevel = String.valueOf(hole.getInitialLevel());
-            this.stableLevel = String.valueOf(hole.getStableLevel());
-            double levelDiff = hole.getStableLevel() - hole.getInitialLevel();
-            String levelChange = null;
-            if (levelDiff > 0) {
-                levelChange = "上升";
-            } else if (levelDiff < 0) {
-                levelChange = "下降";
-            } else {
-                levelChange = "未变";
-            }
-            this.levelChange = levelChange;
-
         }
+
+        //地下水
+        try {
+            int intervalDays = Utility.getIntervalDays(hole.getInitialLevelMeasuringDate(), hole.getStableLevelMeasuringDate());
+            this.measureDatesInterval = String.valueOf(intervalDays * 24);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.initialLevel = String.valueOf(hole.getInitialLevel());
+        this.stableLevel = String.valueOf(hole.getStableLevel());
+        double levelDiff = hole.getStableLevel() - hole.getInitialLevel();
+        String levelChange = null;
+        if (levelDiff > 0) {
+            levelChange = "上升";
+        } else if (levelDiff < 0) {
+            levelChange = "下降";
+        } else {
+            levelChange = "未变";
+        }
+        this.levelChange = levelChange;
     }
 
 
