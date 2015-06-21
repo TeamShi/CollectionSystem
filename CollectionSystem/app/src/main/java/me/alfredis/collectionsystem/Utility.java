@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.CRC32;
@@ -98,7 +99,7 @@ public class Utility {
     }
 
     public static String[] convert2Array(String string) {
-        String[] row = string.split(",");
+        String[] row = string.split("#");
         for (int j = 0, colLen = row.length; j < colLen; j++) {
 //            System.out.println(row[j]);
             if (row[j].equals("null")) {

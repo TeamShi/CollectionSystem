@@ -121,7 +121,12 @@ public class XlsParser {
             ArrayList<RigEvent> newRigEvents = new ArrayList<>();
             for (RigEvent currEvent : rigEvents) {
                 String eventId = currEvent.getEventId();
-                if ("标贯".equals(currEvent.getProjectName())) {
+                String specialNote = currEvent.getSpecialNote();
+                if(specialNote.equals("empty")){
+                    specialNote = "";
+                }
+                currEvent.setSpecialNote(specialNote);
+                if ("标准贯入试验".equals(currEvent.getProjectName())) {
                     SPTRig rigEvent = new SPTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getSpecialNote()) ;
                     SPTRig sptRig = sptRigMap.get(eventId);
                     rigEvent.setPenetrationFrom(sptRig.getPenetrationFrom());
@@ -149,15 +154,26 @@ public class XlsParser {
                     rigEvent.setGroundColor(sptRig.getGroundColor());
                     rigEvent.setGroundSaturation(sptRig.getGroundSaturation());
                     rigEvent.setCumulativeCount(sptRig.getCumulativeCount());
-                    rigEvent.setSpecialNote(sptRig.getSpecialNote());
+                    specialNote = sptRig.getSpecialNote();
+                    if(specialNote.equals("empty")){
+                       specialNote = "";
+                    }
+                    rigEvent.setSpecialNote(specialNote);
 
                     newRigEvents.add(rigEvent);
-                } else if ("动探".equals(currEvent.getProjectName())) {
+                } else if ("动力触探试验".equals(currEvent.getProjectName())) {
                     DSTRig rigEvent =new DSTRig(currEvent.getHoleId(),currEvent.getProjectName(),currEvent.getDrillPipeId(),currEvent.getDrillPipeLength(),currEvent.getCumulativeLength(),currEvent.getDrillToolTotalLength(),currEvent.getDrillToolRemainLength(),currEvent.getRoundTripMeterage(),currEvent.getCumulativeMeterage(),currEvent.getSpecialNote()) ;;
                     DSTRig dstRig = dstRigMap.get(eventId);
-
+                    if(dstRig == null) {
+                        dstRig = new DSTRig();
+                    }
                     rigEvent.setGroundName(dstRig.getGroundName());
                     rigEvent.setDynamicSoundingEvents(dstRig.getDynamicSoundingEvents());
+                    specialNote = dstRig.getSpecialNote();
+                    if(specialNote.equals("empty")){
+                        specialNote = "";
+                    }
+                    rigEvent.setSpecialNote(specialNote);
 
                     newRigEvents.add(rigEvent);
                 } else {
@@ -267,6 +283,9 @@ public class XlsParser {
             rigEvent.setGroundDensity(values[30]);
             rigEvent.setGroundSaturation(values[31]);
             rigEvent.setGroundWeathering(values[32]);
+            if(values[33].equals("empty")){
+                values[33] = "";
+            }
             rigEvent.setSpecialNote(values[33]);
 
             String holeId = rigEvent.getHoleId();
@@ -386,10 +405,10 @@ public class XlsParser {
         for (Row row : sheet) {
             StringBuffer sb = new StringBuffer();
             for (Cell cell : row) {
-                sb.append(cell.getStringCellValue() + ",");
+                String value = cell.getStringCellValue();
+                sb.append(value + "#");
             }
-            sb.append("End_Flag").append(","); //Bug - index out of boundary if last fields are null.
-            records.add(sb.toString().split(","));
+            records.add(sb.toString().split("#"));
         }
         return records;
     }
@@ -443,22 +462,22 @@ public class XlsParser {
         for (int i = 0, len = holes.size(); i < len; i++) {
             Hole hole = holes.get(i);
             StringBuffer sb = new StringBuffer();
-            sb.append(hole.getHoleId()).append(",");
-            sb.append(hole.getProjectName()).append(",");
-            sb.append(hole.getProjectStage()).append(",");
-            sb.append(hole.getArticle()).append(",");
-            sb.append(hole.getMileage()).append(",");
-            sb.append(hole.getOffset()).append(",");
-            sb.append(hole.getHoleElevation()).append(",");
-            sb.append(hole.getLongitudeDistance()).append(",");
-            sb.append(hole.getLatitudeDistance()).append(",");
-            sb.append("position placeholder").append(",");
-            sb.append(hole.getRecorderName()).append(",");
-            sb.append(Utility.formatCalendarDateString(hole.getRecordDate(), "yyyy年MM月dd日")).append(",");
-            sb.append(hole.getReviewerName()).append(",");
-            sb.append(Utility.formatCalendarDateString(hole.getReviewDate(), "yyyy年MM月dd日")).append(",");
-            sb.append(hole.getNote()).append(",");
-            sb.append(hole.getActuralDepth()).append(",");
+            sb.append(hole.getHoleId()).append("#");
+            sb.append(hole.getProjectName()).append("#");
+            sb.append(hole.getProjectStage()).append("#");
+            sb.append(hole.getArticle()).append("#");
+            sb.append(hole.getMileage()).append("#");
+            sb.append(hole.getOffset()).append("#");
+            sb.append(hole.getHoleElevation()).append("#");
+            sb.append(hole.getLongitudeDistance()).append("#");
+            sb.append(hole.getLatitudeDistance()).append("#");
+            sb.append("position placeholder").append("#");
+            sb.append(hole.getRecorderName()).append("#");
+            sb.append(Utility.formatCalendarDateString(hole.getRecordDate(), "yyyy年MM月dd日")).append("#");
+            sb.append(hole.getReviewerName()).append("#");
+            sb.append(Utility.formatCalendarDateString(hole.getReviewDate(), "yyyy年MM月dd日")).append("#");
+            sb.append(hole.getNote()).append("#");
+            sb.append(hole.getActuralDepth()).append("#");
 
             records.add(sb.toString());
         }
@@ -479,14 +498,14 @@ public class XlsParser {
             for (int j = 0, size = events.size(); j < size; j++) {
                 DSTRig.DynamicSoundingEvent event = events.get(j);
                 StringBuffer sb = new StringBuffer();
-                sb.append(dstRig.getHoleId()).append(",");
-                sb.append(dstRig.getEventId()).append(","); // 作业ID
-                sb.append(dstRig.getGroundName()).append(",");
-                sb.append(event.getTotalLength()).append(",");
-                sb.append(event.getDigDepth()).append(",");
-                sb.append(event.getPenetration()).append(",");
-                sb.append(event.getHammeringCount()).append(",");
-                sb.append(event.getCompactness()).append(",");
+                sb.append(dstRig.getHoleId()).append("#");
+                sb.append(dstRig.getEventId()).append("#"); // 作业ID
+                sb.append(dstRig.getGroundName()).append("#");
+                sb.append(event.getTotalLength()).append("#");
+                sb.append(event.getDigDepth()).append("#");
+                sb.append(event.getPenetration()).append("#");
+                sb.append(event.getHammeringCount()).append("#");
+                sb.append(event.getCompactness()).append("#");
 
                 records.add(sb.toString());
             }
@@ -508,35 +527,39 @@ public class XlsParser {
         for (int i = 1; i < rows; i++) {
             SPTRig sptRigEvent = sptRigEvents.get(i - 1);
             StringBuffer sb = new StringBuffer();
-            sb.append(sptRigEvent.getHoleId()).append(",");
-            sb.append(sptRigEvent.getEventId()).append(",");
+            sb.append(sptRigEvent.getHoleId()).append("#");
+            sb.append(sptRigEvent.getEventId()).append("#");
 
-            sb.append(sptRigEvent.getPenetrationFrom()).append(",");
-            sb.append(sptRigEvent.getPenetrationTo()).append(",");
+            sb.append(sptRigEvent.getPenetrationFrom()).append("#");
+            sb.append(sptRigEvent.getPenetrationTo()).append("#");
 
-            sb.append(sptRigEvent.getPenetration1DepthFrom()).append(",");
-            sb.append(sptRigEvent.getPenetration1DepthTo()).append(",");
-            sb.append(sptRigEvent.getPenetration1Count()).append(",");
-            sb.append(sptRigEvent.getRig1DepthFrom()).append(",");
-            sb.append(sptRigEvent.getRig1DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration1DepthFrom()).append("#");
+            sb.append(sptRigEvent.getPenetration1DepthTo()).append("#");
+            sb.append(sptRigEvent.getPenetration1Count()).append("#");
+            sb.append(sptRigEvent.getRig1DepthFrom()).append("#");
+            sb.append(sptRigEvent.getRig1DepthTo()).append("#");
 
-            sb.append(sptRigEvent.getPenetration2DepthFrom()).append(",");
-            sb.append(sptRigEvent.getPenetration2DepthTo()).append(",");
-            sb.append(sptRigEvent.getPenetration2Count()).append(",");
-            sb.append(sptRigEvent.getRig2DepthFrom()).append(",");
-            sb.append(sptRigEvent.getRig2DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration2DepthFrom()).append("#");
+            sb.append(sptRigEvent.getPenetration2DepthTo()).append("#");
+            sb.append(sptRigEvent.getPenetration2Count()).append("#");
+            sb.append(sptRigEvent.getRig2DepthFrom()).append("#");
+            sb.append(sptRigEvent.getRig2DepthTo()).append("#");
 
-            sb.append(sptRigEvent.getPenetration3DepthFrom()).append(",");
-            sb.append(sptRigEvent.getPenetration3DepthTo()).append(",");
-            sb.append(sptRigEvent.getPenetration3Count()).append(",");
-            sb.append(sptRigEvent.getRig3DepthFrom()).append(",");
-            sb.append(sptRigEvent.getRig3DepthTo()).append(",");
+            sb.append(sptRigEvent.getPenetration3DepthFrom()).append("#");
+            sb.append(sptRigEvent.getPenetration3DepthTo()).append("#");
+            sb.append(sptRigEvent.getPenetration3Count()).append("#");
+            sb.append(sptRigEvent.getRig3DepthFrom()).append("#");
+            sb.append(sptRigEvent.getRig3DepthTo()).append("#");
 
-            sb.append(sptRigEvent.getGroundName()).append(",");
-            sb.append(sptRigEvent.getGroundColor()).append(",");
-            sb.append(sptRigEvent.getGroundSaturation()).append(",");
-            sb.append(sptRigEvent.getCumulativeCount()).append(",");
-            sb.append(sptRigEvent.getSpecialNote()).append(",");
+            sb.append(sptRigEvent.getGroundName()).append("#");
+            sb.append(sptRigEvent.getGroundColor()).append("#");
+            sb.append(sptRigEvent.getGroundSaturation()).append("#");
+            sb.append(sptRigEvent.getCumulativeCount()).append("#");
+            String specialNote = sptRigEvent.getSpecialNote();
+            if(specialNote.equals("")){
+                specialNote = "empty";
+            }
+            sb.append(specialNote).append("#");
 
             resultData[i] = convert2Array(sb.toString());
         }
@@ -550,42 +573,46 @@ public class XlsParser {
         for (int i = 1; i < rows; i++) {
             RigEvent rigEvent = rigEvents.get(i - 1);
             StringBuffer sb = new StringBuffer();
-            sb.append(rigEvent.getHoleId()).append(",");
-            sb.append(rigEvent.getEventId()).append(",");
-            sb.append(rigEvent.getClassPeopleCount()).append(",");
-            sb.append(formatCalendarDateString(rigEvent.getDate(), "yyyy年MM月dd日")).append(",");
-            sb.append(formatCalendarDateString(rigEvent.getStartTime(), "hh时mm分")).append(",");
-            sb.append(formatCalendarDateString(rigEvent.getEndTime(), "hh时mm分")).append(",");
-            sb.append(rigEvent.getProjectName()).append(",");
-            sb.append(rigEvent.getDrillPipeId()).append(",");
-            sb.append(rigEvent.getDrillPipeLength()).append(",");
-            sb.append(rigEvent.getCumulativeLength()).append(",");
-            sb.append(rigEvent.getCoreBarreliDiameter()).append(",");
-            sb.append(rigEvent.getCoreBarreliLength()).append(",");
-            sb.append(rigEvent.getDrillType()).append(",");
-            sb.append(rigEvent.getDrillDiameter()).append(",");
-            sb.append(rigEvent.getDrillLength()).append(",");
-            sb.append(rigEvent.getPenetrationDiameter()).append(",");
-            sb.append(rigEvent.getPenetrationLength()).append(",");
-            sb.append(rigEvent.getDynamicSoundingType()).append(",");
-            sb.append(rigEvent.getSoundingDiameter()).append(",");
-            sb.append(rigEvent.getSoundinglength()).append(",");
-            sb.append(rigEvent.getDrillToolTotalLength()).append(",");
-            sb.append(rigEvent.getDrillToolRemainLength()).append(",");
-            sb.append(rigEvent.getRoundTripMeterage()).append(",");
-            sb.append(rigEvent.getCumulativeMeterage()).append(",");
-            sb.append(rigEvent.getRockCoreId()).append(",");
-            sb.append(rigEvent.getRockCoreLength()).append(",");
-            sb.append(rigEvent.getRockCoreRecovery()).append(",");
-            sb.append(rigEvent.getGroundName()).append(",");
-//            sb.append(rigEvent.getStartDepth()).append(",");
-//            sb.append(rigEvent.getEndDepth()).append(",");
-            sb.append(rigEvent.getStartEndDiscription()).append(",");
-            sb.append(rigEvent.getGroundColor()).append(",");
-            sb.append(rigEvent.getGroundDensity()).append(",");
-            sb.append(rigEvent.getGroundSaturation()).append(",");
-            sb.append(rigEvent.getGroundWeathering()).append(",");
-            sb.append(rigEvent.getSpecialNote()).append(",");
+            sb.append(rigEvent.getHoleId()).append("#");
+            sb.append(rigEvent.getEventId()).append("#");
+            sb.append(rigEvent.getClassPeopleCount()).append("#");
+            sb.append(formatCalendarDateString(rigEvent.getDate(), "yyyy年MM月dd日")).append("#");
+            sb.append(formatCalendarDateString(rigEvent.getStartTime(), "hh时mm分")).append("#");
+            sb.append(formatCalendarDateString(rigEvent.getEndTime(), "hh时mm分")).append("#");
+            sb.append(rigEvent.getProjectName()).append("#");
+            sb.append(rigEvent.getDrillPipeId()).append("#");
+            sb.append(rigEvent.getDrillPipeLength()).append("#");
+            sb.append(rigEvent.getCumulativeLength()).append("#");
+            sb.append(rigEvent.getCoreBarreliDiameter()).append("#");
+            sb.append(rigEvent.getCoreBarreliLength()).append("#");
+            sb.append(rigEvent.getDrillType()).append("#");
+            sb.append(rigEvent.getDrillDiameter()).append("#");
+            sb.append(rigEvent.getDrillLength()).append("#");
+            sb.append(rigEvent.getPenetrationDiameter()).append("#");
+            sb.append(rigEvent.getPenetrationLength()).append("#");
+            sb.append(rigEvent.getDynamicSoundingType()).append("#");
+            sb.append(rigEvent.getSoundingDiameter()).append("#");
+            sb.append(rigEvent.getSoundinglength()).append("#");
+            sb.append(rigEvent.getDrillToolTotalLength()).append("#");
+            sb.append(rigEvent.getDrillToolRemainLength()).append("#");
+            sb.append(rigEvent.getRoundTripMeterage()).append("#");
+            sb.append(rigEvent.getCumulativeMeterage()).append("#");
+            sb.append(rigEvent.getRockCoreId()).append("#");
+            sb.append(rigEvent.getRockCoreLength()).append("#");
+            sb.append(rigEvent.getRockCoreRecovery()).append("#");
+            sb.append(rigEvent.getGroundName()).append("#");
+//            sb.append(rigEvent.getStartDepth()).append("#");
+//            sb.append(rigEvent.getEndDepth()).append("#");
+            sb.append(rigEvent.getStartEndDiscription()).append("#");
+            sb.append(rigEvent.getGroundColor()).append("#");
+            sb.append(rigEvent.getGroundDensity()).append("#");
+            sb.append(rigEvent.getGroundSaturation()).append("#");
+            sb.append(rigEvent.getGroundWeathering()).append("#");
+            String specialNote = rigEvent.getSpecialNote();
+            if(specialNote.equals("")){
+                specialNote = "empty";
+            }
+            sb.append(specialNote).append("#");
 
             resultData[i] = convert2Array(sb.toString());
         }
