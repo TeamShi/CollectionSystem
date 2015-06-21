@@ -159,6 +159,7 @@ public class XlsParser {
                        specialNote = "";
                     }
                     rigEvent.setSpecialNote(specialNote);
+                    rigEvent.setClassPeopleCount(currEvent.getClassPeopleCount());
 
                     newRigEvents.add(rigEvent);
                 } else if ("动力触探试验".equals(currEvent.getProjectName())) {
@@ -174,6 +175,7 @@ public class XlsParser {
                         specialNote = "";
                     }
                     rigEvent.setSpecialNote(specialNote);
+                    rigEvent.setClassPeopleCount(currEvent.getClassPeopleCount());
 
                     newRigEvents.add(rigEvent);
                 } else {
