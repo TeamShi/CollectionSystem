@@ -349,7 +349,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
                 sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
-                rig.setGroundDensity(sptDestinyEditText.toString());
+                rig.setGroundDensity(sptDestinyEditText.getText().toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -432,7 +432,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
                 sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
-                rig.setGroundDensity(sptDestinyEditText.toString());
+                rig.setGroundDensity(sptDestinyEditText.getText().toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -517,7 +517,7 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                 int totalCount = rig.getPenetration1Count() + rig.getPenetration2Count() + rig.getPenetration3Count();
                 sptHitTotalCountEditText.setText(String.valueOf(totalCount));
                 sptDestinyEditText.setText(ConfigurationManager.getSPTDestiny(rockNameSpinner.getSelectedItemPosition(), totalCount));
-                rig.setGroundDensity(sptDestinyEditText.toString());
+                rig.setGroundDensity(sptDestinyEditText.getText().toString());
                 if (totalCount > 50) {
                     Toast.makeText(getApplicationContext(), "三次贯入之和不得大于50", Toast.LENGTH_SHORT).show();
                     sptHit1EditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
