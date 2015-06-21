@@ -42,6 +42,12 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
 
     private SPTRig rig;
 
+    private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "中砂" , "粗砂", "砾砂", "漂石",
+            "块石", "卵石", "碎石", "粗圆砾", "粗角砾", "细圆砾", "细角砾"};
+    private static final String[] GROUND_SATURATION_OPTION = {"稍湿", "潮湿", "饱和"};
+    private static final String[] GROUND_COLOR_OPTION = {"浅蓝色", "蓝色", "浅蓝色", "灰色", "青灰色", "深灰色", "紫色", "棕黄色", "浅黄色", "褐黄色", "红褐色", "棕红色", "棕色", "褐色", "黄褐色",
+            "青色","灰绿色","浅紫色", "暗红色", "黑色"};
+
     private Button applyButton;
     private Button rigDateButton;
     private Button startTimeButton;
@@ -221,6 +227,39 @@ public class SPTRigDetailedActivity extends ActionBarActivity implements View.On
                     sptEventTotalEndEditText.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
 
+
+                rig.setPenetrationTo(rig.getPenetrationFrom() + 0.45);
+                rig.setPenetration1DepthFrom(rig.getPenetrationFrom() + 0.15);
+                rig.setPenetration1DepthTo(rig.getPenetration1DepthFrom() + 0.1);
+                rig.setPenetration2DepthFrom(rig.getPenetration1DepthFrom() + 0.1);
+                rig.setPenetration2DepthTo(rig.getPenetration2DepthFrom() + 0.1);
+                rig.setPenetration3DepthFrom(rig.getPenetration2DepthFrom() + 0.1);
+                rig.setPenetration3DepthTo(rig.getPenetration3DepthFrom() + 0.1);
+
+                rig.setRig1DepthFrom(rig.getPenetrationTo());
+                rig.setRig1DepthTo(rig.getPenetrationTo() + 0.25);
+                rig.setRig2DepthFrom(rig.getRig1DepthFrom());
+                rig.setRig2DepthTo(rig.getRig2DepthFrom() + 0.1);
+                rig.setRig3DepthFrom(rig.getRig2DepthTo());
+                rig.setRig3DepthTo(rig.getRig3DepthFrom() + 0.1);
+
+                sptEventTotalEndEditText.setText(String.format("%.2f", rig.getPenetrationTo()));
+                sptEventCountDepth1StartEditText.setText(String.format("%.2f", rig.getPenetration1DepthFrom()));
+                sptEventCountDepth1EndEditText.setText(String.format("%.2f", rig.getPenetration1DepthTo()));
+                sptHit1EditText.setText(String.valueOf(rig.getPenetration1Count()));
+                sptEventCountDepth2StartEditText.setText(String.format("%.2f", rig.getPenetration2DepthFrom()));
+                sptEventCountDepth2EndEditText.setText(String.format("%.2f", rig.getPenetration2DepthTo()));
+                sptHit2EditText.setText(String.valueOf(rig.getPenetration2Count()));
+                sptEventCountDepth3StartEditText.setText(String.format("%.2f", rig.getPenetration3DepthFrom()));
+                sptEventCountDepth3EndEditText.setText(String.format("%.2f", rig.getPenetration3DepthTo()));
+                sptHit3EditText.setText(String.valueOf(rig.getPenetration3Count()));
+
+                sptEventDig1StartEditText.setText(String.format("%.2f", rig.getRig1DepthFrom()));
+                sptEventDig1EndEditText.setText(String.format("%.2f", rig.getRig1DepthTo()));
+                sptEventDig2StartEditText.setText(String.format("%.2f", rig.getRig2DepthFrom()));
+                sptEventDig2EndEditText.setText(String.format("%.2f", rig.getRig2DepthTo()));
+                sptEventDig3StartEditText.setText(String.format("%.2f", rig.getRig3DepthFrom()));
+                sptEventDig3EndEditText.setText(String.format("%.2f", rig.getRig3DepthTo()));
             }
         });
         sptEventTotalEndEditText.addTextChangedListener(new TextWatcher() {
