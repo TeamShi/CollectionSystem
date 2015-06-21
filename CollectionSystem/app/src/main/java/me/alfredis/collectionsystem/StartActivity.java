@@ -230,11 +230,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 try {
                     DataManager.holes.clear();
                     ArrayList<Hole> holeArrayList = XlsParser.parse(xlsPath);
-                    if(DataManager.holes.addAll(holeArrayList)){
-                        Toast.makeText(getApplicationContext(), "载入成功！", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(), "载入失败！", Toast.LENGTH_SHORT).show();
-                    }
+                    DataManager.holes.addAll(holeArrayList)
+                    Toast.makeText(getApplicationContext(), "载入成功！", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "载入失败！", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
