@@ -2,6 +2,7 @@ package me.alfredis.collectionsystem.parser;
 
 import android.content.res.AssetManager;
 
+import org.apache.poi.hpsf.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.Utility;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
@@ -32,6 +34,21 @@ public class HtmlParser {
     public static String DST_RIG_EVENT_TEMPLATE = "DSTRigEventTable.html";
 
     public static String TBODY_ID = "tableBody";
+    public static String PROJECTNAME_ID = "projectName";
+    public static String POSITION_ID = "position";
+    public static String MILEAGE_ID = "mileage";
+    public static String HOLEELEVATION_ID = "holeElevation";
+    public static String HOLE_ID = "holeId";
+    public static String EXPLORATIONUNIT_ID = "explorationUnit";
+    public static String MACHINENUMBER_ID = "machineNumber";
+    public static String RIGTYPE_ID = "rigType";
+    public static String STARTDATE_ID = "startDate";
+
+    public static String RECORDER_ID = "recorderName";
+    public static String SQUAD_ID = "squadName";
+    public static String CAPTAIN_ID = "captainName";
+
+
 
     public static boolean write(String outPath, String[][] data, InputStream inputStream) throws IOException {
         String fileType = outPath.substring(outPath.lastIndexOf(".") + 1, outPath.length());
@@ -74,13 +91,12 @@ public class HtmlParser {
 
         for(Hole hole:holes){
             //html output
-            String[][] rigEventArray = convertRig(hole);
             String[][] sptRigEventArray = convertSpt(hole);
             String[][] dstRigEventArray = convertDst(hole);
             try {
-                write(dirPath + "/rig_"+hole.getHoleId()+".html", rigEventArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
-                write(dirPath + "/sptRig_"+hole.getHoleId()+".html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
-                write(dirPath + "/dstRig_"+hole.getHoleId()+".html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
+                writeRig(dirPath + "/rig_" + hole.getHoleId() + ".html", hole, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+                write(dirPath + "/sptRig_" + hole.getHoleId() + ".html", sptRigEventArray, assetManager.open(SPT_RIG_EVENT_TEMPLATE));
+                write(dirPath + "/dstRig_" + hole.getHoleId() + ".html", dstRigEventArray, assetManager.open(DST_RIG_EVENT_TEMPLATE));
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -107,7 +123,7 @@ public class HtmlParser {
             for(int i=0;i<rigList.size();i++){
                 rigArray[i] = rigList.get(i);
             }
-            write(dirPath + "rigEvent.html",rigArray , assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            write(dirPath + "rigEvent.html", rigArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -354,18 +370,92 @@ public class HtmlParser {
 
         //html output
         for(Hole hole:holes) {
-            String[][] rigEventArray = convertRig(hole);
             String[][] sptRigEventArray = convertSpt(hole);
             String[][] dstRigEventArray = convertDst(hole);
             try {
-                write(outPath + "/rig_"+hole.getHoleId()+".html", rigEventArray, new FileInputStream(srcTemplate+"/"+BASIC_RIG_EVENT_TEMPLATE));
-                write(outPath + "/spt_"+hole.getHoleId()+".html", sptRigEventArray, new FileInputStream(srcTemplate+"/"+SPT_RIG_EVENT_TEMPLATE));
-                write(outPath + "/dst_"+hole.getHoleId()+".html", dstRigEventArray, new FileInputStream(srcTemplate + "/"+DST_RIG_EVENT_TEMPLATE));
+                writeRig(outPath + "/rig_" + hole.getHoleId() + ".html", hole, new FileInputStream(srcTemplate + "/" + BASIC_RIG_EVENT_TEMPLATE));
+                write(outPath + "/spt_" + hole.getHoleId() + ".html", sptRigEventArray, new FileInputStream(srcTemplate + "/" + SPT_RIG_EVENT_TEMPLATE));
+                write(outPath + "/dst_" + hole.getHoleId() + ".html", dstRigEventArray, new FileInputStream(srcTemplate + "/" + DST_RIG_EVENT_TEMPLATE));
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
             }
         }
+
+        return true;
+
+    }
+
+    public static boolean writeRig(String outPath, Hole hole,InputStream inputStream) throws IOException {
+        String[][] data = convertRig(hole);
+
+        String fileType = outPath.substring(outPath.lastIndexOf(".") + 1, outPath.length());
+        if (!fileType.equals("html")) {
+            System.out.println("您的文档格式不正确(非html)！");
+            return false;
+        }
+
+        //读模版文件
+        Document doc = Jsoup.parse(inputStream, "UTF-8", "./");
+        Element tbody = doc.getElementById(TBODY_ID);
+        if(data != null){
+            // 循环写入行数据
+            for (int i = 0, rows = data.length; i < rows; i++) {
+                StringBuffer row = new StringBuffer();
+                row.append("<tr>");
+                // 循环写入列数据
+                for (int j = 0, cols = data[i].length; j < cols; j++) {
+                    row.append("<td>");
+                    String text = data[i][j].equals("null") ? "" : data[i][j];
+                    row.append(text);
+                    row.append("</td>");
+                }
+                row.append("</tr>");
+                tbody.append(row.toString());
+            }
+        }
+
+        Element projectName = doc.getElementById(PROJECTNAME_ID);
+        projectName.text(hole.getProjectName());
+
+        Element positionId = doc.getElementById(POSITION_ID);
+        positionId.text(String.valueOf(hole.getProjectStage())); //TODO
+
+        Element mileageId =doc.getElementById(MILEAGE_ID);
+        mileageId.text(String.valueOf(hole.getMileage()));
+
+        Element holeElevation = doc.getElementById(HOLEELEVATION_ID);
+        holeElevation.text(String.valueOf(hole.getHoleElevation()));
+
+        Element holeId =doc.getElementById(HOLE_ID);
+        holeId.text(hole.getHoleId());
+
+        Element explorationUnit = doc.getElementById(EXPLORATIONUNIT_ID);
+        explorationUnit.text( hole.getExplorationUnit() == null ?  "铁四院工勘院":hole.getExplorationUnit()  );
+
+        Element machineNumber = doc.getElementById(MACHINENUMBER_ID);
+        machineNumber.text(hole.getMachineNumber() == null ? "4101":hole.getMachineNumber());
+
+        Element rigType = doc.getElementById(RIGTYPE_ID);
+        rigType.text(hole.getRigType() == null ? "XY-100": hole.getRigType());
+
+        Element startDate = doc.getElementById(STARTDATE_ID);
+        startDate.text(Utility.formatCalendarDateString(hole.getStartDate()));
+
+        Element recorderName  =doc.getElementById(RECORDER_ID);
+        recorderName.text(hole.getRecorderName() == null ? "xxx" : hole.getRecorderName());
+
+        Element squName  =doc.getElementById(SQUAD_ID);
+        squName.text(hole.getSquadName()== null ? "xxx" : hole.getSquadName());
+
+        Element captainName  =doc.getElementById(CAPTAIN_ID);
+        captainName.text(hole.getCaptainName()== null ? "xxx" : hole.getCaptainName());
+
+        FileWriter fileWriter = new FileWriter(outPath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write(doc.outerHtml());
+        bufferedWriter.close();
+        fileWriter.close();
 
         return true;
 

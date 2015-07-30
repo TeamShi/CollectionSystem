@@ -3,6 +3,7 @@ package me.alfredis.collectionsystem;
 import java.io.File;
 import java.util.ArrayList;
 
+import me.alfredis.collectionsystem.ConfigurationManager;
 import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.Configuration;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
@@ -85,8 +86,8 @@ public class ParserTest {
 //        ConfigurationManager.exportConfig(new Configuration(),OutPath+"config.ser");
 
         //import config
-//        File file = new File(OutPath+"config.ser");
-//        ConfigurationManager.loadConfig(file);
+        File file = new File(OutPath+"config.ser");
+        ConfigurationManager.loadConfig(file);
     }
 
 }
