@@ -30,6 +30,7 @@ import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
 public class HtmlParser {
 
     public static String BASIC_RIG_EVENT_TEMPLATE = "RigEventTable.html";
+    public static String RIGS_EVENT_TEMPLATE = "RigsEventTable.html";
     public static String SPT_RIG_EVENT_TEMPLATE = "SPTRigEventTable.html";
     public static String DST_RIG_EVENT_TEMPLATE = "DSTRigEventTable.html";
 
@@ -106,7 +107,7 @@ public class HtmlParser {
         return true;
     }
 
-    public static boolean parseRig(String dirPath, ArrayList<Hole> holes, AssetManager assetManager) {
+    public static boolean parseRigs(String dirPath, ArrayList<Hole> holes, AssetManager assetManager) {
         if(holes == null) {
             return false;
         }
@@ -123,7 +124,7 @@ public class HtmlParser {
             for(int i=0;i<rigList.size();i++){
                 rigArray[i] = rigList.get(i);
             }
-            write(dirPath + "rigEvent.html", rigArray, assetManager.open(BASIC_RIG_EVENT_TEMPLATE));
+            write(dirPath + "rigEvent.html", rigArray, assetManager.open(RIGS_EVENT_TEMPLATE));
         } catch (IOException e) {
             e.printStackTrace();
             return false;

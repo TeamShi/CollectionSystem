@@ -1,14 +1,11 @@
 package me.alfredis.collectionsystem;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.poi.hpsf.Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import me.alfredis.collectionsystem.datastructure.Hole;
@@ -243,7 +237,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                     tempHtmls.mkdirs();
                 }
 
-                HtmlParser.parseRig(tempHtmls.getPath() + "/", DataManager.holes, assetManageer);
+                HtmlParser.parseRigs(tempHtmls.getPath() + "/", DataManager.holes, assetManageer);
 
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
                 Uri uri = Uri.fromFile(new File(tempHtmls, "rigEvent.html"));
