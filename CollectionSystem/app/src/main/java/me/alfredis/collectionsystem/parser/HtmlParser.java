@@ -423,7 +423,7 @@ public class HtmlParser {
         positionId.text(String.valueOf(hole.getProjectStage())); //TODO
 
         Element mileageId =doc.getElementById(MILEAGE_ID);
-        mileageId.text(String.valueOf(hole.getMileage()));
+        mileageId.text(Utility.formatNumber(hole.getMileage()));
 
         Element holeElevation = doc.getElementById(HOLEELEVATION_ID);
         holeElevation.text(String.valueOf(hole.getHoleElevation()));

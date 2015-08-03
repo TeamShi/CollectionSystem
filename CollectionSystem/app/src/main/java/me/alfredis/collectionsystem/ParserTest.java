@@ -26,7 +26,7 @@ public class ParserTest {
 
     public static void main(String[] args) throws Exception {
         //generate date to Test
-        Hole hole = (new Hole(Hole.HoleIdPart1Type.JZ, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55, 55, 13, 22, 23, "alfred", "alfred", "testnote", 11));
+        Hole hole = (new Hole(Hole.HoleIdPart1Type.JZ, "2015", "1", "1", "projectName1", Hole.ProjectStageType.I, Hole.ArticleType.ACK, 55233, 505122, 13, 22, 23, "alfred", "alfred", "testnote", 11));
         RigEvent rigEvent = new RigEvent("1", "pn", 123, 123.45, 123.45, 123.45, 123.45, 123.45, 123.45, "test note");
         hole.setRigList(new ArrayList<RigEvent>());
         ArrayList<RigEvent> rigEvents = hole.getRigList();
