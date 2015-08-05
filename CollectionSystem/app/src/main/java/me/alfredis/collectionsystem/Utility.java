@@ -409,7 +409,7 @@ public class Utility {
 
     public static String formatNumber(double value) {
         int thousands = (int) (value / 1000);
-        String output = thousands > 0 ? thousands+"k"+ (value - 1000 * thousands) : String.valueOf(value);
+        String output = thousands > 0 ? thousands+"+"+ (value - 1000 * thousands) : String.valueOf(value);
         return output ;
     }
 
