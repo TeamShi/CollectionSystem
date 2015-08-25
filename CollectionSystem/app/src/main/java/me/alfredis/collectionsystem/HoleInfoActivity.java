@@ -899,7 +899,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private String formatHoleIdPart2(String str) {
         StringBuilder sb = new StringBuilder();
 
-        if (str.startsWith("I") && !str.startsWith("II")) {
+        if (str.startsWith("I") && !str.startsWith("II") && !str.startsWith("IV")) {
            sb.append("I");
         } else if (str.startsWith("II") && !str.startsWith("III")) {
            sb.append("II");
