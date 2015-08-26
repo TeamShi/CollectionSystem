@@ -114,6 +114,33 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
             } else {
                 licenseTextView.setText("有效期过期，请重新输入授权码。");
             }
+        } else {
+            FileWriter fw = null;
+            long expireDate = 0;
+            try {
+                fw = new FileWriter(licenseFilePath);
+                BufferedWriter bw = new BufferedWriter(fw);
+                Calendar c = new GregorianCalendar();
+                expireDate = c.getTimeInMillis() / 1000;
+                expireDate += 8035200;
+                bw.write(Utility.getExpiredString(expireDate));
+                bw.close();
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            messageInputButton.setEnabled(true);
+            saveButton.setEnabled(true);
+            loadButton.setEnabled(true);
+            exportTablesAll.setEnabled(true);
+            previewButton.setEnabled(true);
+            licenseEditText.setVisibility(View.GONE);
+            licenseButton.setVisibility(View.GONE);
+
+            Calendar c = new GregorianCalendar();
+            c.setTimeInMillis(expireDate * 1000);
+            licenseTextView.setText("验证成功。过期时间：" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + (c.get(Calendar.DAY_OF_MONTH)));
         }
 
         File configDir = new  File(Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/");

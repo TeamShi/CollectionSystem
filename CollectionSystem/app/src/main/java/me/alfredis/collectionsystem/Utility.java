@@ -1,18 +1,13 @@
 package me.alfredis.collectionsystem;
 
-import android.os.Environment;
-import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.CRC32;
@@ -294,6 +289,55 @@ public class Utility {
             default:
                 return "";
         }
+    }
+
+    public static String encodeNum(int i) {
+        switch (i) {
+            case 0:
+                return "X";
+            case 1:
+                return "A";
+            case 2:
+                return "Z";
+            case 3:
+                return "F";
+            case 4:
+                return "D";
+            case 5:
+                return "G";
+            case 6:
+                return "H";
+            case 7:
+                return "T";
+            case 8:
+                return "R";
+            case 9:
+                return "L";
+            default:
+                return "";
+        }
+    }
+
+    public static String getExpiredString(long date) {
+        int[] dateArray = new int[10];
+        for (int i = 9; i >= 0; i--) {
+            dateArray[i] = (int)(date % 10);
+            date /= 10;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(encodeNum(dateArray[2]));
+        sb.append(encodeNum(dateArray[5]));
+        sb.append(encodeNum(dateArray[8]));
+        sb.append(encodeNum(dateArray[4]));
+        sb.append(encodeNum(dateArray[6]));
+        sb.append(encodeNum(dateArray[0]));
+        sb.append(encodeNum(dateArray[3]));
+        sb.append(encodeNum(dateArray[7]));
+        sb.append(encodeNum(dateArray[1]));
+        sb.append(encodeNum(dateArray[9]));
+
+        return sb.toString();
     }
 
     public static long getExpiredDate(String s) {
