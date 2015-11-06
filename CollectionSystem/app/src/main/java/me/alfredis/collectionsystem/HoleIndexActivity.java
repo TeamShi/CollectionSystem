@@ -237,12 +237,14 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
     private String formatHoleId(String holeId) {
         StringBuilder sb = new StringBuilder();
         String[] temp = holeId.split("-");
-        sb.append("J");
+        sb.append(temp[0] + "-");
+        //To support the multiple part 1
+        /*sb.append("J");
         if (temp[0].equals("JC")) {
             sb.append("<sub>c</sub>-");
         } else if (temp[0].equals("JZ")) {
             sb.append("<sub>z</sub)-");
-        }
+        }*/
 
         if (temp[1].startsWith("I") && (!temp[1].startsWith("II"))) {
             sb.append("I");

@@ -15,6 +15,7 @@ public class Hole implements Serializable {
 
     //JC-III14-1-1
     private HoleIdPart1Type holeIdPart1;      //勘察点名称
+    private String holeIdPart1ExtarString;
     private String holeIdPart2Year;
     private String holeIdPart3;
     private String holeIdPart4;
@@ -63,7 +64,7 @@ public class Hole implements Serializable {
     private double currentDrillPipeTotalLength = 0; //当前累计长度
 
     public enum HoleIdPart1Type {
-        JC, JZ
+        JC, JZ, NULL
     }
 
     public enum ProjectStageType {
@@ -453,6 +454,14 @@ public class Hole implements Serializable {
 
     public HoleIdPart1Type getHoleIdPart1() {return holeIdPart1;}
 
+    public String getHoleIdPart1ExtarString() {
+        return holeIdPart1ExtarString;
+    }
+
+    public void setHoleIdPart1ExtarString(String holeIdPart1ExtarString) {
+        this.holeIdPart1ExtarString = holeIdPart1ExtarString;
+    }
+
     public String getHoleIdPart3() {
         return holeIdPart3;
     }
@@ -466,7 +475,11 @@ public class Hole implements Serializable {
     }
 
     public String getHoleId() {
-        return holeIdPart1.toString() + "-" + getHoleIdPart2() + "-" + getHoleIdPart3() + "-" + getHoleIdPart4();
+        if (!holeIdPart1.equals(HoleIdPart1Type.NULL)) {
+            return holeIdPart1.toString() + "-" + getHoleIdPart2() + "-" + getHoleIdPart3() + "-" + getHoleIdPart4();
+        } else {
+            return holeIdPart1ExtarString + "-" + getHoleIdPart2() + "-" + getHoleIdPart3() + "-" + getHoleIdPart4();
+        }
     }
 
     public double getCurrentDrillToolLength() {
