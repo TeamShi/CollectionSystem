@@ -145,7 +145,11 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
             row.addView(createHoleContentTextView(Html.fromHtml(formatHoleId(hole.getHoleId()))));
             row.addView(createHoleContentTextView(hole.getProjectName()));
             row.addView(createHoleContentTextView(hole.getProjectStage().toString()));
-            row.addView(createHoleContentTextView(hole.getArticle().toString()));
+            if (hole.getArticle() != Hole.ArticleType.NULL) {
+                row.addView(createHoleContentTextView(hole.getArticle().toString()));
+            } else {
+                row.addView(createHoleContentTextView(hole.getArticleExtraString()));
+            }
             row.addView(createHoleContentTextView(String.valueOf(hole.getMileage())));
             row.addView(createHoleContentTextView(String.valueOf(hole.getOffset())));
             row.addView(createHoleContentTextView(String.valueOf(hole.getHoleElevation())));

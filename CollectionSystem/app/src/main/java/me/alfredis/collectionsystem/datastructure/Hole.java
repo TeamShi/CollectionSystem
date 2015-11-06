@@ -21,6 +21,7 @@ public class Hole implements Serializable {
     private String holeIdPart4;
     private ProjectStageType projectStage;      //测段
     private ArticleType article;                //冠词
+    private String articleExtraString;
     private double mileage;                     //里程
     private double offset;                      //偏移量
     private double holeElevation;               //孔口标高
@@ -72,7 +73,7 @@ public class Hole implements Serializable {
     }
 
     public enum ArticleType {
-        K, DK, AK, ACK, CDK
+        K, DK, AK, ACK, CDK, NULL
     }
 
     public Hole() {
@@ -80,11 +81,13 @@ public class Hole implements Serializable {
 
         this.projectName = "";
         this.holeIdPart1 = HoleIdPart1Type.JC;
+        this.holeIdPart1ExtarString = "";
         this.holeIdPart2Year = String.valueOf(c.get(Calendar.YEAR) - 2000);
         this.holeIdPart3 = "1";
         this.holeIdPart4 = "1";
         this.projectStage = ProjectStageType.I;
         this.article = ArticleType.K;
+        this.articleExtraString = "";
         this.mileage = 0;
         this.offset = 0;
         this.holeElevation = 0;
@@ -226,6 +229,14 @@ public class Hole implements Serializable {
 
     public void setArticle(ArticleType article) {
         this.article = article;
+    }
+
+    public String getArticleExtraString() {
+        return articleExtraString;
+    }
+
+    public void setArticleExtraString(String articleExtraString) {
+        this.articleExtraString = articleExtraString;
     }
 
     public double getMileage() {

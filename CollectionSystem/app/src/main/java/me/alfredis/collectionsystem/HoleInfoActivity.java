@@ -77,6 +77,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private EditText squadEditText;
     private EditText captainEditText;
     private EditText holeIdPart1EditText;
+    private EditText articleEditText;
 
     private Spinner holeIdPart1Spinner;
     private TextView holeIdPart2TextView;
@@ -99,7 +100,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private static final String[] PROJECT_ID_PART1_SPINNER_OPTIONS = {"JC", "JZ", "其他"};
     private static final String[] PROJECT_STAGE_SPINNER_OPTIONS = {"I", "II", "III", "IV"};
     private static final String[] PROJECT_ID_PART3_SPINNER_OPTIONS = {"1", "2", "3", "4"};
-    private static final String[] ARTICLE_SPINNER_OPTIONS = {"K", "DK", "AK", "ACK", "CDK"};
+    private static final String[] ARTICLE_SPINNER_OPTIONS = {"K", "DK", "AK", "ACK", "CDK", "其他"};
 
     private static final int TAKE_PHOTO = 0;
     private static final int CROP_PHOTO = 1;
@@ -142,6 +143,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         squadEditText = (EditText) findViewById(R.id.hole_squad_name);
         captainEditText = (EditText) findViewById(R.id.hole_captain_name);
         holeIdPart1EditText = (EditText) findViewById(R.id.edittext_hole_id_part1);
+        articleEditText = (EditText) findViewById(R.id.edit_text_article_extra_string);
 
         holeIdPart1Spinner = (Spinner) findViewById(R.id.spinner_hole_id_part1);
         holeIdPart2TextView = (TextView) findViewById(R.id.textview_hole_id_part2);
@@ -222,7 +224,20 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         articleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                hole.setArticle(Enum.valueOf(Hole.ArticleType.class, parent.getItemAtPosition(position).toString()));
+                if (position >= 0 && position <= 4) {
+                    System.out.println(position);
+                    hole.setArticle(Enum.valueOf(Hole.ArticleType.class, parent.getItemAtPosition(position).toString()));
+                    hole.setArticleExtraString("");
+                    articleEditText.setEnabled(false);
+                    articleEditText.setText("");
+                    articleEditText.setBackgroundColor(Color.LTGRAY);
+
+                } else {
+                    articleEditText.setEnabled(true);
+                    hole.setArticle(Hole.ArticleType.NULL);
+                    hole.setArticleExtraString(articleEditText.getText().toString());
+                    articleEditText.setBackgroundColor(Color.WHITE);
+                }
             }
 
             @Override
@@ -627,6 +642,23 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             @Override
             public void afterTextChanged(Editable s) {
                 hole.setHoleIdPart1ExtarString(s.toString());
+            }
+        });
+
+        articleEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                hole.setArticleExtraString(editable.toString());
             }
         });
 
