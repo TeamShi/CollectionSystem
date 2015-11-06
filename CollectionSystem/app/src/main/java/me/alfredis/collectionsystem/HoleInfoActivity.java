@@ -625,8 +625,8 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-                hole.setHoleIdPart1ExtarString(editable.toString());
+            public void afterTextChanged(Editable s) {
+                hole.setHoleIdPart1ExtarString(s.toString());
             }
         });
 
