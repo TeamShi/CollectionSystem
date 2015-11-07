@@ -82,7 +82,8 @@ public class MdbParser {
 
 
             for (Hole hole : holes) {
-                if(hole.getHoleIdPart1().equals(Hole.HoleIdPart1Type.JC)){
+                //Only JZ processed
+                if(!hole.getHoleIdPart1().equals(Hole.HoleIdPart1Type.JZ)){
                     continue;
                 }
                 //导入项目表

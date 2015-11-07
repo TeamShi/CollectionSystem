@@ -205,14 +205,22 @@ public class XlsParser {
             Hole hole = new Hole();
             //set holeId
             String[] holeIdParts = values[0].split("-");
-            hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1Type.class, holeIdParts[0]));
+            if(holeIdParts[0].trim().isEmpty()) {
+                hole.setHoleIdPart1(Hole.HoleIdPart1Type.NULL);
+            }else {
+                hole.setHoleIdPart1(Enum.valueOf(Hole.HoleIdPart1Type.class, holeIdParts[0]));
+            }
             hole.setHoleIdPart2Year(holeIdParts[1].substring(1));
             hole.setHoleIdPart3(holeIdParts[2]);
             hole.setHoleIdPart4(holeIdParts[3]);
 
             hole.setProjectName(values[1]);
             hole.setProjectStage(Enum.valueOf(Hole.ProjectStageType.class, values[2]));
-            hole.setArticle(Enum.valueOf(Hole.ArticleType.class, values[3]));
+            if(values[3].trim().isEmpty()) {
+                hole.setArticle(Hole.ArticleType.NULL);
+            }else {
+                hole.setArticle(Enum.valueOf(Hole.ArticleType.class,values[3]));
+            }
             hole.setMileage(Double.parseDouble(values[4]));
             hole.setOffset(Double.parseDouble(values[5]));
             hole.setHoleElevation(Double.parseDouble(values[6]));
