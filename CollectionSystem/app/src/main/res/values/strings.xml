@@ -23,4 +23,5 @@
 
     </string>
     <string name="title_activity_html_view">预览</string>
+    <string name="title_activity_sampling_detailed">取样信息录入</string>
 </resources>

@@ -1034,16 +1034,6 @@
                     </TableRow>
             </TableLayout>
 
-
-            <!--
-                <fragment
-                    android:id="@+id/fragment_rig_details"
-                    android:name="me.alfredis.collectionsystem.BlankRigFragment"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    tools:layout="@layout/fragment_normal_rig">
-                </fragment>-->
-
             </LinearLayout>
         </ScrollView>
 

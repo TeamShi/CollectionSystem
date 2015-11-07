@@ -42,8 +42,6 @@
         <activity
             android:name=".StartActivity"
             android:label="@string/title_activity_start" >
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +52,10 @@
             android:name=".HtmlViewActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_html_view" >
+        </activity>
+        <activity
+            android:name=".SamplingDetailedActivity"
+            android:label="@string/title_activity_sampling_detailed" >
         </activity>
     </application>
 

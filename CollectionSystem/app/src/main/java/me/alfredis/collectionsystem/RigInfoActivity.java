@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.renderscript.Sampler;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ import me.alfredis.collectionsystem.datastructure.CasedRig;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
+import me.alfredis.collectionsystem.datastructure.SamplingRig;
 import me.alfredis.collectionsystem.parser.XlsParser;
 
 public class RigInfoActivity extends ActionBarActivity implements View.OnClickListener {
@@ -1075,9 +1077,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         dstButton.setVisibility(View.GONE);
                         samplingButton.setVisibility(View.VISIBLE);
                         downSpecialRigRow.setVisibility(View.GONE);
-                        selectedRigType = STOP_RIG;
+                        selectedRigType = SAMPLING;
                         if (!firstStart) {
-                            rig = new RigEvent();
+                            rig = new SamplingRig();
 
                             refreshRigInfoTable();
                         }
@@ -1219,7 +1221,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setCumulativeLength(Double.valueOf(cumulativeLengthEditText.getText().toString()));
 
                 if (requestCode.equals("ADD_RIG")) {
-                    if ( rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 6) {
+                    if (rigTypeSpinner.getSelectedItemPosition() >= 1 && rigTypeSpinner.getSelectedItemPosition() <= 6) {
                         if (rig.getDrillPipeId() > DataManager.getHole(holeId).getCurrentDrillToolCount()) {
                             DataManager.getHole(holeId).setCurrentDrillToolCount(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
                             DataManager.getHole(holeId).setLastDrillToolLength(rig.getDrillPipeLength());
@@ -1294,6 +1296,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 intent2.putExtra("rig", rig);
                 startActivityForResult(intent2, SPT_DETAIL);
                 break;
+            case R.id.button_sampling_detail:
+                Log.d(TAG, "Go to sampling detail info");
+                Intent intent3 = new Intent(this, SamplingDetailedActivity.class);
+                intent3.putExtra("holeId", holeId);
+                intent3.putExtra("rig", rig);
+                startActivityForResult(intent3, SAMPLING_DETAIL);
             default:
                 break;
         }
@@ -1384,6 +1392,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         } else if (requestCode == DST_DETAIL) {
             if (resultCode == RESULT_OK) {
                 rig = (DSTRig) data.getSerializableExtra("rig");
+                refreshRigInfoTable();
+            }
+        } else if (requestCode == SAMPLING_DETAIL) {
+            if (resultCode == RESULT_OK) {
+                rig = (SamplingRig) data.getSerializableExtra("rig");
                 refreshRigInfoTable();
             }
         }
