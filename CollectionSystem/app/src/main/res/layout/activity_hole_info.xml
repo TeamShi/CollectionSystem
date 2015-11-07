@@ -335,7 +335,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="2dip">
                     <TextView
-                        android:text="孔口标高"
+                        android:text="孔口标高(m)"
                         android:background="@android:color/holo_green_light"
                         android:layout_margin="2dip"
                         android:gravity="center"

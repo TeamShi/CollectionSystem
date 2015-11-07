@@ -813,6 +813,9 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                             initialLevelButton.setText(Utility.formatCalendarDateString(hole.getInitialLevelMeasuringDate()));
                         }
                         stableLevelButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
+                        endDateButton.setText(Utility.formatCalendarDateString(hole.getStableLevelMeasuringDate()));
+                        hole.setEndDate(temp);
+
                     }
                 }, stableLevelDate.get(Calendar.YEAR), stableLevelDate.get(Calendar.MONTH), stableLevelDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;

@@ -50,9 +50,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int SPT_RIG = 5;
     private static final int DST_RIG = 6;
     private static final int DOWN_RIG = 7;
+    private static final int SAMPLING = 8;
 
     private static final int DST_DETAIL = 0;
     private static final int SPT_DETAIL = 1;
+    private static final int SAMPLING_DETAIL = 2;
 
     private EditText classPeopleCountEditText;
     private EditText drillPipeIdEditText;
@@ -86,6 +88,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private Button rigDateButton;
     private Button sptButton;
     private Button dstButton;
+    private Button samplingButton;
 
     private TextView rigTimeDurationTextView;
 
@@ -119,7 +122,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private static final int QUERY_RIG = 1;
 
     private static final String[] RIG_TYPE_SPINNER_OPTIONS = {"搬家移孔、下雨停工，其他",
-            "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管"};
+            "干钻", "合水钻", "金刚石钻", "钢粒钻", "标准贯入试验", "动力触探试验", "下套管", "取样"};
     private static final String[] CORE_BARRELI_DIAMATER_OPTIONS = {"89cm", "108cm", "127cm"};
     private static final String[] CORE_BARRELI_DIAMATER_PENETRATION_OPTIONS = {"51mm", "74mm"};
     private static final String[] GROUND_NAME_OPTION = {"黏土", "粉质黏土", "粉土", "粉砂", "细砂", "中砂" , "粗砂", "砾砂", "漂石",
@@ -226,6 +229,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigDateButton = (Button) findViewById(R.id.button_rig_date);
         sptButton = (Button) findViewById(R.id.button_spt_detail);
         dstButton = (Button) findViewById(R.id.button_dst_detail);
+        samplingButton = (Button) findViewById(R.id.button_sampling_detail);
 
         addRigButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
@@ -233,6 +237,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigDateButton.setOnClickListener(this);
         sptButton.setOnClickListener(this);
         dstButton.setOnClickListener(this);
+        samplingButton.setOnClickListener(this);
 
         classPeopleCountEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -941,6 +946,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.VISIBLE);
                         dstButton.setVisibility(View.GONE);
+                        samplingButton.setVisibility(View.GONE);
                         downSpecialRigRow.setVisibility(View.GONE);
                         selectedRigType = SPT_RIG;
                         if (!firstStart) {
@@ -990,6 +996,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         specialRigRow.setVisibility(View.VISIBLE);
                         sptButton.setVisibility(View.GONE);
                         dstButton.setVisibility(View.VISIBLE);
+                        samplingButton.setVisibility(View.GONE);
                         selectedRigType = DST_RIG;
                         if (!firstStart) {
                             rig = new DSTRig();
@@ -1047,6 +1054,35 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
                             refreshRigInfoTable();
                         }
+
+                        firstStart = false;
+                        break;
+                    case SAMPLING:
+                        rigDrillTableRow.setVisibility(View.GONE);
+                        drillTableRow.setVisibility(View.GONE);
+                        coreBarreliTableRow.setVisibility(View.GONE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.GONE);
+                        drillToolTableRow2.setVisibility(View.GONE);
+                        rockCoreTableRow.setVisibility(View.GONE);
+                        groundTableRow.setVisibility(View.GONE);
+                        groundTableRow2.setVisibility(View.GONE);
+                        groundTableRow3.setVisibility(View.GONE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.VISIBLE);
+                        sptButton.setVisibility(View.GONE);
+                        dstButton.setVisibility(View.GONE);
+                        samplingButton.setVisibility(View.VISIBLE);
+                        downSpecialRigRow.setVisibility(View.GONE);
+                        selectedRigType = STOP_RIG;
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            refreshRigInfoTable();
+                        }
+
+                        rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
                         firstStart = false;
                         break;
@@ -1301,6 +1337,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
             case "下套管":
                 rigTypeSpinner.setSelection(7);
                 break;
+            case "取样":
+                rigTypeSpinner.setSelection(8);
         }
 
         for (int i = 0; i < CORE_BARRELI_DIAMATER_OPTIONS.length; i++) {
