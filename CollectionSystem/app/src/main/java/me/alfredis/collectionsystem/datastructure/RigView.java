@@ -145,6 +145,8 @@ public class RigView {
             this.rigType = "DST";
         } else if (rig instanceof CasedRig) {
             this.rigType = "CASED";
+        } else if (rig instanceof SamplingRig) {
+            this.rigType = "SMPL";
         } else {
             if(rig.getProjectName().equals("搬家移孔、下雨停工，其他")){
                 this.rigType = "REST";
@@ -174,6 +176,13 @@ public class RigView {
                 //孔内情况
                 this.casedSituation = casedRig.getCasedSituation();
                 this.holeNote = casedRig.getSpecialNote();
+            }else if(rigType.equals("SMPL")){
+                //原装土样
+                SamplingRig samplingRig = (SamplingRig) rig;
+                this.earthNo = String.valueOf(samplingRig.getSampleId());
+                this.earthCount = String.valueOf(samplingRig.getSampleCount());
+                this.earthDiameter = String.valueOf(samplingRig.getSampleDiameter());
+                this.earthDepth = String.valueOf(samplingRig.getEndDepth()-samplingRig.getSampleStartDepth());
             } else {
                 this.drillPipeId = String.valueOf(rig.getDrillPipeId());
                 this.drillPipeLength = String.valueOf(rig.getDrillPipeLength());
