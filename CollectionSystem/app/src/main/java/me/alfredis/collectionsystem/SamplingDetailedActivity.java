@@ -279,8 +279,6 @@ public class SamplingDetailedActivity extends ActionBarActivity implements View.
                 }, rigDate.get(Calendar.YEAR), rigDate.get(Calendar.MONTH), rigDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.button_preview_sampling_detailed:
-                //TODO: PREIEW sampling
-                /*
                 String baseDir = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
                 File tempHtmls = new File(baseDir+"tempHtmls");
                 if(!tempHtmls.exists()){
@@ -289,15 +287,14 @@ public class SamplingDetailedActivity extends ActionBarActivity implements View.
 
 
                 AssetManager assetManageer = getAssets();
-                Hole tempHole = new Hole();
+                Hole tempHole = DataManager.getHole(this.holeId);
                 tempHole.getRigList().add(rig);
-                HtmlParser.parseSptRig(tempHtmls.getPath() + "/", tempHole, assetManageer);
+                HtmlParser.parseSmplRig(tempHtmls.getPath() + "/", tempHole, assetManageer);
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
 
-                Uri uri = Uri.fromFile(new File(tempHtmls, "sptRigEvent.html"));
+                Uri uri = Uri.fromFile(new File(tempHtmls, "smplRigEvent.html"));
                 intent2.putExtra("table_path", uri.toString());
                 startActivity(intent2);
-                */
                 break;
         }
     }

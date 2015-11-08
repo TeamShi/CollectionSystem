@@ -20,6 +20,7 @@ import me.alfredis.collectionsystem.datastructure.Hole;
 import me.alfredis.collectionsystem.datastructure.RigEvent;
 import me.alfredis.collectionsystem.datastructure.RigView;
 import me.alfredis.collectionsystem.datastructure.SPTRig;
+import me.alfredis.collectionsystem.datastructure.SamplingRig;
 
 import static me.alfredis.collectionsystem.Utility.convert2Array;
 import static me.alfredis.collectionsystem.Utility.formatCalendarDateString;
@@ -32,6 +33,7 @@ public class HtmlParser {
     public static String BASIC_RIG_EVENT_TEMPLATE = "RigEventTable.html";
     public static String RIGS_EVENT_TEMPLATE = "RigsEventTable.html";
     public static String SPT_RIG_EVENT_TEMPLATE = "SPTRigEventTable.html";
+    public static String SMPL_RIG_EVENT_TEMPLATE = "SMPLRigEventTable.html";
     public static String DST_RIG_EVENT_TEMPLATE = "DSTRigEventTable.html";
 
     public static String TBODY_ID = "tableBody";
@@ -151,6 +153,23 @@ public class HtmlParser {
         return true;
     }
 
+    public static boolean parseSmplRig(String dirPath, Hole hole, AssetManager assetManager) {
+        if(hole == null) {
+            return false;
+        }
+
+        String[][] smplEventArray = convertSmpl(hole);
+
+        try {
+            write(dirPath + "smplRigEvent.html", smplEventArray, assetManager.open(SMPL_RIG_EVENT_TEMPLATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
     public static boolean parseDstRig(String dirPath, Hole hole, AssetManager assetManager) {
         if(hole == null) {
             return false;
@@ -210,6 +229,36 @@ public class HtmlParser {
             sb.append(sptRigEvent.getGroundSaturation()).append("#");
             sb.append(sptRigEvent.getCumulativeCount()).append("#");
             sb.append(sptRigEvent.getSpecialNote()).append("#");
+
+            resultData[i] = convert2Array(sb.toString());
+        }
+        return resultData;
+    }
+
+    private static String[][] convertSmpl(Hole hole) {
+        ArrayList<SamplingRig> smplRigEvents = new ArrayList<>();
+        for(RigEvent rigEvent : hole.getRigList()){
+            if(rigEvent instanceof SamplingRig) {
+                smplRigEvents.add((SamplingRig) rigEvent);
+            }
+        }
+        int rows = smplRigEvents.size();
+        String[][] resultData = new String[rows][];
+        for (int i = 0; i < rows; i++) {
+            SamplingRig samplingRig = smplRigEvents.get(i);
+            StringBuffer sb = new StringBuffer();
+            sb.append(samplingRig.getClassPeopleCount()).append("#");
+            sb.append(formatCalendarDateString(samplingRig.getDate(), "yyyy年MM月dd日")).append("#");
+            sb.append(formatCalendarDateString(samplingRig.getStartTime(), "hh时mm分")).append("#");
+            sb.append(formatCalendarDateString(samplingRig.getEndTime(), "hh时mm分")).append("#");
+
+            sb.append(samplingRig.getSampleStatus()).append("#");
+            sb.append(samplingRig.getSamplerType()).append("#");
+            sb.append(samplingRig.getSampleId()).append("#");
+            sb.append(samplingRig.getSampleDiameter()).append("#");
+            sb.append(samplingRig.getSampleStartDepth()).append("#");
+            sb.append(samplingRig.getSampleEndDepth()).append("#");
+            sb.append(samplingRig.getSampleCount()).append("#");
 
             resultData[i] = convert2Array(sb.toString());
         }
