@@ -17,7 +17,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="150px"
-                android:text="信息录入"
+                android:text="勘探点基本信息录入"
                 android:id="@+id/button_message_input" />
             <Button
                 android:layout_width="fill_parent"
