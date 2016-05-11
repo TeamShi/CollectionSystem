@@ -16,34 +16,35 @@
             android:orientation="vertical">
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:text="信息录入"
                 android:id="@+id/button_message_input" />
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:text="预览钻孔基本信息表"
-                android:id="@+id/button_preview_table"/>
+                android:id="@+id/button_preview_table"
+                />
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:text="保存"
                 android:id="@+id/button_main_save" />
 
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:text="载入"
                 android:id="@+id/button_main_load" />
 
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="导出所有内容"
+                android:layout_height="150px"
+                android:text="导出所有内容至SD卡根目录"
                 android:id="@+id/button_main_export_tables" />
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:id="@+id/edit_text_license"
                 android:background="@android:color/holo_red_light"
                 android:hint="请输入授权码"
@@ -51,7 +52,7 @@
                 />
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150px"
                 android:text="确认授权码"
                 android:layout_gravity="center"
                 android:id="@+id/button_license"/>
