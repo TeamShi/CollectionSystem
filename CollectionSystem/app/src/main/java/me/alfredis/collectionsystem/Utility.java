@@ -71,6 +71,8 @@ public class Utility {
                 return 0;
             case JZ:
                 return 1;
+            case NULL:
+                return 2;
             default:
                 return -1;
         }

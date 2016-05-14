@@ -22,7 +22,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="150px"
-                android:text="预览钻孔基本信息表"
+                android:text="TBD预览钻孔基本信息表"
                 android:id="@+id/button_preview_table"
                 />
             <Button
@@ -34,7 +34,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="150px"
-                android:text="载入"
+                android:text="导入"
                 android:id="@+id/button_main_load" />
 
             <Button

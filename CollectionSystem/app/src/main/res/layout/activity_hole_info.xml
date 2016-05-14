@@ -243,7 +243,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="2dip">
                     <TextView
-                        android:text="里程"
+                        android:text="里程(km)"
                         android:background="@android:color/holo_green_light"
                         android:layout_margin="2dip"
                         android:gravity="center"
@@ -284,7 +284,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="2dip">
                     <TextView
-                        android:text="偏移量"
+                        android:text="偏移量(m)"
                         android:background="@android:color/holo_green_light"
                         android:layout_margin="2dip"
                         android:gravity="center"
@@ -540,7 +540,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="2dip">
                     <TextView
-                        android:text="实际孔深"
+                        android:text="实际孔深(m)"
                         android:background="@android:color/holo_green_light"
                         android:layout_margin="2dip"
                         android:gravity="center"

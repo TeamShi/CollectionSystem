@@ -127,7 +127,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         projectNameEditText = (EditText) findViewById(R.id.edittext_hole_project_name);
         rigTypeEditText = (EditText) findViewById(R.id.hole_rig_type);
         engineTypeEditText = (EditText) findViewById(R.id.hole_engine_type);
-        pumpTypeEditText = (EditText) findViewById(R.id.hole_engine_type);
+        pumpTypeEditText = (EditText) findViewById(R.id.hole_pump_type);
         elevationEditText = (EditText) findViewById(R.id.hole_elevation);
         designedDepthEditText = (EditText) findViewById(R.id.hole_designed_depth);
         initialLevelDepthEditText = (EditText) findViewById(R.id.hole_initial_level);
@@ -881,7 +881,16 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private void refreshHoleInfoTable() {
         projectNameEditText.setText(hole.getProjectName());
 
-        holeIdPart1Spinner.setSelection(Utility.getHoleIdPart1Index(hole.getHoleIdPart1()));
+        if (hole.getHoleIdPart1() != Hole.HoleIdPart1Type.NULL) {
+            holeIdPart1Spinner.setSelection(Utility.getHoleIdPart1Index(hole.getHoleIdPart1()));
+            holeIdPart1EditText.setText("");
+            holeIdPart1EditText.setEnabled(false);
+        } else {
+            holeIdPart1Spinner.setSelection(Utility.getHoleIdPart1Index(Hole.HoleIdPart1Type.NULL));
+            holeIdPart1EditText.setText(hole.getHoleIdPart1ExtarString());
+            holeIdPart1EditText.setEnabled(true);
+
+        }
         holeIdPart2TextView.setText(Html.fromHtml(formatHoleIdPart2(hole.getHoleIdPart2())));
         holeIdPart3Spinner.setSelection(Utility.getProjectIdPart3Index(hole.getHoleIdPart3()));
         holeIdPart4EditText.setText(hole.getHoleIdPart4());
