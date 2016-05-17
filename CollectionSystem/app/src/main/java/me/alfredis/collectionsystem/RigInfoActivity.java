@@ -856,6 +856,12 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         rigTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String rigInitClass = DataManager.getHole(holeId).getRigInitClass();
+
+                Calendar c = DataManager.getHole(holeId).getRigInitStartDate();
+
+
+
                 switch (position) {
                     case STOP_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
@@ -875,6 +881,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         selectedRigType = STOP_RIG;
                         if (!firstStart) {
                             rig = new RigEvent();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
 
                             refreshRigInfoTable();
                         }
@@ -904,6 +918,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         selectedRigType = DRY_RIG;
                         if (!firstStart) {
                             rig = new RigEvent();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
 
                             if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
                                 rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
@@ -954,6 +976,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         if (!firstStart) {
                             rig = new SPTRig(holeId);
 
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
+
                             if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
                                 rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
                                 rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
@@ -1002,6 +1032,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         selectedRigType = DST_RIG;
                         if (!firstStart) {
                             rig = new DSTRig();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
 
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
@@ -1052,6 +1090,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         if (!firstStart) {
                             rig = new CasedRig();
 
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
+
                             rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[selectedRigType]);
 
                             refreshRigInfoTable();
@@ -1080,6 +1126,14 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         selectedRigType = SAMPLING;
                         if (!firstStart) {
                             rig = new SamplingRig();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
 
                             refreshRigInfoTable();
                         }
@@ -1158,6 +1212,16 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig = new RigEvent();
 
                 queryRigIndex = DataManager.getRigEventListByHoleId(holeId).size();
+
+                String rigInitClass = DataManager.getHole(holeId).getRigInitClass();
+                if (rigInitClass != null) {
+                    rig.setClassPeopleCount(rigInitClass);
+                }
+
+                Calendar c = DataManager.getHole(holeId).getRigInitStartDate();
+                if (c != null) {
+                    rig.setDate(c);
+                }
 
                 refreshRigInfoTable();
                 break;
@@ -1238,6 +1302,15 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
                     DataManager.AddRigByHoleId(holeId, rig);
                     DataManager.getHole(holeId).setActuralDepth(rig.getCumulativeMeterage());
+
+                    if (DataManager.getHole(holeId).getRigInitClass() == null) {
+                        DataManager.getHole(holeId).setRigInitClass(rig.getClassPeopleCount());
+                    }
+
+                    if (DataManager.getHole(holeId).getRigInitStartDate() == null) {
+                        DataManager.getHole(holeId).setRigInitStartDate(rig.getDate());
+                    }
+
                     this.setResult(RESULT_OK);
                     this.finish();
                 } else if (requestCode.equals("QUERY_RIG")) {

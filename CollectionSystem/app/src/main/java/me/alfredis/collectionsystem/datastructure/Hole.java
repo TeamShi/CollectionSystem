@@ -65,6 +65,9 @@ public class Hole implements Serializable {
     private double lastDrillToolLength = 0;         //当前钻杆长度
     private double currentDrillPipeTotalLength = 0; //当前累计长度
 
+    private Calendar rigInitStartDate;
+    private String rigInitClass;
+
     public enum HoleIdPart1Type {
         JC, JZ, NULL
     }
@@ -546,5 +549,21 @@ public class Hole implements Serializable {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Calendar getRigInitStartDate() {
+        return rigInitStartDate;
+    }
+
+    public void setRigInitStartDate(Calendar rigInitStartDate) {
+        this.rigInitStartDate = rigInitStartDate;
+    }
+
+    public String getRigInitClass() {
+        return rigInitClass;
+    }
+
+    public void setRigInitClass(String rigInitClass) {
+        this.rigInitClass = rigInitClass;
     }
 }
