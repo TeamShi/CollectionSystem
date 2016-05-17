@@ -603,7 +603,25 @@
                         android:id="@+id/hole_note"
                         android:inputType="text"
                         android:background="@android:color/white"
-                        android:layout_weight="9"
+                        android:layout_weight="3"
+                        android:layout_margin="2dip"
+                        android:layout_height="200px"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:text="位置信息"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_margin="2dip"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="200px"
+                        android:layout_weight="1"
+                        />
+                    <EditText
+                        android:id="@+id/hole_position"
+                        android:inputType="text"
+                        android:background="@android:color/white"
+                        android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:layout_height="200px"
                         android:singleLine="true"/>

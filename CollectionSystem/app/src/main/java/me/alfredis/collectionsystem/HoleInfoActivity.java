@@ -78,6 +78,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
     private EditText captainEditText;
     private EditText holeIdPart1EditText;
     private EditText articleEditText;
+    private EditText positionEditText;
 
     private Spinner holeIdPart1Spinner;
     private TextView holeIdPart2TextView;
@@ -144,6 +145,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         captainEditText = (EditText) findViewById(R.id.hole_captain_name);
         holeIdPart1EditText = (EditText) findViewById(R.id.edittext_hole_id_part1);
         articleEditText = (EditText) findViewById(R.id.edit_text_article_extra_string);
+        positionEditText = (EditText) findViewById(R.id.hole_position);
 
         holeIdPart1Spinner = (Spinner) findViewById(R.id.spinner_hole_id_part1);
         holeIdPart2TextView = (TextView) findViewById(R.id.textview_hole_id_part2);
@@ -503,6 +505,22 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
             @Override
             public void afterTextChanged(Editable s) {
                 hole.setNote(s.toString());
+            }
+        });
+        positionEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                hole.setPosition(editable.toString());
             }
         });
         recorderEditText.addTextChangedListener(new TextWatcher() {
@@ -913,6 +931,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
         machineNumberEditText.setText(hole.getMachineNumber());
         acturalDepthEditText.setText(String.valueOf(hole.getActuralDepth()));
         noteEditText.setText(hole.getNote());
+        positionEditText.setText(hole.getPosition());
         recorderEditText.setText(hole.getRecorderName());
         reviewerEditText.setText(hole.getReviewerName());
         captainEditText.setText(hole.getCaptainName());

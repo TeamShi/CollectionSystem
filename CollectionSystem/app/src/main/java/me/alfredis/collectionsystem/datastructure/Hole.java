@@ -54,6 +54,7 @@ public class Hole implements Serializable {
     private Calendar reviewDate;                //复核日期
 
     private String note;                        //附注
+    private String position;
 
     private ArrayList<RigEvent> rigList;       //钻孔作业列表
 
@@ -112,8 +113,6 @@ public class Hole implements Serializable {
         this.reviewDate = c;
         this.note = "";
         this.rigList = new ArrayList<RigEvent>();
-
-
     }
 
     public Hole(HoleIdPart1Type holeIdPart1,
@@ -539,5 +538,13 @@ public class Hole implements Serializable {
 
     public void setCurrentDrillPipeTotalLength(double currentDrillPipeTotalLength) {
         this.currentDrillPipeTotalLength = currentDrillPipeTotalLength;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
