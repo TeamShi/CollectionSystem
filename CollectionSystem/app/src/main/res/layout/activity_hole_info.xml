@@ -64,7 +64,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="7"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -235,7 +237,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -258,7 +262,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="发动机类型"
@@ -276,7 +282,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -306,7 +314,9 @@
                             android:singleLine="true"
                             android:layout_height="fill_parent"
                             android:layout_width="fill_parent"
-                            android:hint="左-右+"/>
+                            android:hint="左-右+"
+                            android:imeOptions="actionNext"
+                            />
                     </LinearLayout>
 
 
@@ -327,7 +337,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:layout_height="fill_parent"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -350,7 +362,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="设计孔深(m)"
@@ -368,7 +382,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -392,7 +408,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:layout_height="fill_parent"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="日期"
@@ -433,7 +451,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="日期"
@@ -473,7 +493,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="纬距(Y)"
@@ -491,7 +513,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -514,7 +538,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="机组编号"
@@ -532,7 +558,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -556,7 +584,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:singleLine="true"
-                        android:layout_height="fill_parent"/>
+                        android:layout_height="fill_parent"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="钻孔示意图"
@@ -624,7 +654,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:layout_height="200px"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -649,7 +681,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:singleLine="true"
-                        android:layout_height="fill_parent"/>
+                        android:layout_height="fill_parent"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="记录日期"
@@ -691,7 +725,9 @@
                         android:layout_weight="3"
                         android:layout_margin="2dip"
                         android:singleLine="true"
-                        android:layout_height="fill_parent"/>
+                        android:layout_height="fill_parent"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="复核日期"
@@ -732,7 +768,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        />
 
                     <TextView
                         android:text="机长"
@@ -750,7 +788,9 @@
                         android:background="@android:color/white"
                         android:layout_weight="3"
                         android:layout_margin="2dip"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        />
                 </TableRow>
             </TableLayout>
         </ScrollView>
