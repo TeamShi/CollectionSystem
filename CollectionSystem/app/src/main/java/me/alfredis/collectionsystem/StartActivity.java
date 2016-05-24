@@ -1,6 +1,7 @@
 package me.alfredis.collectionsystem;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
@@ -59,6 +60,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        // disable screen from rotation;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         messageInputButton = (Button) findViewById(R.id.button_message_input);
         saveButton = (Button) findViewById(R.id.button_main_save);
