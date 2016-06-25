@@ -48,6 +48,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
     private String licenseString;
 
+    private EditText savePathEditText;
+
     public String getLicenseString() {
         return licenseString;
     }
@@ -73,6 +75,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         licenseTextView = (TextView) findViewById(R.id.text_view_lincense_hint);
         licenseEditText = (EditText) findViewById(R.id.edit_text_license);
 
+        savePathEditText = (EditText) findViewById(R.id.edit_text_save_path);
+
         messageInputButton.setEnabled(false);
         saveButton.setEnabled(false);
         loadButton.setEnabled(false);
@@ -85,6 +89,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         exportTablesAll.setOnClickListener(this);
         previewButton.setOnClickListener(this);
         licenseButton.setOnClickListener(this);
+
+        savePathEditText.setText(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/");
 
         String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
         File licenseFile = new File(licenseFilePath);
@@ -201,7 +207,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        String baseDir = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
+        String baseDir = savePathEditText.getText().toString();
         String xlsPath = baseDir + "zuantan.xls";
         AssetManager assetManageer = getAssets();
 
