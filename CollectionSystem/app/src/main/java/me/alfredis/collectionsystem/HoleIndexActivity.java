@@ -165,6 +165,18 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
 
             row.setTag(hole.getHoleId());
 
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setIntent(getIntent().putExtra("SelectedHoleId", view.getTag().toString()));
+
+                    String holeId = getIntent().getStringExtra("SelectedHoleId");
+                    Log.d(TAG, "Input rigs " + holeId);
+                    Intent intentRig = new Intent(HoleIndexActivity.this, RigIndexActivity.class);
+                    intentRig.putExtra("holeId", holeId);
+                    startActivityForResult(intentRig, EDIT_RIG);
+                }
+            });
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -179,6 +191,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
         }
 
     }
+
     private TextView createHoleContentTextView(String text) {
         TextView temp = new TextView(this);
         temp.setText(text);
@@ -213,6 +226,7 @@ public class HoleIndexActivity extends ActionBarActivity implements View.OnClick
                 startActivityForResult(intent, ADD_HOLE);
                 break;
             default:
+
                 break;
         }
         //backup
