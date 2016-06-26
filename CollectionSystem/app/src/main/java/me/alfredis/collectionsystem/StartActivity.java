@@ -50,6 +50,8 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
 
     private EditText savePathEditText;
 
+    private String APP_PATH;
+
     public String getLicenseString() {
         return licenseString;
     }
@@ -91,6 +93,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         licenseButton.setOnClickListener(this);
 
         savePathEditText.setText(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/");
+        APP_PATH = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
 
         String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
         File licenseFile = new File(licenseFilePath);
@@ -273,6 +276,11 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 }
                 break;
             case R.id.button_preview_table:
+                if(DataManager.holes.size() == 0){
+                    Toast.makeText(getApplicationContext(), "请先创建钻孔信息！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 File tempHtmls = new File(baseDir+"tempHtmls");
                 if(!tempHtmls.exists()){
                     tempHtmls.mkdirs();
@@ -281,7 +289,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                 HtmlParser.parseRigs(tempHtmls.getPath() + "/", DataManager.holes, assetManageer);
 
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
-                Uri uri = Uri.fromFile(new File(tempHtmls, "rigEvent.html"));
+                Uri uri = Uri.fromFile(new File(tempHtmls, "holeInfo_0.html"));
                 intent2.putExtra("table_path", uri.toString());
                 startActivity(intent2);
                 break;

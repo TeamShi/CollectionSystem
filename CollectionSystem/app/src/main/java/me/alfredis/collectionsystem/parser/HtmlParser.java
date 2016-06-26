@@ -8,11 +8,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.alfredis.collectionsystem.Utility;
 import me.alfredis.collectionsystem.datastructure.DSTRig;
@@ -113,23 +115,23 @@ public class HtmlParser {
         if(holes == null) {
             return false;
         }
-        ArrayList<String[]> rigList = new ArrayList<>();
-        for(Hole hole:holes){
-            String[][] tempArray = convertRig(hole);
-            for(String[] record:tempArray){
-                rigList.add(record);
-            }
+
+        // remove all files
+        File dir = new File (dirPath);
+        File[] files = dir.listFiles();
+        for(File file :files) {
+            file.delete();
         }
 
-        try {
-            String [][] rigArray = new String[rigList.size()][];
-            for(int i=0;i<rigList.size();i++){
-                rigArray[i] = rigList.get(i);
+        for(int i = 0,len = holes.size();i<len;i++){
+            Hole hole = holes.get(i);
+            String[][] rigArray = convertRig(hole);
+            try {
+                write(dirPath + "holeInfo_"+i+".html", rigArray, assetManager.open(RIGS_EVENT_TEMPLATE));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
             }
-            write(dirPath + "rigEvent.html", rigArray, assetManager.open(RIGS_EVENT_TEMPLATE));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
         }
 
         return true;
