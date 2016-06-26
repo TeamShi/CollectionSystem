@@ -424,6 +424,10 @@ public class HtmlParser {
         for(Hole hole:holes) {
             String[][] sptRigEventArray = convertSpt(hole);
             String[][] dstRigEventArray = convertDst(hole);
+            File holeDir = new File(outPath + "_" + hole.getHoleId());
+            if (!holeDir.exists()) {
+                holeDir.mkdir();
+            }
             try {
                 writeRig(outPath + "/rig_" + hole.getHoleId() + ".html", hole, new FileInputStream(srcTemplate + "/" + BASIC_RIG_EVENT_TEMPLATE));
                 write(outPath + "/spt_" + hole.getHoleId() + ".html", sptRigEventArray, new FileInputStream(srcTemplate + "/" + SPT_RIG_EVENT_TEMPLATE));

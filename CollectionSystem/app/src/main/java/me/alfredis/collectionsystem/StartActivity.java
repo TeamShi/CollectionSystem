@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,6 +95,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         licenseButton.setOnClickListener(this);
 
         savePathEditText.setText(Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/");
+        savePathEditText.addTextChangedListener(myTextWatcher);
         APP_PATH = Environment.getExternalStorageDirectory().getPath()+"/ZuanTan/";
 
         String licenseFilePath = Environment.getExternalStorageDirectory().getPath() + "/ZuanTan/config/license.dat";
@@ -212,7 +215,11 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
     public void onClick(View view) {
         String baseDir = savePathEditText.getText().toString();
         String xlsPath = baseDir + "zuantan.xls";
-        AssetManager assetManageer = getAssets();
+        AssetManager assetManager = getAssets();
+
+        if(false == validatePath(baseDir)){
+            return;
+        }
 
         switch(view.getId()) {
             case R.id.button_license:
@@ -286,7 +293,7 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                     tempHtmls.mkdirs();
                 }
 
-                HtmlParser.parseRigs(tempHtmls.getPath() + "/", DataManager.holes, assetManageer);
+                HtmlParser.parseRigs(tempHtmls.getPath() + "/", DataManager.holes, assetManager);
 
                 Intent intent2 = new Intent(this, HtmlViewActivity.class);
                 Uri uri = Uri.fromFile(new File(tempHtmls, "holeInfo_0.html"));
@@ -333,12 +340,12 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
                     }
                     File mdbFile = new File(mdbTempPath);
                     if (!mdbFile.exists()) {
-                        InputStream is =  assetManageer.open("DlcGeoInfo.mdb");
+                        InputStream is =  assetManager.open("DlcGeoInfo.mdb");
                         Utility.copyFile(is, mdbFile);
                     }
 
                     boolean exportXls = XlsParser.parse(xlsTempPath, holeList);
-                    boolean exportHtml = HtmlParser.parse(htmlTempDir.getPath(), holeList, assetManageer);
+                    boolean exportHtml = HtmlParser.parse(htmlTempDir.getPath(), holeList, assetManager);
                     boolean exportMdb = MdbParser.parse(mdbFile, holeList);
 
                     //zip temp dir to export dir
@@ -359,5 +366,40 @@ public class StartActivity extends ActionBarActivity implements View.OnClickList
         }
     }
 
+
+    TextWatcher myTextWatcher = new TextWatcher() {
+        private CharSequence temp;
+        private int editStart;
+        private int editEnd;
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            temp = s;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+           String path = savePathEditText.getText().toString();
+           if(!path.endsWith("/")){
+               savePathEditText.setText(path+"/");
+           }
+           validatePath(path);
+        }
+    };
+
+    private boolean validatePath(String path){
+        File file = new File(path);
+        if(!file.exists()){
+            Toast.makeText(getApplicationContext(), "文件路径无效，请重新输入", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+//            Toast.makeText(getApplicationContext(), "文件路径有效", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+    }
 
 }
