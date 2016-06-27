@@ -11,6 +11,9 @@ import me.alfredis.collectionsystem.datastructure.RigEvent;
 public class DataManager {
     public static ArrayList<Hole> holes;
 
+    public static Hole lastHole;
+    public static RigEvent lastRig;
+
     static {
         holes = new ArrayList<Hole>();
     }

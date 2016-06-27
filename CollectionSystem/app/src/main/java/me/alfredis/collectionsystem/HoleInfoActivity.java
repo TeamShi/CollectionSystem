@@ -755,6 +755,7 @@ public class HoleInfoActivity extends ActionBarActivity implements View.OnClickL
                         Toast.makeText(getApplicationContext(), "钻探编号已存在", Toast.LENGTH_SHORT).show();
                     } else {
                         DataManager.holes.add(hole);
+                        DataManager.lastHole = hole;
                         this.setResult(RESULT_OK);
                         this.finish();
                     }

@@ -1,7 +1,11 @@
 package me.alfredis.collectionsystem.datastructure;
 
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
 import java.util.Calendar;
+
+import me.alfredis.collectionsystem.DataManager;
 
 /**
  * Created by Alfred on 15/5/4.
@@ -88,6 +92,12 @@ public class RigEvent implements Serializable {
         this.drillType = "";
         this.rockCoreId = "";
         this.groundName = "黏土";
+
+        if (DataManager.holes.size() > 0 && DataManager.holes.get(0).getRigList().size() > 0) {
+            this.date = DataManager.holes.get(0).getRigList().get(0).getDate();
+            this.classPeopleCount = DataManager.holes.get(0).getRigList().get(0).getClassPeopleCount();
+            this.startTime = DataManager.lastRig.endTime;
+        }
     }
 
     public enum DynamicSoundingType {

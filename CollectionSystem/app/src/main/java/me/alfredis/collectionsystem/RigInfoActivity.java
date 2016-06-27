@@ -1301,6 +1301,7 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
 
                     DataManager.AddRigByHoleId(holeId, rig);
+                    DataManager.lastRig = rig;
                     DataManager.getHole(holeId).setActuralDepth(rig.getCumulativeMeterage());
 
                     if (DataManager.getHole(holeId).getRigInitClass() == null) {
