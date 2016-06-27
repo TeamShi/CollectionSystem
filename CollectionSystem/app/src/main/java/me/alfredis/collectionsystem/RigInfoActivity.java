@@ -118,6 +118,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
     private TableRow specialRigRow;
     private TableRow downSpecialRigRow;
 
+    private Button getDescriptionButton;
+    private Button pasteButton;
+    private Button copyButton;
+
     private static final String TAG = "CollectionSystem";
 
     private static final int ADD_RIG = 0;
@@ -232,6 +236,9 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         sptButton = (Button) findViewById(R.id.button_spt_detail);
         dstButton = (Button) findViewById(R.id.button_dst_detail);
         samplingButton = (Button) findViewById(R.id.button_sampling_detail);
+        getDescriptionButton = (Button) findViewById(R.id.button_get_description);
+        pasteButton = (Button) findViewById(R.id.button_paste_rig);
+        copyButton = (Button) findViewById(R.id.button_copy_rig);
 
         addRigButton.setOnClickListener(this);
         startTimeButton.setOnClickListener(this);
@@ -240,6 +247,10 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
         sptButton.setOnClickListener(this);
         dstButton.setOnClickListener(this);
         samplingButton.setOnClickListener(this);
+        getDescriptionButton.setOnClickListener(this);
+        pasteButton.setOnClickListener(this);
+        copyButton.setOnClickListener(this);
+
 
         classPeopleCountEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -769,11 +780,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
                 rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
                 rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
-                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                /*rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
                 groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
-                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());*/
             }
 
             @Override
@@ -792,11 +803,11 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
                 rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
                 rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
-                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                /*rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
                         + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
 
                 groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
-                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());*/
             }
 
             @Override
@@ -898,9 +909,6 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                         firstStart = false;
                         break;
                     case DRY_RIG:
-                    case WATER_MIX_RIG:
-                    case D_RIG:
-                    case STEEL_RIG:
                         rigDrillTableRow.setVisibility(View.VISIBLE);
                         drillTableRow.setVisibility(View.VISIBLE);
                         coreBarreliTableRow.setVisibility(View.VISIBLE);
@@ -954,6 +962,170 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
 
                         firstStart = false;
                         break;
+                    case WATER_MIX_RIG:
+                        rigDrillTableRow.setVisibility(View.VISIBLE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow2.setVisibility(View.VISIBLE);
+                        groundTableRow3.setVisibility(View.VISIBLE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
+                        selectedRigType = WATER_MIX_RIG;
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
+
+                            if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
+
+                                rig.setDrillPipeLength(0);
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            } else {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount());
+
+                                rig.setDrillPipeLength(DataManager.getHole(holeId).getLastDrillToolLength());
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            }
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
+
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
+                        break;
+                    case D_RIG:
+                        rigDrillTableRow.setVisibility(View.VISIBLE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow2.setVisibility(View.VISIBLE);
+                        groundTableRow3.setVisibility(View.VISIBLE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
+                        selectedRigType = D_RIG;
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
+
+                            if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
+
+                                rig.setDrillPipeLength(0);
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            } else {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount());
+
+                                rig.setDrillPipeLength(DataManager.getHole(holeId).getLastDrillToolLength());
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            }
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
+
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
+                        break;
+                    case STEEL_RIG:
+                        rigDrillTableRow.setVisibility(View.VISIBLE);
+                        drillTableRow.setVisibility(View.VISIBLE);
+                        coreBarreliTableRow.setVisibility(View.VISIBLE);
+                        penetrationTableRow.setVisibility(View.GONE);
+                        drillToolTableRow1.setVisibility(View.VISIBLE);
+                        drillToolTableRow2.setVisibility(View.VISIBLE);
+                        rockCoreTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow.setVisibility(View.VISIBLE);
+                        groundTableRow2.setVisibility(View.VISIBLE);
+                        groundTableRow3.setVisibility(View.VISIBLE);
+                        wallTableRow.setVisibility(View.GONE);
+                        wallTableRow2.setVisibility(View.GONE);
+                        specialRigRow.setVisibility(View.GONE);
+                        downSpecialRigRow.setVisibility(View.GONE);
+                        selectedRigType = STEEL_RIG;
+                        if (!firstStart) {
+                            rig = new RigEvent();
+
+                            if (rigInitClass != null) {
+                                rig.setClassPeopleCount(rigInitClass);
+                            }
+
+                            if (c != null) {
+                                rig.setDate(c);
+                            }
+
+                            if (DataManager.getHole(holeId).getCurrentRemainToolLength() == 0) {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount() + 1);
+
+                                rig.setDrillPipeLength(0);
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            } else {
+                                rig.setDrillPipeId(DataManager.getHole(holeId).getCurrentDrillToolCount());
+
+                                rig.setDrillPipeLength(DataManager.getHole(holeId).getLastDrillToolLength());
+                                rig.setDrillToolTotalLength(DataManager.getHole(holeId).getCurrentDrillToolLength());
+                                rig.setDrillToolRemainLength(DataManager.getHole(holeId).getCurrentRemainToolLength());
+                                rig.setRoundTripMeterage(0);
+                                rig.setCumulativeMeterage(DataManager.getHole(holeId).getCurrentTotalInputLength());
+                                rig.setCumulativeLength(DataManager.getHole(holeId).getCurrentDrillPipeTotalLength());
+                            }
+
+                            rig.setProjectName(RIG_TYPE_SPINNER_OPTIONS[position]);
+
+                            refreshRigInfoTable();
+                        }
+
+                        firstStart = false;
+                        break;
+
+                    // Normal finised
                     case SPT_RIG:
                         rigDrillTableRow.setVisibility(View.GONE);
                         drillTableRow.setVisibility(View.VISIBLE);
@@ -1191,8 +1363,8 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 rig.setGroundDensity(GROUND_DENSITY_OPTION[groundDestinySpinner.getSelectedItemPosition()]);
                 rig.setGroundSaturation(GROUND_SATURATION_OPTION[groundSaturationSpinner.getSelectedItemPosition()]);
                 rig.setGroundWeathering(GROUND_WEATHERING_OPTION[groundWeatheringSpinner.getSelectedItemPosition()]);
-                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
-                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+                /*rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());*/
 
                 refreshRigInfoTable();
             }
@@ -1376,6 +1548,23 @@ public class RigInfoActivity extends ActionBarActivity implements View.OnClickLi
                 intent3.putExtra("holeId", holeId);
                 intent3.putExtra("rig", rig);
                 startActivityForResult(intent3, SAMPLING_DETAIL);
+            case R.id.button_get_description:
+                rig.setSpecialNote(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+                groundNoteEditText.setText(rig.getGroundName() + ", " + rig.getGroundColor() + ", " + rig.getGroundDensity() + ", "
+                        + rig.getGroundSaturation() + ", " + rig.getGroundWeathering());
+
+                refreshRigInfoTable();
+                break;
+            case R.id.button_paste_rig:
+                if (DataManager.copiedRig != null) {
+                    this.rig = DataManager.copiedRig;
+                    refreshRigInfoTable();
+                }
+                break;
+            case R.id.button_copy_rig:
+                DataManager.copiedRig = this.rig;
+                break;
             default:
                 break;
         }

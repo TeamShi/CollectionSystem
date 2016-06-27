@@ -15,14 +15,35 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="right"
             >
-
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_confirm_add_rig"
-                android:text="提交"/>
+                android:layout_height="fill_parent"
+                android:gravity="left">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button_paste_rig"
+                    android:text="粘贴"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button_copy_rig"
+                    android:text="复制"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="right">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button_confirm_add_rig"
+                    android:text="提交"/>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -213,7 +234,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="钻杆长度（增加）"
+                            android:text="钻杆长度（增加）(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -232,7 +253,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="累计长度"
+                            android:text="累计长度(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -267,7 +288,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="直径"
+                            android:text="直径(mm)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -286,7 +307,7 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"/>
                         <TextView
-                            android:text="长度"
+                            android:text="长度(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -396,7 +417,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="直径"
+                            android:text="直径(mm)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -415,7 +436,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="长度"
+                            android:text="长度(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -450,7 +471,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="钻具总长"
+                            android:text="钻具总长(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -469,7 +490,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="钻杆余长"
+                            android:text="钻杆余长(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -514,7 +535,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="回次进尺"
+                            android:text="回次进尺(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -533,7 +554,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="累计进尺"
+                            android:text="累计进尺(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -597,7 +618,7 @@
                             android:singleLine="true"
                             android:layout_width="0dip"/>
                         <TextView
-                            android:text="长度"
+                            android:text="长度(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -651,7 +672,7 @@
                             android:layout_weight="1"
                             />
                         <TextView
-                            android:text="本钻起止深度"
+                            android:text="本钻起止深度(m)"
                             android:background="@android:color/holo_green_light"
                             android:layout_margin="2dip"
                             android:gravity="center"
@@ -807,6 +828,11 @@
                             android:layout_width="0dip"
                             android:layout_weight="1"
                             />
+                        <Button
+                            android:text="描述"
+                            android:id="@+id/button_get_description">
+
+                        </Button>
                         <EditText
                             android:id="@+id/edit_text_ground_note"
                             android:inputType="text"

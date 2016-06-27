@@ -14,6 +14,8 @@ public class DataManager {
     public static Hole lastHole;
     public static RigEvent lastRig;
 
+    public static RigEvent copiedRig;
+
     static {
         holes = new ArrayList<Hole>();
     }
